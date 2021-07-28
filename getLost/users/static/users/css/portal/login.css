@@ -1,0 +1,96 @@
+/* --------------------------------------------------- */
+/* LOGIN PAGE */
+/* --------------------------------------------------- */
+.links .ml-2 {
+    text-decoration: none;
+}
+.user_card {
+    /* border: 2px solid yellow; */
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    /* position: relative; */
+    /* display: flex; */
+    justify-content: center !important;
+    flex-direction: column;
+    padding: 10px;
+}
+.form-body {
+    width: 390px;
+}
+
+.username {
+    background: #d8e0e7;
+    border-radius: 6px 6px 0 0;
+    border-color: #5f686f;
+    -webkit-text-fill-color: #909090;
+    -webkit-border-before-color: #6d6e6f;
+    font-weight: 100;
+}
+.password {
+    background: #d8e0e7;
+    border-radius: 0 0 6px 6px !important;
+    border-color: #5f686f;
+    -webkit-text-fill-color: #909090;
+    -webkit-border-before-color: #6d6e6f;
+    font-weight: 100;
+} 
+#submit { 
+    position: absolute; 
+    border-radius: 5px; 
+    top: -3px;
+    right: 0px; 
+    z-index: 200; 
+    border: none; 
+    cursor: pointer; 
+    color: #909090; 
+    background-color: transparent;
+    transform: translateX(2px); 
+    box-shadow: none !important; /* REMOVE BLUE BORDER ON CLICK */
+} 
+.forgot-password-message {
+    font-weight: 200;
+    font-size: 14px;
+    color: #909090;
+    outline: none !important;
+}
+.forgot-password-message:hover {
+    color: white;
+}
+#form-title{
+    color: #fff;   
+}
+.login_btn {
+    width: 100%;
+    color: #909090 !important;
+}
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.login_btn:hover {
+    color: white;
+}
+.login_container {
+    padding: 0 8rem;
+}
+.input-group-text {
+    background: #909090 !important;
+    color: white !important;
+    border: 4 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
+/* --------------------------------------------------- */
+/* END OF LOGIN PAGE */
+/* --------------------------------------------------- */

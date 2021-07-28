@@ -1,0 +1,592 @@
+{% load static %}
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome Icons CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- Dashboard CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'webApp/dashboard.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/dashboard.css' %}">
+    <!-- Roboto Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Flag Sprite CSS -->
+    <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+    <!-- Jquery UI CSS -->
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+        integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" /> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'users/datepicker-1.0.9/dist/datepicker.min.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+</head>
+
+<body>
+    <!--Navigation Bar-->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container container-header">
+                <div class='container fixed'>
+                    <img class="footer-logo" id="panel" src={% static 'webApp/img/getlost-logo.png' %} alt="Logo" />
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        <div class="nav-item nav-link nav-date" id="nav-date">
+                            <!-- {% timezone "America/Los_Angeles" %}
+                            <u>{% now "jS F Y H:i" %}</u>
+                            {% endtimezone %} -->
+                            
+                            <input type='text' readonly value="{% now 'jS F Y' %}" class='datepicker dp-button' id="datepicker" action="" placeholder="{% now 'jS F Y' %}" style="min-height: 10px; cursor: pointer;" />
+                        </div>
+                        {% block title %}
+                        {% endblock %}
+                        {% if '/hostleportal/' not in request.path %}
+                        <a class="nav-item nav-link icon stripe-icon" href="{% url 'authorize' %}">
+                            <i class="fab fa-stripe-s"></i><b class="caret"></b></a>
+                        {% endif %}
+                        <!-- <a class="nav-item nav-link icon" href="javascript:history.go(-1)"><i class="fas fa-arrow-alt-circle-left fa-2x"></i></a> -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle nav-item nav-link icon" data-toggle="dropdown"><i
+                                    class="fas fa-question-circle fa-2x"></i><b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <span class="dropdown-menu-arrow"></span>
+                                <!-- <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">Tutorial</a></li>     -->
+                                <li>
+                                <button type="button" class="btn tutorial-modal-btn" data-toggle="modal" data-target="#exampleModal6">
+                                    <i class="icon-arrow-up"></i><a href="" style="text-decoration: none;">Tutorial</a>
+                                </button>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-down dropdown-option"></i><a href="{% url 'settings_final' %}"
+                                        style="text-decoration: none;">Account Settings</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
+                                        style="text-decoration: none;">Contact Us</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'logout' %}"
+                                        style="text-decoration: none;">Sign Out</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Block where Forms will go -->
+    <main role="main" class="container dashboard" >
+        <!-- <h1>{{ user.username }}--{{ profile.hostel_name }}</h1> -->
+        <div class="container d-flex justify-content-center" id="holder" >
+            <div class="outer-box col">
+                <div class="col reservation-col scrolling" id="reservation-col">
+                    <div class="dashboard-header d-flex justify-content-center">
+                        <div class="header-reserved">RESERVED</div>
+                    </div>
+                    <div class="reservations_container item_grid flex-container flexbox">
+                        {% for reservation in reservations %}
+                        {% if reservation.is_confirmed == False %}
+                        <!-- Reservations -->
+                        <button type="button" class="btn reservation-item open-modal-confirm" data-toggle="modal"
+                            data-target="#exampleModal" data-customer="{{reservation.customer.first_name}}"
+                            data-customerage="{{reservation.customer.age}}" data-isconfirmed="{{reservation.is_confirmed}}"
+                            data-img="{{ reservation.customer.profile_picture.url }}" data-resid="{{reservation.id}}"
+                            data-country="{{ reservation.customer.country.name }}"
+                            data-countryflag="{{ reservation.customer.country.flag }}" data-gender="{{ reservation.customer.sex}}"
+                            data-email="{{ reservation.customer.user.email }}" data-phone="{{ reservation.customer.phone}}"
+                            data-contactname="{{ reservation.customer.emergency_contact_name }}"
+                            data-contactphone="{{ reservation.customer.emergency_contact_phone }}">
+                            <!-- <button type="button" class="btn reservation-item open-modal" data-id="{{ reservation.id }}" > -->
+                            <!-- data-toggle="modal" data-target="#myModal" -->
+                            <!-- <button data-id="{{reservation.id}}" type='button' class='btn reservation-item'> -->
+                            <!-- <div class="reservation-item" > -->
+                            <div class="reservation-image">
+                                <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
+                            </div>
+                            <!-- {% if forloop.counter|divisibleby:2 %}
+                                        divide here -------
+                                        {% endif %} -->
+                            <div class="reservation-content">
+                                <div class="reservation-customer">{{ reservation.customer.first_name }}
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                            <!-- </a> -->
+                        </button>
+                        {% endif %}
+                        {% endfor %}
+                
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col info-col" id="info-col">
+                <div class="control-panel-container item_grid d-flex justify-content-center" id="info-col-container">   
+                    <!-- Control panel -->                    
+                    <form class="roomdetail-form" id='myform' data-url="{{ request.path }}" method='POST' action="">
+                        {% csrf_token %}
+                        <div class="roomdetail-detail detail-price">
+                            <div class='row'>
+                                <!-- <i class="fas fa-dollar-sign col"></i> -->
+                                <!-- <div class= "col">$</div> -->
+                                <div class="price-text col" id="price-text" data-price='{{ roomdetails.price }}'>{{ roomdetails.currency.symbol }}{{ roomdetails.price }}</div>
+                                <button type="button" class="btn fas fa-lock open-modal-change-price" value="&#xf023" data-toggle="modal" data-target="#exampleModal3">
+                                </button>
+                            </div>
+                            <div class="price-display">PRICE</div>
+                        </div>
+                        <div class="roomdetail-detail detail-total_coed_beds justify-content-center">
+                            <button type="button" class="row btn open-modal-change-total-beds" id='total-bed-info' data-toggle="modal" data-target="#exampleModal4">
+                                <div class="total_bed-text column" id="total-beds">{{ roomdetails.total_coed_beds }}</div>
+                                <i class="fas fa-lock column" id="total-bed-lock"></i>
+                            </button>
+                            <div class="total_bed-display">Total Co-ed Beds</div>
+                        </div>
+                        <div class="roomdetail-detail detail-avaliability">
+                            <div class="avaliability-text">
+                                {{ roomdetails.avaliability }}
+                            </div>
+                            <div class="avaliability-display" id="avaliability">Avaliable Beds</div>
+                        </div>
+                        <div class="roomdetail-detail detail-button">
+                            <input type='button' value='-' class='qtyminus btn' field='occupied_beds' name='minus' />
+                            <input type='hidden' name='occupied_beds' value="{{ roomdetails.occupied_beds }}" class='qty' />
+                            <input type='button' value='+' class='qtyplus btn' field='occupied_beds' name='plus' />
+                        </div>                           
+                        <div class="reservation-detail detail-occupied_beds occupied_beds-text" id="occupied_beds" name="occupied_beds" value="{{ roomdetails.occupied_beds }}">{{ roomdetails.occupied_beds }}
+                            <div class="occupied_beds-display">Occupied Beds</div>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+            <div class="outer-box col">
+                <div class="col confirmed-col scrolling" id="confirmed-col">
+                    <div class="dashboard-header d-flex justify-content-center">
+                        <div class="header-confirmed">CONFIRMED</div>
+                    </div>
+                    <div class="reservations_container item_grid flex-container">
+                        {% for reservation in reservations %}
+                        {% if reservation.is_confirmed == True and reservation.is_checked_in == False %}
+                        <!-- MAKE SURE DATA-TOGGLE IS CHILLIN -->
+                        <button type="button" class="btn reservation-item open-modal-checkin" data-toggle="modal"
+                            data-target="#exampleModal2" data-customer="{{reservation.customer}}"
+                            data-customerage="{{reservation.customer.age}}" data-isconfirmed="{{reservation.is_confirmed}}"
+                            data-ischeckedin="{{reservation.is_checked_in}}" data-img="{{ reservation.customer.profile_picture.url }}"
+                            data-resid="{{reservation.id}}" data-country="{{ reservation.customer.country.name }}"
+                            data-countryflag="{{ reservation.customer.country.flag }}" data-gender="{{ reservation.customer.sex}}"
+                            data-email="{{ reservation.customer.user.email }}" data-phone="{{ reservation.customer.phone}}"
+                            data-contactname="{{ reservation.customer.emergency_contact_name }}"
+                            data-contactphone="{{ reservation.customer.emergency_contact_name }}">
+                            <!-- Confirmed Reservations -->
+                            <!-- <div class="reservation-item"> -->
+                            <div class="reservation-image">
+                                <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
+                            </div>
+                            <div class="reservation-content">
+                                <div class="reservation-customer">{{ reservation.customer }}
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </button>
+                        {%  endif%}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </main>
+<!-- ############################################### -->
+<!-- ###############  Modal Section  ############### -->
+<!-- ############################################### -->
+
+    <div class="modal fade reservation-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" action="" 
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="confirm-form" id='confirmForm' data-url="{{ request.path }}" method='POST' action="" 
+                    name="res_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="reservation-id" value='' class="reservationid" />
+                    <div class="modal-body row" >
+                        <div class='modal-image ' >
+                            <img src="" alt="" class='profile-image'>
+                            <div class="name-field"></div>
+                        </div>
+                        <!-- PAGE 1 -->
+                        <div class="form-group customer-info-01 ">
+                            <div class="customer-info-header">
+                                Personal Information:
+                            </div>
+                            <div class="flex-container info-container">
+                                <div class="age-field"></div>
+                                <div class="country-and-flag flex-container text-center">
+                                    <div class="country-field"></div>
+                                    <img class="country-flag-field" src="">
+                                </div>
+                                <div class="gender-field"></div>
+                            </div>
+                            <button type="button" class="more-btn btn">More</button>
+                        </div>
+                        <!-- PAGE 2 -->
+                        <div class="form-group customer-info-02">
+                            <div class="customer-info-header">
+                                Contact Information:
+                            </div>
+                            <div class="info-02-text">Phone:</div>
+                            <div class="info-02-text-db phone-field"></div>
+                            <div class="info-02-text">Email:</div>
+                            <div class="info-02-text-db email-field"></div>
+                            <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
+                            <div class="info-02-text-db emergency-contact-container row">
+                                <div class="emergency-contact-name-field col"></div>
+                                <div class="emergency-contact-phone-field col"></div>
+                            </div>
+                            
+                            <button type="button" class="btn-dark back-btn btn">Back</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-button-container col">
+                            <input type="button" class="btn confirm-res fa fa-input fa-3x" value="&#xf00c" field='is_confirmed' name="confirm"
+                                id="confirm" />
+                            <div class="button-text">CONFIRM</div>
+                        </div>
+                        
+                        <input type="hidden" name='is_confirmed' value='' class="is-confirmed2" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade reservation-modal" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" action=""
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" id="modal-close-button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="checkin-form" id='checkinForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="checkin_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="reservation-id" value='' class="reservationid" />
+                    <div class="modal-body row">
+                        <div class='modal-image col'>
+                            <img src="" alt="" class='profile-image'>
+                            <div class="name-field"></div>
+                        </div>
+                        <!-- PAGE 1 -->
+                        <div class="form-group col customer-info-01 ">
+                            <div class="customer-info-header">
+                                Personal Information:
+                            </div>
+                            <div class="flex-container info-container">
+                                <div class="age-field"></div>
+                                <div class="country-and-flag flex-container text-center">
+                                    <div class="country-field"></div>
+                                    <img class="country-flag-field" src="">
+                                </div>
+                                <div class="gender-field"></div>
+                            </div>
+                            <button type="button" class="more-btn btn">More</button>
+                        </div>
+                        <!-- PAGE 2 -->
+                        <div class="form-group col customer-info-02">
+                            <div class="customer-info-header">
+                                Contact Information:
+                            </div>
+                            <div class="info-02-text">Phone:</div>
+                            <div class="info-02-text-db phone-field"></div>
+                            <div class="info-02-text">Email:</div>
+                            <div class="info-02-text-db email-field"></div>
+                            <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
+                            <div class="info-02-text-db emergency-contact-container row">
+                                <div class="emergency-contact-name-field col"></div>
+                                <div class="emergency-contact-phone-field col"></div>
+                            </div>
+                        
+                            <button type="button" class="btn-dark back-btn btn">Back</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal_button container col">
+                            <input type="button" class="btn checkin-res fa fa-input fa-3x" value="&#xf00c" field='is_confirmed' name="checkin"
+                                id="checkin" />
+                            <div class="button-text">CHECK-IN</div>
+                        </div>
+                        
+                        <input type="hidden" name='is_checked_in' value='' class="is-checkedin2" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade price-change-modal" id="exampleModal3" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" action="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="price-password-form" id='PricePasswordForm' data-url="{{ request.path }}" method='POST' action="" name="password_price_form">
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction">Please Enter PIN to Change Price.</div>
+                        <div class="password-input-row">
+                            <div class="display-text-password">PIN:</div>
+                            <input type="password" name="price_password" placeholder="" id="price-password-input" class="form-control input-password"
+                                data-password="{{ roomdetails.price_password }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary check-password-btn" type="button" value="Enter">
+                    </div>
+                </form>
+                <!-- PRICE INPUT FORM -->
+                <form class="price-form" id='ChangePriceForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="price_form">
+                    {% csrf_token %}
+                    <div class="modal-body price-input-body">
+                        <div class="modal-instruction">Current Price: ${{ roomdetails.price }}</div>
+                        <div class="price-input-row">
+                            <div class="display-text-price">New Price:</div>
+                            <input type="text" name="price" placeholder="" class="form-control price-change" field='price' maxlength="6">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary check-input-btn" type="button" value="Change" name='change_btn' field='price'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade total-beds-change-modal" id="exampleModal4" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" action="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                        </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="total-beds-password-form" id='TotalBedsPasswordForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="password_total_beds_form">
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction">Please Enter PIN to Change Total Co-ed Beds.</div>
+                        <div class="password-input-row">
+                            <div class="display-text-password">PIN:</div>
+                            <input type="password" name="total_beds_password" placeholder=""
+                                class="form-control total-beds-input-password"
+                                data-password="{{ roomdetails.total_beds_password }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary check-password-btn" type="button" value="Enter">
+                    </div>
+                </form>
+                <!-- TOTAL COED-BEDS INPUT FORM -->
+                <form class="total-beds-form" id='ChangeTotalBedsForm' data-url="{{ request.path }}" method='POST' action="" name="total_beds_form">
+                    {% csrf_token %}
+                    <div class="modal-body total-beds-input-body">
+                        <div class="modal-instruction">Current Total Co-ed Beds: {{ roomdetails.total_coed_beds }}</div>
+                        <div class="total-beds-input-row">
+                            <div class="display-text-total-beds">New Total:</div>
+                            <input type="text" name="total_coed_beds" placeholder="" class="form-control total-beds-change "
+                                field='total-beds' pattern="\d*" maxlength="4">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary check-input-btn" type="button" value="Change" name='change_btn' field='price'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade history-modal" id="exampleModal5" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" action="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="history-modal-header">
+                    <!-- <div class="header-date col-12">
+                        {% now "jS F Y" %} 
+                    </div> -->
+                    <div class="input-container">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type='text' placeholder='Client Name' class='search-name' id="search-name-field" />
+                    </div>
+                    <input type='button' value="{% now 'jS F Y' %}" class='datepicker-modal dp-button header-date' id="datepicker-modal" action="" />
+
+                    <!-- <div class="navigation-date header-date col-12">
+                        {% timezone "America/Los_Angeles" %}
+                        <u>{% now "jS F Y H:i" %}</u>
+                        {% endtimezone %}  
+                    </div> -->
+                    
+                    <button type="button" class="close " data-dismiss="modal" aria-label="Close"> <!--col-14-->
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body scrolling" id="history-container">
+                        {% for reservation in reservations %}
+                        {% if reservation.is_history == True %}
+                        <!--  old Reservations -->
+                        <!-- NOTE: maybe something will go wrong if they take too long to check in the reservation since the date is from when the reservation was created and not checked in since its same day, it should work fine -->
+                        <div class="history-item" data-date="{{ reservation.created }}" data-date2="{{ reservation.modified }}" id="history-item-{{ forloop.counter }}"> 
+                            <div class="reservation-image">
+                                <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
+                            </div>
+                            <div class="reservation-content">
+                                <div class="reservation-customer" id="reservation-id-{{ forloop.counter }}">{{ reservation.customer.first_name }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade tutorial-modal" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        action="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="history-modal-header">
+                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body step-01">
+                    <div class="flex-tutorial-container">
+                        <button class="btn before-btn col"><i class="fas fa-chevron-left fa-2x"></i></button>
+                        <img class="tutorial-steps-image col" id="step-01-img" src={% static "users/img/step01.png" %} alt="tutorial steps" />
+                        <button class="btn after-btn col"><i class="fas fa-chevron-right fa-2x"></i></button>
+                    </div>
+                    <div class="tutorial-message">
+                        <div class="step-number">
+                            Step 1 of 4
+                        </div>
+                        <div class="step-message">
+                            When an icon appears under “RESERVED”: click on “Customer”.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step-02">
+                    <div class="row flex-tutorial-container">
+                        <button class="btn before-btn col"><i class="fas fa-chevron-left fa-2x"></i></button>
+                        <img class="tutorial-steps-image col" id="step-02-img" src={% static "users/img/step02.png" %}
+                            alt="tutorial steps" />
+                        <button class="btn after-btn col"><i class="fas fa-chevron-right fa-2x"></i></button>
+                    </div>
+                    <div class="tutorial-message">
+                        <div class="step-number">
+                            Step 2 of 4
+                        </div>
+                        <div class="step-message">
+                            Confirming: by clicking on “CONFIRMED” you are acknowledging the Customer’s reservation, and are inputing their
+                            information in your system.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step-03">
+                    <div class="row flex-tutorial-container">
+                        <button class="btn before-btn col"><i class="fas fa-chevron-left fa-2x"></i></button>
+                        <img class="tutorial-steps-image col" id="step-03-img" src={% static "users/img/step03.png" %}
+                            alt="tutorial steps" />
+                        <button class="btn after-btn col"><i class="fas fa-chevron-right fa-2x"></i></button>
+                    </div>
+                    <div class="tutorial-message">
+                        <div class="step-number">
+                            Step 3 of 4
+                        </div>
+                        <div class="step-message">
+                            When the Customer checks-in: click on “Customer” under “CONFIRMED”.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step-04">
+                    <div class="row flex-tutorial-container">
+                        <button class="btn before-btn col"><i class="fas fa-chevron-left fa-2x"></i></button>
+                        <img class="tutorial-steps-image col" id="step-04-img" src={% static "users/img/step04.png" %}
+                            alt="tutorial steps" />
+                        <button class="btn after-btn col"><i class="fas fa-chevron-right fa-2x"></i></button>
+                    </div>
+                    <div class="tutorial-message">
+                        <div class="step-number">
+                            Step 4 of 4
+                        </div>
+                        <div class="step-message">
+                            Confirming: by clicking on “CHECKED-IN” the customer has checked-in in person and their icon will automatically be
+                            removed from the Dash Board.
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer step-01">
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class='container fixed-title-bottom'>
+        <a class="footer-title">Hostel <b>Portal</b></a>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery -- Slim might be the problem -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script> -->
+    <!-- Jquery.min.js -->
+    <script type="text/javascript" src="{% static 'users/jquery-3.5.1.min.js' %}"></script>
+    <!-- Popper.js - AJAX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Index.js -->
+    <script type="text/javascript" src="{% static 'users/index.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'users/jquery-ui-1.12.1/jquery-ui.js' %}"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="{% static 'users/datepicker-1.0.9/dist/datepicker.min.js' %}"></script>
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+
+
+</body>
+</html>
+

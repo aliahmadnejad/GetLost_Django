@@ -1,0 +1,729 @@
+{% load static %}
+{% load tz %}
+{% load i18n %}
+{% load currency %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome Icons CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'webApp/settings.css' %}">
+    <!-- Roboto Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Flag Sprite CSS -->
+    <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+    <!-- Date Picker CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'users/datepicker-1.0.9/dist/datepicker.min.css' %}">
+    <!-- Phone Number Area Code Picker CSS -->
+    <link rel="stylesheet" href="{% static 'users/intl-tel-input-master/build/css/intlTelInput.css' %}" >
+</head>
+
+<body>
+    <!--Navigation Bar-->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container container-header">
+                <div class='container fixed fixed-header'>
+                    <a class="nav-item footer-title">Hostel Portal</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        <a class="nav-item header-title">Account SETTINGS</a>
+                        {% if '/hostleportal/' not in request.path %}
+                        <a class="nav-item nav-link icon stripe-icon" href="">
+                            <i class="fab fa-stripe-s"></i><b class="caret"></b></a>
+                        {% endif %}
+                        <!-- <a class="nav-item nav-link icon" href="javascript:history.go(-1)"><i class="fas fa-arrow-alt-circle-left fa-2x"></i></a> -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle nav-item nav-link icon" data-toggle="dropdown"><i
+                                    class="fas fa-question-circle fa-2x"></i><b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <span class="dropdown-menu-arrow"></span>
+                                <!-- <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">Tutorial</a></li>     -->
+                                <li>
+                                    <button type="button" class="btn tutorial-modal-btn" data-toggle="modal"
+                                        data-target="#exampleModal6">
+                                        <i class="icon-arrow-up"></i><a href="#"
+                                            style="text-decoration: none;">Tutorial</a>
+                                    </button>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-down dropdown-option"></i><a
+                                        href="{% url 'index' %}"
+                                        style="text-decoration: none;">Dashboard</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
+                                        style="text-decoration: none;">Contact Us</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="settings-menu">
+            <ul>
+                <li class="list-option ">
+                    <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text public-info-btn">Public Info</a> -->
+                    <button type="button" class="btn option-text public-info-btn"><i
+                            class="fas fa-info-circle option-icon"></i>Public Info</button>
+                </li>
+                <li class="list-option">
+                    <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text private-contact-info-btn">Private Contact Info</a> -->
+                    <button type="button" class="btn option-text private-contact-info-btn"><i
+                            class="fas fa-info-circle option-icon"></i>Private Contact Info</button>
+                </li>
+                <li class="list-option ">
+                    <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text id-and-pin-btn">ID and PIN</a> -->
+                    <button type="button" class="btn option-text id-and-pin-btn"><i
+                            class="fas fa-info-circle option-icon"></i>ID and PIN</button>
+                </li>
+                <li class="list-option">
+                    <!-- <i class="fas fa-info-circle option-icon"></i><a href="" class="option-text language-currency-btn">Language and Currency</a> -->
+                    <button type="button" class="btn option-text language-currency-btn"><i
+                            class="fas fa-info-circle option-icon"></i>Language and Currency</button>
+                </li>
+            </ul>
+        </div>
+        <div class="option-container h-100 public-info" id="public-info">
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card">
+                    <div class="d-flex justify-content-center">
+                    </div>
+                    <div class="d-flex justify-content-center form_container">
+                        <!-- ONE OF THE FORMS -->
+                        <form method="POST" action="" id="public-info-form" class="settings-forms">
+                            {% csrf_token %}
+                            <h6>Hostle Name</h6>
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
+                                    class="form-control register-form public-info-form-input" id="hostle-name">
+                            </div>
+                            <h6>Email</h6>
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="email" placeholder="{{ profile.user.email }}"
+                                    class="form-control register-form email public-info-form-input">
+                            </div>
+                            <h6>Phone Number</h6>
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <!-- <input type="text" name="phone" placeholder="{{ profile.phone }}"
+                                    class="form-control register-form phone public-info-form-input" id="phone"> -->
+                                <input type="tel" name="phone" data-placeholder="{{ profile.phone }}" placeholder="{{ profile.phone }}"
+                                    class="form-control register-form phone public-info-form-input" id="phone" autocomplete="true">
+                            </div>
+                            <h6>Address</h6>
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="address" placeholder="{{ profile.address }}"
+                                    class="form-control register-form address public-info-form-input">
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="zip_code" placeholder="{{ profile.zip_code }}"
+                                    class="form-control register-form public-info-form-input" id="zip-code">
+                            </div>
+
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="city_state" placeholder="{{ profile.city_state }}"
+                                    class="form-control register-form public-info-form-input" id="city-state">
+                            </div>
+
+                            <!-- <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                <input type="text" name="country" placeholder="{{ profile.country }}"
+                                    class="form-control register-form public-info-form-input" id="country">
+                            </div> -->
+                            <div class="input-group mb-1">
+                                <div class="input-group-append">
+                                </div>
+                                {% load countries %}
+                                {% get_countries as countries %}
+                                <select name="country" placeholder="{{ profile.country }}" class="form-control register-form public-info-form-input"
+                                    id="country">
+                                    {% for country in countries %}
+                                    <option value="{{ country.code }}" {% ifequal country.name profile.country.name %} selected {% endifequal %} 
+                                        {% ifequal country.code profile.country.code %} selected="selected" {% endifequal %}>
+                                        {{ country.name }} 
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            
+                            <p>
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+                            <div style="color: red">
+                                <p>{{form.non_field_errors}}</p>
+                            </div>
+                            {% endif %}
+                            </p>
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-center edit-option-btn">
+                                    <!-- <a href="" class="ml-2">Edit</a> -->
+                                    <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#public-modal"
+                                        id='public-info-modal' href="#" action="#">Edit</button>
+                                </div>
+                                <div class="d-flex justify-content-center other-option-btns" id="public-option-btns">
+                                    <a href="" class="ml-2 cancel-button" id="public-cancel-btn">Cancel</a>
+                                    <!-- <input class="btn" type="submit" value="Update Information" id="public-info-submit"> -->
+                                    <button class="testing-btn btn btn-dark update-button" id="public-update-btn">Update Info</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-container h-100 private-contact-info" id="private-contact-info">
+            <form method="POST" action="" class="settings-forms" id="private-info-form">
+                {% csrf_token %}
+                <div class="container row">
+                    <div class="col first-col">
+                        <h6>- Please Confirm The Following</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
+                                class="form-control input-box private-info-form-input" id="hostle-name2">
+                        </div>
+                        <h6>Address</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="address" placeholder="{{ profile.address }}"
+                                class="form-control input-box private-info-form-input" id="address2">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="zip_code" placeholder="{{ profile.zip_code }}"
+                                class="form-control input-box private-info-form-input" id="zip-code2">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="city_state" placeholder="{{ profile.city_state }}"
+                                class="form-control input-box private-info-form-input" id="city-state2">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="country" placeholder="{{ profile.country }}"
+                                class="form-control input-box private-info-form-input" id="country2">
+                        </div>
+                        <h6>Contact Information</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="phone" placeholder="{{ profile.phone }}"
+                                class="form-control input-box private-info-form-input" id="phone2">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="email" placeholder="{{ profile.user.email }}"
+                                class="form-control input-box private-info-form-input" id="email2">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="fax" placeholder="{{ profile.fax }}" class="form-control input-box private-info-form-input"
+                                id="fax">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="website" placeholder="{{profile.website}}"
+                                class="form-control input-box private-info-form-input" id="website">
+                        </div>
+                    </div>
+                    <div class="col second-col">
+                        <h6>Owner Name</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="owner_name" placeholder="{{profile.owner_name}}"
+                                class="form-control input-box private-info-form-input" id="owner-name">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="owner_phone" placeholder="{{ profile.owner_phone }}"
+                                class="form-control input-box private-info-form-input" id="owner-phone">
+                        </div>
+                        <h6>Manager (1)</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="first_manager_name" placeholder="{{ profile.first_manager_name }}"
+                                class="form-control input-box private-info-form-input" id="first-manager-name">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="first_manager_phone"
+                                placeholder="{{ profile.first_manager_phone }}" class="form-control input-box private-info-form-input"
+                                id="first-manager-phone">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="first_manager_email"
+                                placeholder="{{ profile.first_manager_email }}" class="form-control input-box private-info-form-input"
+                                id="first-manager-email">
+                        </div>
+                        <h6>Manager (2)</h6>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="second_manager_name" placeholder="{{profile.second_manager_name}}"
+                                class="form-control input-box private-info-form-input" id="second-manager-name">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="second_manager_phone"
+                                placeholder="{{profile.second_manager_phone}}" class="form-control input-box private-info-form-input"
+                                id="second-manager-phone">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="second_manager_email"
+                                placeholder="{{profile.second_manager_email}}" class="form-control input-box private-info-form-input"
+                                id="second-manager-email">
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                {% endfor %}
+                {% if form.non_field_errors %}
+                <div style="color: red">
+                    <p>{{form.non_field_errors}}</p>
+                </div>
+                {% endif %}
+                </p>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center edit-option-btn">
+                        <!-- <a href="" class="ml-2">Edit</a> -->
+                        <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#private-modal"
+                            id='private-info-modal'>Edit</button>
+                    </div>
+                    <div class="d-flex justify-content-center other-option-btns">
+                        <a href="" class="ml-2 cancel-button" id="private-cancel-btn">Cancel</a>
+                        <!-- <input class="btn" type="submit" value="Update Information" id="private-info-btn"> -->
+                        <button class="testing-btn btn btn-dark update-button" id="private-update-btn">Update Info</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="option-container h-100 pin-and-password" id="pin-and-password">
+            <div class="user_card">
+                <div class="d-flex justify-content-center form_container3">
+                    <form method="POST" action="" class="settings-forms" id="password-form">
+                        {% csrf_token %}
+                        <h6>Master PIN/Password</h6>
+                        <div class="input-group password-reset">
+                            <input type="password" name="password" placeholder="e.g. Password123s"
+                                class="password-input form-control master-password password-form-input" id="master-password"
+                                data-password="{{ profile.user.password }}">
+                        </div>
+                        <!-- <h6>Password 2</h6>
+                                <div class="input-group password-reset">
+                                    <input type="password" name="password" placeholder="e.g. Password123s" class="form-control email ">
+                                </div> -->
+                        <div class="password-message">- This will give you Access to:
+                            <ol>
+                                <li>Sign IN</li>
+                                <li>Stripe Account</li>
+                                <li>Total Co-ed Beds</li>
+                                <li>Price per Bed</li>
+                                <li>Changes to Account Settings</li>
+                            </ol>
+                        </div>
+                        <h6>Employee PIN/Password</h6>
+                        <div class="input-group password-reset">
+                            <input type="password" name="employee_password" placeholder="e.g. Password123s"
+                                class="password-input form-control employee-password password-form-input" id="employee-password"
+                                data-password="{{ roomdetails.employee_password }}">
+                        </div>
+                        <!-- <h6>Password 2</h6>
+                                <div class="input-group password-reset">
+                                    <input type="password" name="password" placeholder="e.g. Password123s" class="form-control email ">
+                                </div> -->
+                        <div class="password-message">- This will give you Access to:
+                            <ol>
+                                <li>Total Co-ed Beds</li>
+                                <li>Price per Bed</li>
+                            </ol>
+                        </div>
+                        <p>
+                            {% for field in form %}
+                            {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                        <div style="color: red">
+                            <p>{{form.non_field_errors}}</p>
+                        </div>
+                        {% endif %}
+                        </p>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-center">
+                                <!-- <a href="" class="ml-2">Edit</a> -->
+                                <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#pin-password-modal"
+                                    id='pin-and-password-modal'>Edit</button>
+                            </div>
+                            <div class="d-flex justify-content-center other-option-btns">
+                                <a href="" class="ml-2 cancel-button" id="pin-password-cancel-btn">Cancel</a>
+                                <!-- <input class="btn" type="submit" value="Update Information" id="master-password-submit"> -->
+                                <button class="testing-btn btn btn-dark update-button" id="pin-password-update-btn">Update
+                                    Info</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="option-container h-100 language-and-currency" id="language-and-currency">
+            <div class="user_card">
+                <div class="d-flex justify-content-center form_container3">
+                    
+
+                    <form method="POST" action="" class="settings-forms" id="language-currency-form">
+                        {% csrf_token %}
+                        <h6>Language</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            <!-- <input type="text" name="language" placeholder="" class="form-control register-form"> -->
+                            <!-- <input name="next" type="hidden" value="{{ redirect_to }}" class="form-control register-form"> -->
+                            <select name="language" id="language-input">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <!-- <input type="submit" value="Go"> -->
+                        </div>
+                        <h6>Currency - Current: {{ roomdetails.currency.name }}</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            <!-- <input type="text" name="balance" placeholder=""
+                                class="form-control register-form"> -->
+                            <select name="currency" selected="{{ curr.code }}" id="currency-input">
+                                <!-- change the h6 into an input thats disabled showing a placeholder of the currency -->
+                                <option selected disabled hidden>Select a Currency</option>
+                                {% for curr in CURRENCIES %}
+                                <option value="{{ curr.code }}" {% ifequal curr.name roomdetails.currency.name %} selected {% endifequal %} {% ifequal curr.code currency.code %}selected="selected" {% endifequal %}>
+                                    {{ curr.symbol }} {{ curr.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <!-- <noscript>
+                                <input type="submit" value="Set" />
+                            </noscript> -->
+                        </div>
+                        <h6>VAT (Value Added Tax)</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="VAT" placeholder="{{ roomdetails.VAT }} %" data-vat="{{ roomdetails.VAT }}" class="form-control register-form lang-currency-form-input" id="vat-input">
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-center">
+                                <!-- <a href="" class="ml-2">Edit</a> -->
+                                <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#language-currency-modal"
+                                    id='lang-and-currency-modal'>Edit</button>
+                            </div>
+                            <div class="d-flex justify-content-center other-option-btns">
+                                <a href="" class="ml-2 cancel-button" id="lang-currency-cancel-btn">Cancel</a>
+                                <!-- <input class="btn" type="submit" value="Update Information" id="master-password-submit"> -->
+                                <button class="testing-btn btn btn-dark update-button" id="lang-currency-update-btn">Update
+                                    Info</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- <input type="tel" id="phone-test"> -->
+        
+        <!-- <script>
+            var input = document.querySelector("#phone-test");
+                window.intlTelInput(input, {
+                    // any initialisation options go here
+                    customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                        return "e.g. " + selectedCountryPlaceholder;
+                    },
+                    utilsScript: "{% static 'users/intl-tel-input-master/build/js/utils.js' %}",
+                });
+        </script> -->
+    </main>
+    <footer>
+        <div class="footer-message-container fixed">
+            <div class="footer-message public-info-message">
+                -This information is for the public.
+            </div>
+            <div class="footer-message private-info-message">
+                -This information is for GetLOST! use only, please confirm all information is accurate and up to date.
+            </div>
+            <div class="footer-message password-message">
+                -This information is for GetLOST! use only, please confirm all information is accurate and up to date.
+            </div>
+            <div class="footer-message lang-currency-message">
+                -This information is for GetLOST! use only, please confirm all information is accurate and up to date.
+            </div>
+        
+        </div>
+    </footer>
+
+
+
+
+    <!-- ############################################### -->
+    <!-- ###############  Modal Section  ############### -->
+    <!-- ############################################### -->
+
+
+    <div class="modal fade public-information-modal password-popup-modal" id="public-modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                        </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="price-password-form" id='PublicInfoForm' data-url="{{ request.path }}" method='POST'
+                    action="" name="password_price_form">
+                    <!-- add action here to send to new page-->
+                    <!-- <div class="csrf-thing">
+                        {% csrf_token %}
+                    </div> -->
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction" id="modal-info">Please Enter Master PIN to Edit.
+                            <!-- {{ profile.user.password }} {{ password_check}} -->
+                        </div>
+                        <div class="row password-input-row">
+                            <div class="col-sm-3 display-text-password">PIN:</div>
+                            <input type="password" name="check-password" placeholder="" id="password-input"
+                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
+                                id="practice-password">
+                            <div>{{practice_form.errors}}</div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div id="password-div" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div">false</div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn">Next</button>
+                        <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade private-information-modal password-popup-modal" id="private-modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                            </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="price-password-form" id='PrivateInfoForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="password_price_form">
+                    <!-- add action here to send to new page-->
+                    <!-- <div class="csrf-thing">
+                            {% csrf_token %}
+                        </div> -->
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction" id="modal-info2">Please Enter Master PIN to Edit.
+                        </div>
+                        <div class="row password-input-row">
+                            <div class="col-sm-3 display-text-password">PIN:</div>
+                            <input type="password" name="check-password" placeholder="" id="password-input2"
+                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
+                                id="practice-password2">
+                            <div>{{practice_form.errors}}</div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div id="password-div2" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div2">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div2">false</div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn2">Next</button>
+                        <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade password-information-modal password-popup-modal" id="pin-password-modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                                </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="price-password-form" id='PinPasswordForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="password_price_form">
+                    <!-- add action here to send to new page-->
+                    <!-- <div class="csrf-thing">
+                                {% csrf_token %}
+                            </div> -->
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction" id="modal-info3">Please Enter Master PIN to Edit.
+                        </div>
+                        <div class="row password-input-row">
+                            <div class="col-sm-3 display-text-password">PIN:</div>
+                            <input type="password" name="check-password" placeholder="" id="password-input3"
+                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
+                                id="practice-password3">
+                            <div>{{practice_form.errors}}</div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div id="password-div3" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div3">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div3">false</div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn3">Next</button>
+                        <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade password-information-modal password-popup-modal" id="language-currency-modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                                    </div> -->
+                <!-- PASSWORD INPUT FORM -->
+                <form class="price-password-form" id='LangCurrencyForm' data-url="{{ request.path }}" method='POST' action=""
+                    name="password_price_form">
+                    <!-- add action here to send to new page-->
+                    <!-- <div class="csrf-thing">
+                                    {% csrf_token %}
+                                </div> -->
+                    {% csrf_token %}
+                    <div class="modal-body password-input-body">
+                        <div class="modal-instruction" id="modal-info4">Please Enter Master PIN to Edit.
+                        </div>
+                        <div class="row password-input-row">
+                            <div class="col-sm-3 display-text-password">PIN:</div>
+                            <input type="password" name="check-password" placeholder="" id="password-input4"
+                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
+                                id="practice-password4">
+                            <div>{{practice_form.errors}}</div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div id="password-div4" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div4">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div4">false</div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn4">Next</button>
+                        <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Optional JavaScript -->
+    <!-- Jquery.min.js -->
+    <script type="text/javascript" src="{% static 'users/jquery-3.5.1.min.js' %}"></script>
+    <!-- Popper.js - AJAX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Index.js -->
+    <script type="text/javascript" src="{% static 'users/settings_final.js' %}"></script>
+    <!-- intelTelInput.js -->
+    <script type="text/javascript" src="{% static 'users/intl-tel-input-master/build/js/intlTelInput.js' %}"></script>
+</body>
+
+</html>

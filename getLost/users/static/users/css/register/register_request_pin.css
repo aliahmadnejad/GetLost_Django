@@ -1,0 +1,219 @@
+
+.username {
+    border-radius: 6px 6px 0 0;
+    border-color: #5f686f9a;
+    -webkit-text-fill-color: #909090;
+}
+.password {
+    border-radius: 0 0 6px 6px;
+    border-color: #5f686f9a;
+    -webkit-text-fill-color: #909090;
+}
+.email {
+    border-color: #5f686f9a;
+    -webkit-text-fill-color: #909090;
+    /* margin-left: 400px;
+    margin-right: 400px; */
+}
+.password-reset   {
+    max-width: 30%;
+    margin-left: 400px;
+}
+#form-title{
+    color: #fff;   
+}
+.login_btn {
+    width: 100%;
+    background: #90909000 !important;
+    color: #909090 !important;   
+}
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.login_container {
+    padding: 0 8rem;
+}
+.input-group-text {
+    background: #909090 !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0.25rem 0.25rem 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.message h2 {
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+    padding: 10px;
+    padding-top: 100px;
+}
+.message h4 {
+    color: black;
+    font-size: 24px;
+    padding: 10px;
+}
+.message h6 {
+    color: black;
+    font-size: 10px;
+    padding-top: 30px;
+}
+
+.messages .success {
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+    padding: 10px;
+    padding-top: 100px;
+}
+
+.password-reset-sent {
+    margin-top: 100px;
+}
+.password-reset-sent h3, p {
+    color: black;
+}
+.reset-password p, h1 {
+    margin-top: 50px;
+    color: black;
+}
+.password-done {
+    color: black;
+    margin-top: 100px;
+}
+.password-done .button {
+    margin-top: 300px;
+}
+.register-form {
+    border-radius: 6px 6px 6px 6px !important;
+    border-color: #5f686f30;
+    -webkit-text-fill-color: #9090909a;
+    font-size: 19px;
+    max-height: 3.2em;
+    /* min-height: 2.2em; */
+}
+.message-row{
+    margin-top: 450px;
+}
+.icon{
+    margin-left: 25px;
+}
+.button-reset {
+    margin-top: 260px;
+}
+.reset-password-sent-btn p {
+    margin-top: 260px;
+}
+
+.button-container {
+    /* border: 2px solid red; */
+    /* position: relative; */
+    bottom: 0;
+    /* padding-top: 10vh; */
+}
+
+/* #holder {
+    min-height: 100%;
+    position:relative;
+}
+#footer {
+    background-color: lime;
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    right: 0;
+} */
+
+/* #holder {
+    min-height: 100%;
+    position:relative;
+} */
+/* #body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    z-index: 10px;
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #ffffff;
+    position: relative;
+} */
+/* #footer {
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    
+} */
+
+#holder {
+    min-height: 100%;
+    min-width: 100%;
+    position:relative;
+    justify-content: center;
+    display: flex;
+    
+}
+#body {
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    margin-top: -10vh;
+    width: 400px;
+}
+#body h6 {
+    text-align: left;
+    padding-bottom: 4px;
+    font-size: 16px;
+    color: black;
+}
+#footer {
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 10vh;
+
+}
+#footer .links a {
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+#footer .links a:hover, #footer .link a:focus {
+    color: #0C436C;
+}
+.input-group {
+    padding-bottom: 10px;
+}
+#footer .options-container .btn {
+    color: #909090 !important; 
+}
+#footer .options-container .btn:hover, #footer .options-container .btn:focus  {
+    color: #90909097 !important; 
+}
+#footer .options-container .next-btn {
+    margin-top: 2px;
+    right: 20px;
+}
+#footer .options-container .exit-btn {
+    left: 20px;
+}
+
+
+
+

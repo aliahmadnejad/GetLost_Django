@@ -1,0 +1,24 @@
+{% extends "users/portal_base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/portal/login.css' %}">
+{% endblock css %}
+{% block title %}
+{% load crispy_forms_tags %}
+<a class="nav-item header-title">Logged Out</a>
+{% endblock title %}
+{% block content %}
+    <div class="h-100 mt-5" style="
+    padding-top: 300px;
+    justify-content: center !important;
+    flex-direction: column;">
+        <h2>You have been logged out</h2>
+        <div class="boarder-top pt-3">
+            <small class="text-mutes">
+                <a href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+    </div>
+    
+{% endblock content%}
+

@@ -1,0 +1,206 @@
+body,
+html {
+    background: #0C436C;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    margin-top: 6rem;
+    overflow: hidden;
+}  
+.user_card {
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px; */
+}
+.form_container {
+    margin-top: 80px;
+}
+.username {
+    background: #d8e0e7;
+    border-radius: 6px 6px 0 0;
+    border-color: #5f686f;
+    -webkit-text-fill-color: #909090;
+    -webkit-border-before-color: #6d6e6f;
+}
+.password {
+    background: #d8e0e7;
+    border-radius: 0 0 6px 6px;
+    border-color: #5f686f;
+    -webkit-text-fill-color: #909090;
+    -webkit-border-before-color: #6d6e6f;
+}
+#form-title{
+    color: #fff;   
+}
+.login_btn {
+    width: 100%;
+    color: #909090 !important;
+}
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.login_btn:hover {
+    color: white;
+}
+.login_container {
+    padding: 0 8rem;
+}
+.input-group-text {
+    background: #909090 !important;
+    color: white !important;
+    border: 4 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
+img {
+    margin-top: 0px;
+    margin-left:150px;
+    max-width: 80%;
+    max-height: 80%;
+    padding-right:0px;
+}
+.fixed {
+    position: fixed;
+    bottom: 50px;
+    right: 200px;
+    width: 300px;
+}
+a {
+    color: #909090;
+}
+/* --------------------------------------------------- */
+/* DROPDOWN '?' */
+/* --------------------------------------------------- */
+.dropdown-menu a {
+    white-space:normal;
+}
+.dropdown-menu > li{
+    position:relative;
+}
+.dropdown-menu > li > i{
+    position:absolute;left:0;top:3px;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.options a {
+    font-size: 50px;
+    padding-left: 25rem;
+}
+.options .ml-2 {
+    color: #909090;
+}
+.options .ml-2:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.container-header {
+    width: 100%;
+    max-width: 100%;
+}
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 5rem;
+}
+.site-header .navbar-nav .nav-link{
+    color: #909090;
+    margin-top: 20px;
+}
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+.site-header .navbar-nav .nav-link:focus {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .header-title {
+    font-size: 26px;
+    margin-top: 20px;
+    margin-right: 100px;
+    font-weight: 500;
+    color: #90909097;
+}
+.site-header .navbar-nav .header-title:hover {
+    color: #90909097;
+}
+.dropdown-menu {
+    padding-top: 20px;
+    margin-top: 10px;
+    padding-left: 25px;
+    right: -80px;
+    left: -250px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+}
+.dropdown ul li {
+    padding: 10px;
+    text-decoration: none;
+}
+.dropdown ul li:nth-child(2) {
+    text-align: center;
+    font-size: 20px;   
+    padding-bottom: 20px;
+}
+.dropdown-menu-arrow {
+  top: -38px;
+  left: 76%;
+  width: 0;
+  height: 0;
+  position: relative;
+}
+.dropdown-menu-arrow:before,
+.dropdown-menu-arrow:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: 7px 8px;
+  border-style: solid;
+  border-color: transparent;
+  z-index: 1001;
+}
+.dropdown-menu-arrow:after {
+  bottom: -18px;
+  right: -8px;
+  border-bottom-color: #fff;
+}
+.dropdown-menu-arrow:before {
+  bottom: -17px;
+  right: -8px;
+  border-bottom-color: rgba(0,0,0,.15);
+}
+
+.signup, .signin {
+    color: white !important; 
+    font-weight: 900;
+}
+.signup:hover, .signin:hover {
+    color: #909090 !important; 
+}
+
+.links .ml-2 {
+    text-decoration: none;
+}
+

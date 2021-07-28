@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- Custome CSS Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/register/base_register.css' %}">
+    {% block css %}
+    {% endblock %}
+    <!-- ROBOTO font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+<body>
+    <!--Navigation Bar-->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container container-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% block title %}
+                        {% endblock %}
+                        <a class="nav-item nav-link icon" href="javascript:history.go(-1)"><i
+                                class="fas fa-arrow-alt-circle-left fa-2x"></i></a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle nav-item nav-link icon" data-toggle="dropdown"><i
+                                    class="fas fa-question-circle fa-2x"></i><b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <span class="dropdown-menu-arrow"></span>
+                                <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">What is Hostle
+                                        Portal?</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-down dropdown-option"></i><a href="{% url 'register' %}"
+                                        style="text-decoration: none;">Request Hostle Portal Account</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
+                                        style="text-decoration: none;">Contact Us</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+    <div class='container fixed-logo'>
+        <img class="footer-logo" src={% static 'webApp/img/logo.png' %} alt="Logo" />
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

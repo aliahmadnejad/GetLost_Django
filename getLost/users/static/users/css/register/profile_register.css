@@ -1,0 +1,28 @@
+.links .ml-2 {
+    text-decoration: none;
+}
+.user_card {
+    /* border: 2px solid yellow; */
+    width: 600px;
+    margin-top: auto;
+    margin-bottom: auto;
+    /* position: relative; */
+    /* display: flex; */
+    justify-content: center !important;
+    flex-direction: column;
+    padding: 10px;
+}
+.form-body {
+    width: 390px;
+}
+
+
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
+/* --------------------------------------------------- */
+/* END OF LOGIN PAGE */
+/* --------------------------------------------------- */

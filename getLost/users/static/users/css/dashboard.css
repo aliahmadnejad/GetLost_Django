@@ -1,0 +1,1010 @@
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* Dashboard Page */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+body,
+html {
+    /* background: #0C436C;
+    color: #909090;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    margin-top: 6rem;
+    overflow: hidden; */
+    background: #0C436C;
+    color: #FFFFFF;
+    margin: 0 auto;
+    padding: 0 auto;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}  
+/* --------------------------------------------------- */
+/* LOGO */
+/* --------------------------------------------------- */
+img {
+    width: 80%;
+    height: 80%;  
+    /* width: 18.6rem;
+    height: 3.6rem;  */
+}
+.fixed {
+    position: fixed;
+    top: 5%;
+    left: 12%;
+    width: 300px;
+}
+.fixed-title-bottom {
+    position: fixed;
+    bottom: 6%;
+    right: 6%;
+    width: 250px;
+    color: #909090;
+
+}
+.footer-title {
+    float: right;
+    color: #909090;
+    font-size: 30px;
+    font-weight: 300;
+}
+.footer-title > b {
+    font-weight: 500;
+}
+
+/* --------------------------------------------------- */
+/* End LOGO */
+/* --------------------------------------------------- */
+a {
+    color: #909090;
+}
+*:focus {
+    outline:none;
+    box-shadow: none !important;
+}
+/* --------------------------------------------------- */
+/* DROPDOWN '?' */
+/* --------------------------------------------------- */
+.dropdown-menu a {
+    white-space:normal;
+}
+.dropdown-menu > li{
+    position:relative;
+}
+.dropdown-menu > li > i{
+    position:absolute;left:0;top:3px;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.options a {
+    font-size: 50px;
+    padding-left: 25rem;
+}
+.options .ml-2 {
+    color: #909090;
+}
+.options .ml-2:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+/* --------------------------------------------------- */
+/* FIXED HEADER - NAVAGATION BAR */
+/* --------------------------------------------------- */
+.container-header {
+    width: 100%;
+    max-width: 100%;
+}
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 5rem;
+}
+.site-header .navbar-nav .nav-date {
+    margin-right: 40px;
+    margin-top: 25px !important;
+}
+.site-header .navbar-nav .nav-date .datepicker {
+    color: #909090;
+    background-color: #0C436C;
+    border-width: 0px;
+    text-decoration: underline;
+}
+.site-header .navbar-nav .nav-date .datepicker:hover {
+    color: white;
+}
+
+
+.site-header .navbar-nav .stripe-icon {
+    margin-top: 28px !important;
+    background-color: #909090;
+    border-radius: 50%;
+    text-align: center;
+    height: 31px;
+    width: 31px;
+    line-height: 16px;
+}
+.site-header .navbar-nav .stripe-icon:hover {
+    background-color: #ffffff;
+}
+.site-header .navbar-nav .stripe-icon .fa-stripe-s {
+    color: #0C436C;
+    bottom: 10px;
+}
+.site-header .navbar-nav .nav-link{
+    color: #909090;
+    margin-top: 20px;
+}
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+.site-header .navbar-nav .nav-link:focus {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .header-title {
+    font-size: 26px;
+    margin-top: 20px;
+    margin-right: 100px;
+    font-weight: 500;
+    color: #90909097;
+}
+.site-header .navbar-nav .header-title:hover {
+    color: #90909097;
+}
+.dropdown-menu {
+    /* padding-top: 20px;
+    margin-top: 10px;
+    padding-left: 25px;
+    right: -80px;
+    left: -250px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    margin-left: 100px; */
+
+    /* width: 60%; */
+    left: -100px;
+    right: -30px;
+    padding: 20px 20px 0px 20px;
+    margin: 5px 0 0 0;
+    border-color: #9f9f9faf;
+}
+
+.dropdown-menu .dropdown-divider {
+    border-color: #9f9f9faf;
+}
+.dropdown-menu .tutorial-modal-btn {
+    margin-top: -20px;
+}
+.dropdown ul li {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 200;
+}
+.dropdown ul li:nth-child(2) {
+    height: 30px;
+}
+.dropdown ul li:nth-child(2) a {
+    margin-left: -15px;
+    margin-top: -20px;
+    padding: 0px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 200;
+    top: -10px;
+}
+.dropdown-menu-arrow {
+    top: -38px;
+    left: 76%;
+    width: 0;
+    height: 0;
+    position: relative;
+}
+.dropdown-menu-arrow:before,
+.dropdown-menu-arrow:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 7px 8px;
+    border-style: solid;
+    border-color: transparent;
+    z-index: 1001;
+}
+.dropdown-menu-arrow:after {
+    bottom: -18px;
+    right: -8px;
+    border-bottom-color: #fff;
+}
+.dropdown-menu-arrow:before {
+    bottom: -17px;
+    right: -8px;
+    border-bottom-color: rgba(0,0,0,.15);
+}
+/* --------------------------------------------------- */
+/* END OF HEADER */
+/* --------------------------------------------------- */
+
+/* --------------------------------------------------- */
+/* Dashboard Main Boxes */
+/* --------------------------------------------------- */
+main.dashboard {
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    min-height: 100%; 
+}
+#holder {
+    max-width: 95%;
+    margin-top: 15vh;
+    height: 70vh;
+}
+#holder .outer-box {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    overflow: auto;
+    padding: 0;
+}
+#reservation-col, #confirmed-col {
+    overflow-y: scroll;    
+    /* flex: 0 0 auto;
+    width: 30vw; */
+}
+
+/* #reservation-col {
+    margin: 0 0 0 0;
+}
+#confirmed-col {
+    margin: 0 0 0 0;
+} */
+#info-col {
+    background-color: whitesmoke;  
+    /* display: block; */
+    margin: 0 2vw 0 2vw;
+    width: 12rem;
+    flex: 0 0 auto;  
+    border-radius: 15px; 
+    padding: 0;
+    /* overflow: auto; */
+    overflow: hidden;
+}
+#info-col-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.dashboard-header {
+    /* margin-left: 14vw; */
+    font-size: 20px;
+    text-align: center;
+}
+.dashboard-header > .header-reserved, .dashboard-header > .header-confirmed {
+    background-color: rgba(255, 255, 255, 0.427);
+    padding: 4px;
+    border-radius: 10px;
+    color: #909090;
+    position: fixed;
+}
+
+.flex-container {
+    /* display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; */
+
+    padding-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(127px, 1fr));
+    grid-gap: 0;
+    justify-items: center;
+}
+/* .flex-container::after {
+    content: "";
+    flex: auto;
+    width: 126px;
+} */
+
+
+
+div.scrolling {
+    overflow: scroll;
+}
+
+
+
+
+
+.reservation-item{
+    width: 127px;
+    color: #909090;
+    padding: 0 0 0 0;
+}
+button.reservation-item:hover {
+    background-color: #9090903a;
+}
+button.reservation-item:active, button.reservation-item:focus {
+    box-shadow: none !important;
+    background-color: #9090903a;
+}
+.reservation-image .image {
+    width: 120px;
+    height: 120px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    padding: 0.3rem;
+}
+/* --------------------------------------------------- */
+/* End Dashboard Main Boxes */
+/* --------------------------------------------------- */
+
+
+/* --------------------------------------------------- */
+/* Middle-Section Form */
+/* --------------------------------------------------- */
+#myform {
+    
+    text-align: center;
+    color: #909090;
+
+}
+.roomdetail-detail {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.roomdetail-detail .fa-lock {
+    font-size: 11px;
+    max-width: 50px;
+}
+
+/* --------------------------------------------------- */
+/* PRICE SECTION */
+/* --------------------------------------------------- */
+.detail-price {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.price-text {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 0px;
+    padding-left: 20px;
+    padding-right: 0px;
+    direction: rtl;
+    color: #909090;
+}
+.detail-price .fa-lock {
+    margin-top: 8px;
+    padding-top: 8px;
+    margin-right: 24px;
+    color: #909090;
+    border-radius: 30px;
+    max-width: 40px;
+    max-height: 30px;
+}
+.detail-price .fa-lock:hover {
+    background-color: #90909029;
+}
+/* --------------------------------------------------- */
+/* TOTAL BEDS SECTION */
+/* --------------------------------------------------- */
+.detail-total_coed_beds {
+    margin-bottom: 30px;  
+    justify-content: center;  
+    padding-top: 4vh;
+}
+.detail-total_coed_beds > button {
+    /* display: flex;
+    flex-direction: row; */
+    border: 1px solid #90909080;
+    border-radius: 4px;
+    width: 90%;
+
+    /* margin: auto; */
+    /* padding-right: 20px; */
+    /* color: #909090;
+    display: grid;
+    grid-template-columns: 1fr 1fr; */
+    /* grid-gap: 20px; */ 
+}
+.detail-total_coed_beds .row:hover {
+    background-color: #90909029;
+}
+#total-beds {
+    margin-left: 40px;
+    float: left;    
+    width: 40%;
+    color: #909090;
+}
+.detail-total_coed_beds #total-bed-lock {
+    color: #909090;
+    float: right;
+} 
+.total_bed-display {
+    /* padding-top: 5px; */
+    font-size: 10px;
+    color: #90909080;
+}
+.detail-total_coed_beds .fa-lock {
+    /* padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    padding-left: 5px; */
+    margin-top: 5px;
+    color: #909090;
+}
+
+
+
+/* --------------------------------------------------- */
+/* AVALIABLE and OCCUPIED BEDS SECTION */
+/* --------------------------------------------------- */
+
+.avaliability-text, .occupied_beds-text {
+    font-size: 40px;
+}
+.price-display, .total_bed-display, .avaliability-display, .occupied_beds-display {
+    font-size: 10px;
+    color: #90909080 ;
+}
+.avaliability-text, .occupied_beds-text {
+    font-size: 40px;
+}
+.occupied_beds-display {
+    padding-bottom: 2vh;
+}
+#occupied_beds, .avaliability-text {
+    color: black;
+}
+/* --------------------------------------------------- */
+/* PLUS AND MINUS BUTTON */
+/* --------------------------------------------------- */
+input.qtyplus { 
+    width:25px; 
+    height:25px;
+}
+input.qtyminus { 
+    width:25px; 
+    height:25px;
+}
+div.hidden {
+    display: none;
+}
+input[type=button].qtyplus, input[type=button].qtyminus {
+    font-size: 20px;
+    color: #909090;
+    border-radius: 5px;
+    background-color: white;
+    /* max-width: 100%;
+    max-height: 100%;
+    width: 4vw;
+    height: 4vw; */
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    box-shadow: 0 0 5px #9090909a;
+    margin-left: 10px;
+}
+input[type=button].qtyminus {
+    font-size: 20px;
+    color: #909090;
+    border-radius: 5px;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    box-shadow: 0 0 5px #9090909a;
+    margin-right: 10px;
+}
+input[type=button].qtyminus:hover, input[type=button].qtyplus:hover {
+    background-color: #90909029;
+}
+input[type=button]:active, input[type=button]:focus {
+    border: 3px solid #90909080;
+}
+.detail-button {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* MODAL GENERAL */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+
+#exampleModal, #exampleModal2, #exampleModal3, #exampleModal4, #exampleModal5 {
+    background-color: rgba(0, 0, 0, 0.591);
+}
+
+/* --------------------------------------------------- */
+/* Modal Customer Info */
+/* --------------------------------------------------- */
+
+/* .reservation-modal .modal-dialog{
+} */
+.reservation-modal .modal-content {
+    background-color: white;
+    border-radius: 10px;
+}
+.reservation-modal .confirm-form, .reservation-modal .checkin-form {
+    background-color: white;
+    border-radius: 10px;
+}
+.reservation-modal .modal-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 20px;
+    border-bottom: 0px;
+}
+.reservation-modal .modal .close {
+    background: rgb(104, 104, 104);
+    color: white;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    padding-right: 4px;
+    padding-left: 4px;
+    padding-bottom: 4px;
+    border-radius: 5px;
+    margin-right: -10px;
+}
+.reservation-modal .modal-body {
+    padding: 0px;
+    margin: 0px;
+    height: 20rem;
+    display: flex;
+    flex-direction: row;
+}
+#confirmForm, #checkinForm {
+    color: #909090;
+}
+.reservation-modal .modal-image {
+    padding: 0px;
+    width: 14rem;
+    height: 14rem;
+    float: left;
+}
+.reservation-modal .profile-image {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 1.4rem;
+}
+.reservation-modal .name-field {
+    font-size: 30px;
+    display: block; 
+    text-align: center;
+}
+.reservation-modal .modal-body .form-group {
+    background-color: #F4F4F4;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #7070705d;
+    width: 250px;
+    margin: 0 4vw 0 2vw;
+    flex: 2 1;
+}
+.reservation-modal .modal-body .customer-info-01 {
+    padding: 0px;   
+    position: relative; 
+    align-items: center;
+}
+.reservation-modal .modal-body .customer-info-01 .customer-info-header,
+.reservation-modal .modal-body .customer-info-02 .customer-info-header {
+    padding-top: 20px;
+    font-size: 20px;
+}
+.reservation-modal .modal-body .customer-info-02 .customer-info-header {
+    margin-bottom: 30px;
+}
+.reservation-modal .modal-body .customer-info-01 .info-container {
+    margin-top: 80px;
+    justify-content: center;
+    display: flex;
+    padding: 0px;
+    font-size: 16px;
+}
+.reservation-modal .modal-body .customer-info-01 .info-container .age-field {
+    margin-right: 20px;
+    margin: auto;
+}
+.reservation-modal .modal-body .customer-info-01 .info-container .country-and-flag {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+}
+.reservation-modal .modal-body .customer-info-01 .info-container .country-field {
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+    width: 100px; 
+}
+.reservation-modal .modal-body .customer-info-01 .info-container .country-flag-field {
+    width: 32px;
+    height: 20px;
+    padding: 0px;
+    margin: auto; 
+    border-radius: 2px;
+}
+.reservation-modal .modal-body .customer-info-01 .info-container .gender-field {
+    margin-left: 20px;
+    margin: auto;
+}
+.reservation-modal .modal-body .customer-info-02 {
+    padding: 0px;
+}
+.reservation-modal .modal-body .customer-info-01 .more-btn, .reservation-modal .modal-body .customer-info-02 .back-btn {
+    color: white;
+    background-color: #0093B1;
+    border-color: #A4ABB1;
+    border-width: 2px;
+    position: absolute; 
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 80px;
+    font-size: 13px;
+}
+.reservation-modal .modal-body .customer-info-02 .info-02-text {
+    padding-top: 10px;
+    font-size: 14px;
+}
+.reservation-modal .modal-body .customer-info-02 .info-02-text-db {
+    font-size: 12px;
+}
+.reservation-modal .modal-body .customer-info-02 .emergency-contact-container .emergency-contact-name-field {
+    text-align: right !important;
+}
+.reservation-modal .modal-body .customer-info-02 .emergency-contact-container {
+    color: red;
+}
+.reservation-modal .modal-body .customer-info-02 .emergency-contact-container .emergency-contact-phone-field {
+    text-align: left !important;
+    right: 20px;
+}
+.reservation-modal .modal-footer {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0px;
+    border-top: 0px;
+}
+.reservation-modal .modal-button-container {
+    margin: 0 auto; 
+    display: block;
+}
+.reservation-modal .modal-footer .btn {
+    color: #909090 ;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto; 
+    display: block;
+    box-shadow: 0 0 8px #909090b8;
+}
+.reservation-modal .modal-footer .btn:hover {
+    background-color: #90909029;
+}
+.reservation-modal .button-text {
+    display: block; 
+    text-align: center;
+}
+/* --------------------------------------------------- */
+/* END Modal Customer Info */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* Modal Price and Total Bed --- General */
+/* --------------------------------------------------- */
+
+/* .price-change-modal, .total-beds-change-modal {
+    padding-top: 60px;
+} */
+
+.price-change-modal .modal-content, .total-beds-change-modal .modal-content {
+    background-color: #323232;
+    border-color: #464646;
+    border-radius: 5px;
+    border-width: 2px;
+}
+.price-change-modal .modal-body, .total-beds-change-modal .modal-body {
+    color: white;
+}
+/* ------------------------------ FOOTER ----------------------------- */
+.price-change-modal .modal-footer, .total-beds-change-modal .modal-footer {
+    border-top: 0px;
+    padding-top: 0px;
+}
+.price-change-modal .btn, .total-beds-change-modal .btn,
+.price-change-modal .back-btn, .total-beds-change-modal .back-btn {
+    height: 30px;
+    background-color: #6C6C6C;
+    padding-top: 2px;
+    border-color: #6C6C6C;
+    color: white;
+}
+.price-change-modal .change-password-page-btn, .total-beds-change-modal .change-password-page-btn {
+    color: white;
+}
+/* --------------------------------------------------- */
+/* PASSWORD INPUT FORM */
+/* --------------------------------------------------- */
+.password-input-body .display-text-password {
+    width: 30%;
+    text-align: right;
+    padding-right: 5px;
+}
+.password-input-body .password-input-row {
+    display: flex;
+    flex-direction: row;
+}
+.price-change-modal .modal-instruction, .total-beds-change-modal .modal-instruction {
+    padding-bottom: 15px;
+    padding-left: 20px;
+}
+.price-change-modal .display-text-password, .total-beds-change-modal .display-text-password {
+    padding-top:5px;
+    left: 75px;
+}
+.price-change-modal .input-password, .price-change-modal .price-change, .total-beds-change-modal .total-beds-input-password, 
+.total-beds-change-modal .total-beds-change, .price-change-modal .input-password-new {
+    background-color: #707070;
+    color: white;
+    border-color: #808080;
+    border-radius: 5px;
+    border-width: 5px;
+    width: 50%;
+}
+/* --------------------------------------------------- */
+/* END OF PASSWORD INPUT FORM */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* PASSWORD CREATION FORM */
+/* --------------------------------------------------- */
+.password-create-input-body .password-create-input-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.password-create-input-body .password-create-side-text {
+    width: 30%;
+    text-align: right;
+    padding-right: 5px;
+}
+.price-change-modal .input-password-new, .price-change-modal .input-password-confirm,
+.total-beds-change-modal .total-beds-input-password-new, .total-beds-change-modal .total-beds-input-password-confirm {
+    background-color: #707070;
+    color: white;
+    border-color: #808080;
+    border-radius: 5px;
+    border-width: 5px;
+    width: 50%;
+}
+/* --------------------------------------------------- */
+/* END OF PASSWORD CREATION FORM */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* CHANGE PASSWORD FORM */
+/* --------------------------------------------------- */
+.password-change-input-body .password-change-input-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.password-change-input-body .old {
+    margin-bottom: 15px;
+}
+.password-change-input-body .password-change-side-text {
+    width: 30%;
+    text-align: right;
+    padding-right: 5px;
+}
+.price-change-modal .input-password-old, .price-change-modal .change-input-password-new,
+.price-change-modal .change-input-password-confirm,
+.total-beds-change-modal .total-beds-input-password-old, .total-beds-change-modal .total-beds-change-input-password-new,
+.total-beds-change-modal .total-beds-change-input-password-confirm {
+    background-color: #707070;
+    color: white;
+    border-color: #808080;
+    border-radius: 5px;
+    border-width: 5px;
+    width: 50%;
+}
+/* --------------------------------------------------- */
+/* END OF CHANGE PASSWORD FORM */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* END Modal Price and Total Bed */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* Price and Total Beds Input FORM */
+/* --------------------------------------------------- */
+.price-input-body .price-input-row, .total-beds-input-body .total-beds-input-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.price-input-body .display-text-price, .total-beds-input-body .display-text-total-beds {
+    width: 30%;
+    text-align: right;
+    padding-right: 5px;
+}
+.price-change-modal .display-text-price, .total-beds-change-modal .display-text-total-beds {
+    padding-top:5px;
+    left: 27px;
+}
+.price-change-modal .price-change, .total-beds-change-modal .total-beds-change {
+    background-color: #707070;
+    color: white;
+    border-color: #808080;
+    border-radius: 5px;
+    border-width: 5px;
+    width: 50%;
+}
+/* --------------------------------------------------- */
+/* END Price and Total Beds Input FORM */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* Modal History */
+/* --------------------------------------------------- */
+
+.history-modal .modal-dialog {
+    width: 80%;
+    max-width: 100%;
+    max-height: 100%;
+}
+.history-modal .modal-content{
+    height: 80vh;
+}
+.history-modal .modal-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(127px, 1fr));
+    grid-gap: 5px;
+    justify-items: center;
+    padding: 30px 5vw 0 5vw;
+}
+.history-modal .modal-header {
+    border-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+}
+.history-modal .modal-footer {
+    border-top: 0px;
+}
+.history-modal .history-item {
+    width: 127px;
+    height: 150px;
+    color: #909090;
+    padding: 0 0 0 0;
+}
+.history-modal .reservation-content {
+    padding: 0 0 0 0;
+    text-align: center;
+}
+.history-modal button.close {
+    background: rgb(104, 104, 104);
+    color: white;
+    border-radius: 5px;
+    padding: 0px 4px 0px 4px;
+    margin: 0 5px 5px 0;
+    justify-content: center;
+}
+.history-modal .header-date {
+    font-size: 18px;
+    background-color: white;
+    color: #909090;
+    border: none;
+    margin: 0 10vw 0 5px;
+    border-radius: 5px;
+}
+.history-modal .header-date:hover {
+    box-shadow: none !important;
+    background-color: #9090903a;
+}
+.history-modal .input-container {
+    display: flex;
+}
+/* Style the form icons */
+.history-modal .input-container .input-icon {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    color: #909090;
+    /* min-width: 50px; */
+    text-align: center;
+    border-style: solid;
+    border-color: #AAAAAA;
+    border-radius: 5px 0px 0px 5px;
+    border-width: 3px;
+    border-right: none;
+
+}
+
+/* Style the input fields */
+.history-modal .input-container .search-name {
+    font-size: 14px;
+    width: 100%;
+    /* padding: 10px; */
+    outline: none;
+    border-style: solid;
+    border-color: #AAAAAA;
+    border-radius: 0px 5px 5px 0px;
+    border-width: 3px;
+    border-left: none;
+}
+/* 
+.history-modal .input-container .search-name:focus {
+    border: 2px solid green;
+    border: none;
+    outline: #909090;
+} */
+
+/* --------------------------------------------------- */
+/* END Modal History */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* Modal Tutorial */
+/* --------------------------------------------------- */
+
+/* .tutorial-modal {
+} */
+.tutorial-modal .modal-dialog {
+    width: 80%;
+    max-width: 100%;   
+}
+.tutorial-modal .modal-content{
+    height: auto;
+}
+/* .tutorial-modal .modal-body {
+} */
+.tutorial-modal .modal-header {
+    border-bottom: 0px;
+}
+.tutorial-modal .flex-tutorial-container {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5vh;
+}
+.tutorial-modal .flex-tutorial-container .before-btn,
+.tutorial-modal .flex-tutorial-container .after-btn {
+    color: #909090;
+}
+.tutorial-modal .flex-tutorial-container .before-btn:hover,
+.tutorial-modal .flex-tutorial-container .after-btn:hover {
+    color: #90909097;
+}
+.tutorial-modal .tutorial-steps-image {
+    width: 80%;
+    height: auto;
+}
+.tutorial-modal .tutorial-message {
+    color: #909090;
+    height: 140px;
+    width: auto;
+    padding-left: 4vw;
+}
+.tutorial-modal .tutorial-message .step-number {
+    font-size: 23px;
+}
+.tutorial-modal .tutorial-message .step-message {
+    font-size: 19px;
+}
+/* --------------------------------------------------- */
+/* END Modal Tutorial */
+/* --------------------------------------------------- */
+
+
+
+
+
+
+
+

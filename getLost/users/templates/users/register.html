@@ -1,0 +1,174 @@
+{% extends "users/register_base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/register/register_request_pin.css' %}">
+{% endblock css %}
+{% block title %}
+<a class="nav-item header-title">Sign Up</a>
+{% endblock title %}
+{% block content %}
+<main role="main" class="container h-100"> 
+    <div class="d-flex justify-content-center h-100" >
+        <form method="POST" action="" id="holder" >
+            <div class="justify-content-center form_container" id="body">
+                {% csrf_token %}
+                <h6>Hostle Name</h6>
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="hostel_name" placeholder="Hostel's Name" class="form-control register-form">
+                </div>
+                <h6>Email</h6>
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="email" placeholder="Hostel's Email" class="form-control register-form">
+                </div>
+                <h6>Address</h6>
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="address" placeholder="Address" class="form-control register-form">
+                </div> 
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="zip_code" placeholder="Zip/Postal Code" class="form-control register-form">
+                </div>
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="city_state" placeholder="City, Province" class="form-control register-form">
+                </div>  
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="country" placeholder="Country" class="form-control register-form">
+                </div>
+                <h6>Phone Number</h6>
+                <div class="input-group mb-1">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="phone" placeholder="Hostel's Phone Number" class="form-control register-form">
+                </div>
+                <p>
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                {% endfor %}
+                {% if form.non_field_errors %}
+                <div style="color: red">
+                    <p>{{form.non_field_errors}}</p>
+                </div>
+                {% endif %}
+                </p>
+            </div>
+            <div class="button-container" id="footer">
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        <a href="{% url 'registerlogin' %}" class="ml-2">Already have an Activation Key?</a>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 options-container">
+                    <div class="col exit-btn">
+                        <a class="btn nav-item nav-link icon" href="{% url 'hostelportal' %}"><i
+                                class="fas fa-times-circle fa-2x"></i></a>
+                    </div>
+                    <div class="col next-btn">
+                        <input class="btn fa fa-input fa-2x" type="submit" value="&#xf35a">
+                    </div>
+                </div>
+            </div>
+        </form>
+      
+    </div>
+</main>
+
+{% endblock content%}
+
+
+
+<!-- OLD -->
+<!-- <main role="main" class="container h-100" style="border: 1px solid red;">
+    <div class="d-flex justify-content-center h-100" style="border: 1px solid yellow;">
+        <form method="POST" action="">
+            <div class="user_card" style="border: 1px solid green;">
+                <div class="d-flex justify-content-center form_container" style="border: 1px solid orange;">
+                    {% csrf_token %}
+                    <h6>Hostle Name</h6>
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="hostel_name" placeholder="TMB Hostle"
+                            class="form-control register-form">
+                    </div>
+                    <h6>Email</h6>
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="email" placeholder="Email: xxxxx@gmail.com"
+                            class="form-control register-form">
+                    </div>
+                    <h6>Phone Number</h6>
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="phone" placeholder="(xxx)-xxx-xxxx" class="form-control register-form">
+                    </div>
+                    <h6>Address</h6>
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="address" placeholder="Address" class="form-control register-form">
+                    </div>
+
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="city_state" placeholder="City, State"
+                            class="form-control register-form">
+                    </div>
+
+                    <div class="input-group mb-1">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="text" name="country" placeholder="Country" class="form-control register-form">
+                    </div>
+                    <p>
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                    <div style="color: red">
+                        <p>{{form.non_field_errors}}</p>
+                    </div>
+                    {% endif %}
+                    </p>
+                </div>
+                {% for message in messages %}
+                <p id="messages">{{message}}</p>
+                {% endfor %}
+            </div>
+            <div class="button-container">
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        <a href="{% url 'registerlogin' %}" class="ml-2">Already have an Activation Key?</a>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <div class="col exit-btn2">
+                        <a class="nav-item nav-link icon" href="{% url 'hostelportal' %}"><i
+                                class="fas fa-times-circle fa-2x"></i></a>
+                    </div>
+                    <div class="col next-btn2">
+                        <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main> -->

@@ -1,0 +1,151 @@
+/* /* @import url("register_request_pin.css"); */ 
+/* @import url("register_login.css"); */
+/* @import url("message.css"); */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+/* BASE PORTAL CSS */
+/* --------------------------------------------------- */
+/* --------------------------------------------------- */
+body,
+html {
+    background: #ffffff;
+    color: #909090;
+    margin: 0 auto;
+    /* padding: 0 auto; */
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+} 
+body {
+    /* border: 2px solid red; */
+    text-align: center;
+    width: 90%;
+}
+*:focus {
+    outline:none;
+    box-shadow: none !important;
+}
+/* --------------------------------------------------- */
+/* DROPDOWN '?' */
+/* --------------------------------------------------- */
+.dropdown-menu a {
+    white-space:normal;
+}
+.dropdown-menu > li{
+    position:relative;
+}
+.dropdown-menu > li > i{
+    position:absolute;
+    left:0;
+    top:1em;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+/* --------------------------------------------------- */
+/* FIXED HEADER - NAVAGATION BAR */
+/* --------------------------------------------------- */
+.container-header {
+    width: 100%;
+    max-width: 100%;
+}
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 5rem;
+    margin-top: 2vh;
+}
+.site-header .navbar-nav .nav-link{
+    color: #909090;
+    margin-top: 6px;
+}
+.site-header .navbar-nav .nav-link:hover {
+    color: #90909097;
+}
+.site-header .navbar-nav .nav-link:focus {
+    color: #90909097;
+}
+.site-header .navbar-nav .header-title {
+    font-size: 38px;
+    /* margin-top: 20px; */
+    margin-right: 100px;
+    font-weight: 500;
+    color: #90909097;
+}
+.site-header .navbar-nav .header-title:hover {
+    color: #90909097;
+}
+.dropdown-menu {
+    padding-top: 20px;
+    margin-top: 10px;
+    padding-left: 25px;
+    right: -80px;
+    left: -250px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+}
+.dropdown ul li {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.dropdown ul li:nth-child(2) {
+    text-align: center;
+    font-size: 16px;   
+    padding-bottom: 20px;
+}
+.dropdown-divider {
+    border-color: #9f9f9faf;
+}
+.dropdown-menu-arrow {
+    top: -38px;
+    left: 76%;
+    width: 0;
+    height: 0;
+    position: relative;
+}
+.dropdown-menu-arrow:before,
+.dropdown-menu-arrow:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 7px 8px;
+    border-style: solid;
+    border-color: transparent;
+    z-index: 1001;
+}
+.dropdown-menu-arrow:after {
+    bottom: -18px;
+    right: -8px;
+    border-bottom-color: #fff;
+}
+.dropdown-menu-arrow:before {
+    bottom: -17px;
+    right: -8px;
+    border-bottom-color: rgba(0,0,0,.15);
+}
+.site-header a {
+    color: #909090;
+}
+.site-header a:hover {
+    color: #0C436C;
+}
+/* --------------------------------------------------- */
+/* END OF HEADER */
+/* --------------------------------------------------- */
+
+ /* --------------------------------------------------- */
+/* LOGO */
+/* --------------------------------------------------- */
+img {   
+    width: 249.22px;
+    height: 49px;  
+}
+.fixed-logo {
+    /* border: 2px solid yellow; */
+    position: fixed;
+    bottom: 6%;
+    right: 6%;
+    width: 300px;
+}

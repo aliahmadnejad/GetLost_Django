@@ -1,0 +1,30 @@
+{% extends "users/register_base.html" %}
+{% block content %}
+
+<div class="container message">
+    <h2>Welcome to GetLOST!</h2>
+    <h4>Thank you for setting up your account at GetLOST!’s Hostel Portal. We hope to bring you new and exciting travelers from
+    all over the glob our mission is to make it easier for travelers to find you and make it easier for you to manage your
+    guests.</h4>
+    <h4>You are almost done… all you need now is to set up your Stripe account.</h4>
+    <h6>-You must complete your account with STRIPE to receive payments.</h6>
+    <div class="d-flex justify-content-center mt-3 login_container">
+        <div class="col exit-btn3">
+            <a class="nav-item nav-link icon" href="{% url 'hostelportal' %}"><i class="fas fa-dot-circle fa-2x"></i></a>
+            <p>Skip to Dashboard</p>
+        </div>
+        <div class="col next-btn3">
+            <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a">
+            <p>Continue to Strip</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content%}
+
+
+
+

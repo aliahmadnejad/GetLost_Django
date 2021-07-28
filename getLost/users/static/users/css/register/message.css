@@ -1,0 +1,53 @@
+#holder {
+    min-height: 100%;
+    min-width: 100%;
+    position:relative;
+    justify-content: center;
+    display: flex;  
+}
+#body {
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    margin-top: -10vh;
+    width: 100vw;
+    padding-top: 40vh;
+}
+#body h6 {
+    text-align: left;
+    padding-bottom: 4px;
+    font-size: 16px;
+    color: black;
+}
+#footer {
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 10vh;
+}
+#footer .links a {
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+}
+#footer .links a:hover, #footer .link a:focus {
+    color: #0C436C;
+}
+.message-container {
+    padding-top: 25%;
+}
+.message-button {
+    text-align: center;
+}
+.back-button {
+    display: flex;
+    flex-direction: column;
+}
+.back-button .icon {
+    color: #909090;
+}
+.message-container {
+    color: black;
+    font-size: 38px;
+    font-weight: 100;
+    font-family: -Roboto, sans-serif;
+}

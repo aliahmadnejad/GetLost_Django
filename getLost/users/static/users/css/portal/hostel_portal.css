@@ -1,0 +1,16 @@
+/* --------------------------------------------------- */
+/*  --------------- HOSTEL PORTAL PAGE --------------- */
+/* --------------------------------------------------- */
+
+.signup, .signin {
+    color: white !important; 
+    font-size: 38px;
+    font-weight: 900;
+}
+.signup:hover, .signin:hover {
+    color: #909090 !important; 
+    text-decoration: none;
+}
+/* --------------------------------------------------- */
+/* END OF HOSTEL PORTAL PAGE */
+/* --------------------------------------------------- */

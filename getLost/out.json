@@ -1,0 +1,12 @@
+{
+    "id": 1,
+    "password": "pbkdf2_sha256$180000$plu7n79I25tq$Wd+4tg61jNN9R3o4Znsy5alPUOzxSiJQsEB9b40dkno=",
+    "last_login": "2020-10-28T02:31:50.615138Z",
+    "username": "alinejad",
+    "email": "",
+    "is_active": true,
+    "is_staff": true,
+    "is_admin": true,
+    "account_type": "False",
+    "timestamp": "2020-06-08T00:03:02.152029Z"
+}

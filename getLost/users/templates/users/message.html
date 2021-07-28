@@ -1,0 +1,31 @@
+{% extends "users/register_base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/register/message.css' %}">
+{% endblock css %}
+{% block content %}
+<main role="main" class="container h-100" >
+    <div class="d-flex justify-content-center h-100" id="holder">
+        <div class="message-container" id="body">
+            <h2>You will be contacted in the next 24hrs for verification.</h2>
+        </div>
+        <div class="button-container mt-4" id="footer" >     
+            <div class="d-flex justify-content-center back-button">
+                <a class="message-button ml-2" href="{% url 'login' %}"><i class="fas fa-dot-circle fa-2x icon" ></i></a>
+                <p>Back to Sign IN</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content%}
+
+
+<!-- {% if messages %} 
+    <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+

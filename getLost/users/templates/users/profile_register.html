@@ -1,0 +1,168 @@
+{% extends "users/register_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+<a class="nav-item header-title">New ACCOUNT</a>
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/register/profile_register.css' %}">
+{% endblock css %}
+{% block content %}
+<!-- <div class="content-section">
+    <form method="POST" action=''>
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Second Register Page</legend> -->
+            <!--user creation form made for us-->
+            <!-- {{ form.as_p }} -->
+            <!-- {{ form|crispy }} -->
+        <!-- </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Continue</button>
+        </div>
+    </form>
+    <div class="boarder-top pt-3">
+        <small class="text-mutes">
+            Don't have an ID Number or PIN?<a class="ml-2" href="{% url 'register' %}">Click Here</a>
+        </small>
+    </div>
+</div> -->
+<main role="main" class="main-container h-100">
+    <div class="container h-100">
+        <div class="row align-items-center h-100">
+            <div class="user_card col-6 mx-auto" id="body">
+                <div class="form_container justify-content-center d-flex">
+                    
+                    
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <h6>- Please Confirm The Following</h6>
+                        <div class="container row">
+                            <div class="col first-col">
+                                
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="hostle_name" placeholder="TMB Hostle" class="form-control input-box">
+                                </div>
+                                <h6>Address</h6>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="address" placeholder="8077 Florence Avenue" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="zip_code" placeholder="12345" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="city_state" placeholder="Downey, CA" class="form-control input-box">
+                                </div>
+                                
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="country" placeholder="United States of America" class="form-control input-box">
+                                </div>
+                                <h6>Contact Information</h6>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="fax" placeholder="Fax: (xxx)-xxx-xxxx" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="website" placeholder="Website: www.hostletmb.com" class="form-control input-box">
+                                </div>
+                            </div>
+                            <div class="col second-col">
+                                <h6>Owner Name</h6>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="owner_name" placeholder="JOHN HAMM" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="owner_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
+                                </div>
+                                <h6>Manager (1)</h6>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="first_manager_name" placeholder="Nico Sun" class="form-control input-box">
+                                </div>
+                                
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="first_manager_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="first_manager_email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
+                                </div>
+                                <h6>Manager (2)</h6>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="second_manager_name" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="second_manager_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                    </div>
+                                    <input type="text" name="second_manager_email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
+                                </div>         
+                            </div>
+                        </div>
+                        <p>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+                                <div style="color: red">
+                                    <p>{{form.non_field_errors}}</p>
+                                </div>
+                            {% endif %}
+                        </p>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <div class="col exit-btn">
+                                <a class="nav-item nav-link icon" href="{% url 'logout' %}"><i class="fas fa-times-circle fa-2x"></i></a>
+                            </div>
+                            <div class="col next-btn">
+                                <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a" >
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content%}
+
