@@ -1,5 +1,7 @@
 {% load static %}
 {% load tz %}
+{{ form.media }}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,31 +34,30 @@
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
 </head>
 
-<body>
+<body id="body">
     <!--Navigation Bar-->
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <nav class="navbar navbar-expand navbar-dark bg-steel fixed-top">
             <div class="container container-header">
                 <div class='container fixed'>
                     <img class="footer-logo" id="panel" src={% static 'webApp/img/getlost-logo.png' %} alt="Logo" />
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         <div class="nav-item nav-link nav-date" id="nav-date">
                             <!-- {% timezone "America/Los_Angeles" %}
                             <u>{% now "jS F Y H:i" %}</u>
-                            {% endtimezone %} -->
-                            
-                            <input type='text' readonly value="{% now 'jS F Y' %}" class='datepicker dp-button' id="datepicker" action="" placeholder="{% now 'jS F Y' %}" style="min-height: 10px; cursor: pointer;" />
+                            {% endtimezone %} -->  
+                            <input type='text' readonly value="{% now 'jS F Y' %}" class='datepicker dp-button' id="datepicker" action=""  style="min-height: 10px; cursor: pointer;" />
                         </div>
                         {% block title %}
                         {% endblock %}
-                        {% if '/hostleportal/' not in request.path %}
+                        {% if '/hostelportal/' not in request.path %}
                         <a class="nav-item nav-link icon stripe-icon" href="{% url 'authorize' %}">
                             <i class="fab fa-stripe-s"></i><b class="caret"></b></a>
                         {% endif %}
@@ -67,16 +68,16 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <span class="dropdown-menu-arrow"></span>
                                 <!-- <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">Tutorial</a></li>     -->
-                                <li>
+                                <!-- <li>
                                 <button type="button" class="btn tutorial-modal-btn" data-toggle="modal" data-target="#exampleModal6">
                                     <i class="icon-arrow-up"></i><a href="" style="text-decoration: none;">Tutorial</a>
                                 </button>
                                 </li>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <li><i class="icon-arrow-down dropdown-option"></i><a href="{% url 'settings_final' %}"
                                         style="text-decoration: none;">Account Settings</a></li>
                                 <div class="dropdown-divider"></div>
-                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contact' %}"
                                         style="text-decoration: none;">Contact Us</a></li>
                                 <div class="dropdown-divider"></div>
                                 <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'logout' %}"
@@ -89,10 +90,10 @@
         </nav>
     </header>
     <!-- Block where Forms will go -->
-    <main role="main" class="container dashboard" >
+    <main role="main" class="container dashboard" id="main" >
         <!-- <h1>{{ user.username }}--{{ profile.hostel_name }}</h1> -->
         <div class="container d-flex justify-content-center" id="holder" >
-            <div class="outer-box col">
+            <div class="outer-box col" id="reservation-box">
                 <div class="col reservation-col scrolling" id="reservation-col">
                     <div class="dashboard-header d-flex justify-content-center">
                         <div class="header-reserved">RESERVED</div>
@@ -132,8 +133,7 @@
                 
                     </div>
                 </div>
-            </div>
-            
+            </div>           
             <div class="col info-col" id="info-col">
                 <div class="control-panel-container item_grid d-flex justify-content-center" id="info-col-container">   
                     <!-- Control panel -->                    
@@ -144,7 +144,7 @@
                                 <!-- <i class="fas fa-dollar-sign col"></i> -->
                                 <!-- <div class= "col">$</div> -->
                                 <div class="price-text col" id="price-text" data-price='{{ roomdetails.price }}'>{{ roomdetails.currency.symbol }}{{ roomdetails.price }}</div>
-                                <button type="button" class="btn fas fa-lock open-modal-change-price" value="&#xf023" data-toggle="modal" data-target="#exampleModal3">
+                                <button type="button" class="btn fas fa-lock open-modal-change-price" value="&#xf023" data-toggle="modal" data-target="#exampleModal3" href="#" action="#">
                                 </button>
                             </div>
                             <div class="price-display">PRICE</div>
@@ -162,28 +162,34 @@
                             </div>
                             <div class="avaliability-display" id="avaliability">Avaliable Beds</div>
                         </div>
-                        <div class="roomdetail-detail detail-button">
+                        <div class="divider">
+                            <hr>
+                        </div>
+
+                        <!-- <div class="roomdetail-detail detail-button">
                             <input type='button' value='-' class='qtyminus btn' field='occupied_beds' name='minus' />
                             <input type='hidden' name='occupied_beds' value="{{ roomdetails.occupied_beds }}" class='qty' />
                             <input type='button' value='+' class='qtyplus btn' field='occupied_beds' name='plus' />
-                        </div>                           
+                        </div>    -->
+                        
+                        
                         <div class="reservation-detail detail-occupied_beds occupied_beds-text" id="occupied_beds" name="occupied_beds" value="{{ roomdetails.occupied_beds }}">{{ roomdetails.occupied_beds }}
                             <div class="occupied_beds-display">Occupied Beds</div>
                         </div>
                     </form> 
                 </div>
             </div>
-            <div class="outer-box col">
+            <div class="outer-box col" id="confirmed-box">
                 <div class="col confirmed-col scrolling" id="confirmed-col">
                     <div class="dashboard-header d-flex justify-content-center">
-                        <div class="header-confirmed">CONFIRMED</div>
+                        <div class="header-confirmed">CHECKED-IN</div>
                     </div>
                     <div class="reservations_container item_grid flex-container">
                         {% for reservation in reservations %}
-                        {% if reservation.is_confirmed == True and reservation.is_checked_in == False %}
+                        {% if reservation.is_confirmed == True and reservation.is_checked_out == False %}
                         <!-- MAKE SURE DATA-TOGGLE IS CHILLIN -->
                         <button type="button" class="btn reservation-item open-modal-checkin" data-toggle="modal"
-                            data-target="#exampleModal2" data-customer="{{reservation.customer}}"
+                            data-target="#exampleModal2" data-customer="{{reservation.customer.first_name}}"
                             data-customerage="{{reservation.customer.age}}" data-isconfirmed="{{reservation.is_confirmed}}"
                             data-ischeckedin="{{reservation.is_checked_in}}" data-img="{{ reservation.customer.profile_picture.url }}"
                             data-resid="{{reservation.id}}" data-country="{{ reservation.customer.country.name }}"
@@ -197,7 +203,7 @@
                                 <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
                             </div>
                             <div class="reservation-content">
-                                <div class="reservation-customer">{{ reservation.customer }}
+                                <div class="reservation-customer">{{ reservation.customer.first_name }}
                                 </div>
                             </div>
                             <!-- </div> -->
@@ -246,31 +252,39 @@
                                 </div>
                                 <div class="gender-field"></div>
                             </div>
-                            <button type="button" class="more-btn btn">More</button>
+                            <div class="info-button-container">
+                                <button type="button" class="more-btn btn">More</button>
+                            </div>
+                            
                         </div>
                         <!-- PAGE 2 -->
                         <div class="form-group customer-info-02">
                             <div class="customer-info-header">
                                 Contact Information:
                             </div>
-                            <div class="info-02-text">Phone:</div>
-                            <div class="info-02-text-db phone-field"></div>
-                            <div class="info-02-text">Email:</div>
-                            <div class="info-02-text-db email-field"></div>
-                            <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
-                            <div class="info-02-text-db emergency-contact-container row">
-                                <div class="emergency-contact-name-field col"></div>
-                                <div class="emergency-contact-phone-field col"></div>
+                            <div class="flex-container contact-info-container">
+                                <div class="info-02-text">Phone:</div>
+                                <div class="info-02-text-db phone-field"></div>
+                                <div class="info-02-text">Email:</div>
+                                <div class="info-02-text-db email-field"></div>
+                                <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
+                                <div class="info-02-text-db emergency-contact-container row">
+                                    <div class="emergency-contact-name-field col"></div>
+                                    <div class="emergency-contact-phone-field col"></div>
+                                </div>
                             </div>
                             
-                            <button type="button" class="btn-dark back-btn btn">Back</button>
+                            <div class="contact-button-container">
+                                <button type="button" class="btn-dark back-btn btn">Back</button>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="modal-button-container col">
                             <input type="button" class="btn confirm-res fa fa-input fa-3x" value="&#xf00c" field='is_confirmed' name="confirm"
                                 id="confirm" />
-                            <div class="button-text">CONFIRM</div>
+                            <div class="button-text">CHECK-IN</div>
                         </div>
                         
                         <input type="hidden" name='is_confirmed' value='' class="is-confirmed2" />
@@ -299,7 +313,7 @@
                             <div class="name-field"></div>
                         </div>
                         <!-- PAGE 1 -->
-                        <div class="form-group col customer-info-01 ">
+                        <div class="form-group customer-info-01 ">
                             <div class="customer-info-header">
                                 Personal Information:
                             </div>
@@ -311,27 +325,35 @@
                                 </div>
                                 <div class="gender-field"></div>
                             </div>
-                            <button type="button" class="more-btn btn">More</button>
+                            <div class="info-button-container">
+                                <button type="button" class="more-btn btn">More</button>
+                            </div>
+                        
                         </div>
                         <!-- PAGE 2 -->
-                        <div class="form-group col customer-info-02">
+                        <div class="form-group customer-info-02">
                             <div class="customer-info-header">
                                 Contact Information:
                             </div>
-                            <div class="info-02-text">Phone:</div>
-                            <div class="info-02-text-db phone-field"></div>
-                            <div class="info-02-text">Email:</div>
-                            <div class="info-02-text-db email-field"></div>
-                            <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
-                            <div class="info-02-text-db emergency-contact-container row">
-                                <div class="emergency-contact-name-field col"></div>
-                                <div class="emergency-contact-phone-field col"></div>
+                            <div class="flex-container contact-info-container">
+                                <div class="info-02-text">Phone:</div>
+                                <div class="info-02-text-db phone-field"></div>
+                                <div class="info-02-text">Email:</div>
+                                <div class="info-02-text-db email-field"></div>
+                                <div class="info-02-text emergency-contact-container ">Emergency Contact:</div>
+                                <div class="info-02-text-db emergency-contact-container row">
+                                    <div class="emergency-contact-name-field col"></div>
+                                    <div class="emergency-contact-phone-field col"></div>
+                                </div>
                             </div>
                         
-                            <button type="button" class="btn-dark back-btn btn">Back</button>
+                            <div class="contact-button-container">
+                                <button type="button" class="btn-dark back-btn btn">Back</button>
+                            </div>
+                        
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <div class="modal_button container col">
                             <input type="button" class="btn checkin-res fa fa-input fa-3x" value="&#xf00c" field='is_confirmed' name="checkin"
                                 id="checkin" />
@@ -339,16 +361,17 @@
                         </div>
                         
                         <input type="hidden" name='is_checked_in' value='' class="is-checkedin2" />
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
     </div>
 
     <div class="modal fade price-change-modal" id="exampleModal3" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" action="" aria-hidden="true">
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                
                 <!-- <div class="modal-header">
                     </div> -->
                 <!-- PASSWORD INPUT FORM -->
@@ -358,13 +381,21 @@
                         <div class="modal-instruction">Please Enter PIN to Change Price.</div>
                         <div class="password-input-row">
                             <div class="display-text-password">PIN:</div>
-                            <input type="password" name="price_password" placeholder="" id="price-password-input" class="form-control input-password"
+                            <input type="password" name="check-password" placeholder="" id="price-password-input" class="form-control input-password"
                                 data-password="{{ roomdetails.price_password }}">
                         </div>
                     </div>
+                    <div id="password-div" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div">false</div>
+                        {% endif %}
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <input class="btn btn-primary check-password-btn" type="button" value="Enter">
+                        <!-- <input class="btn btn-primary check-password-btn" type="button" value="Enter"> -->
+                        <button type="button" class=" btn btn-primary check-password-btn" id="next-btn">Enter</button>
                     </div>
                 </form>
                 <!-- PRICE INPUT FORM -->
@@ -388,7 +419,7 @@
     </div>
 
     <div class="modal fade total-beds-change-modal" id="exampleModal4" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" action="" aria-hidden="true">
+        aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header">
@@ -401,14 +432,22 @@
                         <div class="modal-instruction">Please Enter PIN to Change Total Co-ed Beds.</div>
                         <div class="password-input-row">
                             <div class="display-text-password">PIN:</div>
-                            <input type="password" name="total_beds_password" placeholder=""
+                            <input type="password" name="check-password" placeholder=""
                                 class="form-control total-beds-input-password"
-                                data-password="{{ roomdetails.total_beds_password }}">
+                                data-password="{{ roomdetails.total_beds_password }}" id="bed-password-input">
                         </div>
+                    </div>
+                    <div id="password-div2" style="display: none;">
+                        {% if password_check == True %}
+                        <div class="check-div">true</div>
+                        {% elif password_check == False %}
+                        <div class="check-div">false {{ password_check }}{{ master_pass }}</div>
+                        {% endif %}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <input class="btn btn-primary check-password-btn" type="button" value="Enter">
+                        <!-- <input class="btn btn-primary check-password-btn" type="button" value="Enter"> -->
+                        <button type="button" class=" btn btn-primary check-password-btn" id="next-btn2">Enter</button>
                     </div>
                 </form>
                 <!-- TOTAL COED-BEDS INPUT FORM -->
@@ -443,7 +482,9 @@
                         <i class="fas fa-search input-icon"></i>
                         <input type='text' placeholder='Client Name' class='search-name' id="search-name-field" />
                     </div>
-                    <input type='button' value="{% now 'jS F Y' %}" class='datepicker-modal dp-button header-date' id="datepicker-modal" action="" />
+                    <!-- <input type='button' value="{% now 'jS F Y' %}" class='datepicker-modal dp-button header-date' id="datepicker-modal" action="" /> -->
+                    <input type='text' readonly value="{% now 'jS F Y' %}" class='datepicker dp-button header-date' id="datepicker-modal" action=""
+                        placeholder="{% now 'jS F Y' %}" style="min-height: 10px; cursor: pointer;"/>
 
                     <!-- <div class="navigation-date header-date col-12">
                         {% timezone "America/Los_Angeles" %}
@@ -457,10 +498,10 @@
                 </div>
                     <div class="modal-body scrolling" id="history-container">
                         {% for reservation in reservations %}
-                        {% if reservation.is_history == True %}
+                        {% if reservation.is_checked_out == True %}
                         <!--  old Reservations -->
                         <!-- NOTE: maybe something will go wrong if they take too long to check in the reservation since the date is from when the reservation was created and not checked in since its same day, it should work fine -->
-                        <div class="history-item" data-date="{{ reservation.created }}" data-date2="{{ reservation.modified }}" id="history-item-{{ forloop.counter }}"> 
+                        <!-- <div class="history-item" data-date="{{ reservation.created }}" data-date2="{{ reservation.modified }}" id="history-item-{{ forloop.counter }}"> 
                             <div class="reservation-image">
                                 <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
                             </div>
@@ -468,7 +509,29 @@
                                 <div class="reservation-customer" id="reservation-id-{{ forloop.counter }}">{{ reservation.customer.first_name }}
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+
+                        <button type="button" class="btn history-item open-modal-checkin" data-date="{{ reservation.created }}" 
+                            data-date2="{{ reservation.modified }}" id="history-item-{{ forloop.counter }}" data-toggle="modal" data-target="#exampleModal2"
+                            data-customer="{{reservation.customer.first_name}}" data-customerage="{{reservation.customer.age}}"
+                            data-isconfirmed="{{reservation.is_confirmed}}" data-ischeckedin="{{reservation.is_checked_in}}"
+                            data-img="{{ reservation.customer.profile_picture.url }}" data-resid="{{reservation.id}}"
+                            data-country="{{ reservation.customer.country.name }}" data-countryflag="{{ reservation.customer.country.flag }}"
+                            data-gender="{{ reservation.customer.sex}}" data-email="{{ reservation.customer.user.email }}"
+                            data-phone="{{ reservation.customer.phone}}" data-contactname="{{ reservation.customer.emergency_contact_name }}"
+                            data-contactphone="{{ reservation.customer.emergency_contact_name }}">
+                            <!-- Confirmed Reservations -->
+                            <!-- <div class="reservation-item"> -->
+                            <div class="reservation-image">
+                                <img src="{{ reservation.customer.profile_picture.url }}" alt="" class='image'>
+                            </div>
+                            <div class="reservation-content">
+                                <div class="reservation-customer">{{ reservation.customer.first_name }}
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </button>
                         {% endif %}
                         {% endfor %}
                     </div>
@@ -560,7 +623,7 @@
     </div>
 
     <div class='container fixed-title-bottom'>
-        <a class="footer-title">Hostel <b>Portal</b></a>
+        <a class="footer-title">Hostel <span class="header-bold">PORTAL</span></a>
     </div>
 
     <!-- Optional JavaScript -->
@@ -585,6 +648,7 @@
     integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script> -->
     <script type="text/javascript" src="{% static 'users/datepicker-1.0.9/dist/datepicker.min.js' %}"></script>
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <!-- <script type="text/javascript" src="{% static 'users/moment-develop/dist/moment.js' %}"></script> -->
 
 
 </body>

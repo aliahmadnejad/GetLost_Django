@@ -1,30 +1,82 @@
 {% extends "users/register_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load tz %}
+{% load i18n %}
+{% load currency %}
+{% block title %}
+<a class="nav-item header-title">New <span class="header-bold">ACCOUNT</span></a>
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/register/profile_register2.css' %}">
+<!-- Flag Sprite CSS -->
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+{% endblock css %}
 {% block content %}
-
-<div class="container message">
-    <h2>Welcome to GetLOST!</h2>
-    <h4>Thank you for setting up your account at GetLOST!’s Hostel Portal. We hope to bring you new and exciting travelers from
-    all over the glob our mission is to make it easier for travelers to find you and make it easier for you to manage your
-    guests.</h4>
-    <h4>You are almost done… all you need now is to set up your Stripe account.</h4>
-    <h6>-You must complete your account with STRIPE to receive payments.</h6>
-    <div class="d-flex justify-content-center mt-3 login_container">
-        <div class="col exit-btn3">
-            <a class="nav-item nav-link icon" href="{% url 'hostelportal' %}"><i class="fas fa-dot-circle fa-2x"></i></a>
-            <p>Skip to Dashboard</p>
+<main role="main" class="main-container">
+    <form method="POST" action="" class="user_card d-flex justify-content-center" id="body">
+        {% csrf_token %}
+        <h6>Language</h6>
+        <div class="input-group mb-1">
+            <!-- <input type="text" name="language" placeholder="" class="form-control register-form"> -->
+            <!-- <input name="next" type="hidden" value="{{ redirect_to }}" class="form-control register-form"> -->
+            <select name="language" id="language-input" class="input-field">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="col next-btn3">
-            <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a">
-            <p>Continue to Strip</p>
+        <h6>Currency - Current: {{ roomdetails.currency.name }}</h6>
+        <div class="input-group mb-1">
+            <!-- <input type="text" name="balance" placeholder=""
+                                        class="form-control register-form"> -->
+            <select name="currency" selected="{{ curr.code }}" id="currency-input" class="input-field">
+                <!-- change the h6 into an input thats disabled showing a placeholder of the currency -->
+                <option selected disabled hidden>Select a Currency</option>
+                {% for curr in CURRENCIES %}
+                <option value="{{ curr.code }}" {% ifequal curr.name roomdetails.currency.name %} selected {% endifequal %} {% ifequal curr.code currency.code %}selected="selected" {% endifequal %}>
+                    {{ curr.symbol }} {{ curr.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <!-- <noscript>
+                                        <input type="submit" value="Set" />
+                                    </noscript> -->
         </div>
-    </div>
-</div>
+        <h6>VAT (Value Added Tax) or Sales Tax</h6>
+        <div class="input-group mb-1">
+            <input type="text" name="VAT" placeholder="{{ roomdetails.VAT }} %" data-vat="{{ roomdetails.VAT }}"
+                class="form-control register-form lang-currency-form-input input-field" id="vat-input">
+        </div>
+        <p>
+            {% for field in form %}
+            {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div style="color: red">
+            <p>{{form.non_field_errors}}</p>
+        </div>
+        {% endif %}
+        </p>
+        <div class="d-flex login_container">
+            <div class="col exit-btn">
+                <a class="btn nav-item nav-link icon" href="{% url 'logout' %}"><i
+                        class="fas fa-times-circle fa-2x"></i></a>
+            </div>
+            <div class="col next-btn">
+                <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a">
+            </div>
+        </div>
 
+    </form>
 
-
+</main>
 
 {% endblock content%}
-
-
-
-

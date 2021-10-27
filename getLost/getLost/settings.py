@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "django_apscheduler",
+    'django_crontab',
     'rest_framework',
     # 'admin_reorder',
     'rest_framework.authtoken',
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django_countries',
 
     'bootstrap4',
+    # 'users',
     'users.apps.UsersConfig',
     'webApp.apps.WebappConfig', # added this so that webApp.views could connect to html
     'apis.apps.ApisConfig',
@@ -115,16 +118,43 @@ WSGI_APPLICATION = 'getLost.wsgi.application'
 #         'PORT': '5432',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'user_db2',
-        'USER': 'dev',
-        'PASSWORD': 'F:}Y(k#a49!N',
-        'HOST': '35.235.115.47',
-        'PORT': '5432',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'user_db2',
+#         'USER': 'dev',
+#         'PASSWORD': 'F:}Y(k#a49!N',
+#         'HOST': '35.235.115.47',
+#         'PORT': '5432',
+#     }
+# }
+
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': '/cloudsql/getlost-245519:us-west2:getlost',
+            'USER': 'dev',
+            'PASSWORD': 'F:}Y(k#a49!N',
+            'NAME': 'user_db2',
+        }
     }
-}
+else:
+    # Running locally so connect to either a local MySQL instance or connect
+    # to Cloud SQL via the proxy.  To start the proxy via command line:
+    #    $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': '35.235.115.47',
+            'USER': 'dev',
+            'PASSWORD': 'F:}Y(k#a49!N',
+            'NAME': 'user_db2',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -159,6 +189,35 @@ REST_FRAMEWORK = {
     ],
 }
 
+# SCHEDULER_CONFIG = {
+#     "apscheduler.jobstores.default": {
+#         "class": "django_apscheduler.jobstores:DjangoJobStore"
+#     },
+#     'apscheduler.executors.processpool': {
+#         "type": "threadpool"
+#     },
+# }
+# # Format string for displaying run time timestamps in the Django admin site. The default
+# # just adds seconds to the standard Django format, which is useful for displaying the timestamps
+# # for jobs that are scheduled to run on intervals of less than one minute.
+# #
+# # See https://docs.djangoproject.com/en/dev/ref/settings/#datetime-format for format string
+# # syntax details.
+# APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# # Maximum run time allowed for jobs that are triggered manually via the Django admin site, which
+# # prevents admin site HTTP requests from timing out.
+# #
+# # Longer running jobs should probably be handed over to a background task processing library
+# # that supports multiple background worker processes instead (e.g. Dramatiq, Celery, Django-RQ,
+# # etc. See: https://djangopackages.org/grids/g/workers-queues-tasks/ for popular options).
+# APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+CRONJOBS = [
+    ('*/1 * * * *', 'users.cron.is_reservation_expired', '>>' + os.path.join(BASE_DIR, 'users/cron_log.log')),
+    ('*/1 * * * *', 'users.cron.check_out', '>>' + os.path.join(BASE_DIR, 'users/cron_log.log')),
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -172,6 +231,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# DATE_FORMAT = 'YYYY-MM-DD'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

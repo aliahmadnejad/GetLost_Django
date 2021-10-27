@@ -24,11 +24,45 @@ body {
     outline:none;
     box-shadow: none !important;
 }
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+    box-shadow: none;
+ -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+input:focus::placeholder {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+
 /* --------------------------------------------------- */
 /* DROPDOWN '?' */
 /* --------------------------------------------------- */
+.dropdown-menu {
+    padding-top: 20px;
+    margin-top: 10px;
+    padding-left: 25px;
+    right: -30px;
+    left: -250px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+}
 .dropdown-menu a {
     white-space:normal;
+}
+.dropdown ul li {
+    padding: 0px;
+    text-decoration: none;
+    font-size: 14px;
 }
 .dropdown-menu > li{
     position:relative;
@@ -41,51 +75,15 @@ body {
 .dropdown-toggle::after {
     display:none;
 }
-/* --------------------------------------------------- */
-/* FIXED HEADER - NAVAGATION BAR */
-/* --------------------------------------------------- */
-.container-header {
+.dropdown ul li a {
+    display: inline-block;     
+    /* position: relative;    
+    z-index: 1;     
+    padding: 2em;     
+    margin: -2em;  */
     width: 100%;
-    max-width: 100%;
-}
-.navbar-nav {
-    margin-left: auto;
-    margin-right: 5rem;
-    margin-top: 2vh;
-}
-.site-header .navbar-nav .nav-link{
-    color: #909090;
-    margin-top: 6px;
-}
-.site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
-}
-.site-header .navbar-nav .nav-link:focus {
-    color: #ffffff;
-}
-.site-header .navbar-nav .header-title {
-    font-size: 38px;
-    /* margin-top: 20px; */
-    margin-right: 100px;
-    font-weight: 500;
-    color: #90909097;
-}
-.site-header .navbar-nav .header-title:hover {
-    color: #90909097;
-}
-.dropdown-menu {
-    padding-top: 20px;
-    margin-top: 10px;
-    padding-left: 25px;
-    right: -80px;
-    left: -250px;
-    padding-right: 25px;
-    padding-bottom: 10px;
-}
-.dropdown ul li {
+    height: 100%;
     padding: 10px;
-    text-decoration: none;
-    font-size: 14px;
 }
 .dropdown ul li:nth-child(2) {
     text-align: center;
@@ -97,7 +95,7 @@ body {
 }
 .dropdown-menu-arrow {
     top: -38px;
-    left: 76%;
+    left: 90%;
     width: 0;
     height: 0;
     position: relative;
@@ -124,12 +122,95 @@ body {
     right: -8px;
     border-bottom-color: rgba(0,0,0,.15);
 }
+
+
+
+/* --------------------------------------------------- */
+/* FIXED HEADER - NAVAGATION BAR */
+/* --------------------------------------------------- */
+.container-header {
+    width: 100%;
+    max-width: 100%;
+}
+.navbar {
+    padding-bottom: 30px;
+}
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 2rem;
+    /* margin-top: 2vh; */
+}
+.site-header .navbar-nav .nav-link{
+    color: #909090;
+    margin-top: 6px;
+}
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+.site-header .navbar-nav .nav-link:focus {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .home-icon {
+    margin-top: 3px;
+    height: 23px;
+    width: 23px;
+    color: #0C436C;
+    padding: 1px 1px 1px 1px;
+    /* border: 2px solid red; */
+}
+div.circletag {
+    margin-top: 14.3px;
+    display: block;
+    width: 31px;
+    height: 31px;
+    background: #909090;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+div.circletag a {
+    
+    /* padding-top: 5px; */
+    /* border: 1px solid green; */
+    align-self: center;
+}
+div.circletag>img {
+   max-height: 100%;
+   max-width: 100%;
+   padding: 1px;
+}
+div.circletag:hover {
+    background: #ffffff;
+}
+div.circletag:focus {
+    background: #ffffff;
+}
+.site-header .navbar-nav .header-title {
+    font-size: 32px;
+    margin-right: 6vw; /*7vw*/
+    margin-top: 4px;
+    font-weight: 100;
+    color: #90909097;
+    font-family: "Arial Rounded MT bold";
+}
+.site-header .navbar-nav .header-title .header-bold {
+    font-weight: 900;
+    font-size: 35px;
+}
+.site-header .navbar-nav .header-title:hover {
+    color: #90909097;
+}
 .site-header a {
     color: #909090;
 }
 .site-header a:hover {
     color: #0C436C;
 }
+
 /* --------------------------------------------------- */
 /* END OF HEADER */
 /* --------------------------------------------------- */

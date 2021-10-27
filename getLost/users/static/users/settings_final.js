@@ -11,6 +11,8 @@ function publicInfoPage() {
     $('.private-info-message').css("display", "none");
     $('.password-message').css("display", "none");
     $('.lang-currency-message').css("display", "none");
+
+    $('.public-info-container').css("background-color", "#90909044");
 }
 function privateInfoPage() {
     privateInfoReset();
@@ -23,6 +25,8 @@ function privateInfoPage() {
     $('.private-info-message').css("display", "block");
     $('.password-message').css("display", "none");
     $('.lang-currency-message').css("display", "none");
+
+    $('.private-contact-container').css("background-color", "#90909044");
 }
 function passwordPage() {
     passwordReset();
@@ -35,6 +39,8 @@ function passwordPage() {
     $('.private-info-message').css("display", "none");
     $('.password-message').css("display", "block");
     $('.lang-currency-message').css("display", "none");
+
+    $('.id-pin-container').css("background-color", "#90909044");
 }
 function langCurrencyPage() {
     langCurrencyReset();
@@ -48,7 +54,7 @@ function langCurrencyPage() {
     $('.password-message').css("display", "none");
     $('.lang-currency-message').css("display", "block");
     
-    
+    $('.lang-currency-container').css("background-color", "#90909044");
 }
 function languageCurrencyPage() {
     $('#public-info').css("display", "none");
@@ -68,6 +74,10 @@ function publicInfoReset() {
     $("#zip-code").prop("disabled", true);
     $("#city-state").prop("disabled", true);
     $("#country").prop("disabled", true);
+
+    $('.private-contact-container').css("background-color", "#ffffff");
+    $('.id-pin-container').css("background-color", "#ffffff");
+    $('.lang-currency-container').css("background-color", "#ffffff");
 }
 function publicInfoShow() {
     $('#public-cancel-btn').css("display", "block");
@@ -103,6 +113,10 @@ function privateInfoReset() {
     $("#second-manager-name").prop("disabled", true);
     $("#second-manager-phone").prop("disabled", true);
     $("#second-manager-email").prop("disabled", true);
+
+    $('.public-info-container').css("background-color", "#ffffff");
+    $('.id-pin-container').css("background-color", "#ffffff");
+    $('.lang-currency-container').css("background-color", "#ffffff");
 }
 function privateInfoShow() {
     $('#private-cancel-btn').css("display", "block");
@@ -133,6 +147,10 @@ function passwordReset() {
     $('#pin-and-password-modal').css("display", "block");
     $("#master-password").prop("disabled", true);
     $("#employee-password").prop("disabled", true);
+
+    $('.public-info-container').css("background-color", "#ffffff");
+    $('.private-contact-container').css("background-color", "#ffffff");
+    $('.lang-currency-container').css("background-color", "#ffffff");
 }
 function passwordShow() {
     $('#pin-password-cancel-btn').css("display", "block");
@@ -149,6 +167,10 @@ function langCurrencyReset() {
     $("#language-input").prop("disabled", true);
     $("#currency-input").prop("disabled", true);
     $("#vat-input").prop("disabled", true);
+
+    $('.public-info-container').css("background-color", "#ffffff");
+    $('.private-contact-container').css("background-color", "#ffffff");
+    $('.id-pin-container').css("background-color", "#ffffff");
 }
 function langCurrencyShow() {
     $('#lang-currency-cancel-btn').css("display", "block");
@@ -212,10 +234,22 @@ jQuery(document).ready(function () {
         // utilsScript: "intl-tel-input-master/build/js/utils.js",
     });
     
-
+    $('#public-modal').on('shown.bs.modal', function () {
+        $('#password-input').focus();
+        // $(this).find('[autofocus]').focus();
+        $("#password-input").keypress(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#next-btn").click();
+            }
+        });
+    })
+    
     // Open Public Info Modal
     $('#public-info-modal').on('click', function (e) {
+        // $("#password-input").trigger('focus');
         e.preventDefault();
+        
         // $('#public-modal').modal('show');
         // Check Password Input 
         $('#next-btn').on('click', function (e) {
@@ -227,10 +261,10 @@ jQuery(document).ready(function () {
                 data: publicInfoForm.serialize(),
                 success: function (data) {
                     console.log("it got here");
-                    // console.log($(data).find("#password-div").html());
-                    // console.log($(data).find(".check-div").html());
-                    // console.log(this.data);
-                    // console.log(publicInfoForm.html());
+                    console.log($(data).find("#password-div").html());
+                    console.log($(data).find(".check-div").html());
+                    console.log(this.data);
+                    console.log(publicInfoForm.html());
                     if ($(data).find(".check-div").html() == 'true') {
                         console.log("it is TRUE and we did it bro");
                         publicInfoShow();
@@ -239,6 +273,10 @@ jQuery(document).ready(function () {
                     }
                     else {
                         console.log("it is FALSE and we still did it");
+                        $('#password-input').addClass('animated shake');
+                        $('#password-input').val('');
+                        $('#password-input').focus();
+                        
                     }
                 },
                 error: function (data) {
@@ -246,6 +284,7 @@ jQuery(document).ready(function () {
                     console.log(publicInfoForm.serialize());
                 },
             });
+            $('#password-input').removeClass('animated shake');
             return false;
         });
     });    
@@ -312,7 +351,17 @@ jQuery(document).ready(function () {
             });
         });
     });
-    // Open Public Info Modal
+    $('#private-modal').on('shown.bs.modal', function () {
+        $('#password-input2').focus();
+        // $(this).find('[autofocus]').focus();
+        $("#password-input2").keypress(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#next-btn2").click();
+            }
+        });
+    })
+    // Open Private Info Modal
     $('#private-info-modal').on('click', function (e) {
         e.preventDefault();
 
@@ -333,6 +382,9 @@ jQuery(document).ready(function () {
                     }
                     else {
                         console.log("it is FALSE and we still did it");
+                        $('#password-input2').addClass('animated shake');
+                        $('#password-input2').val('');
+                        $('#password-input2').focus();
                     }
                 },
                 error: function (data) {
@@ -340,10 +392,12 @@ jQuery(document).ready(function () {
                     console.log(privateInfoForm.serialize());
                 },
             });
+            $('#password-input2').removeClass('animated shake');
             return false;
         });
     });
-    // When Public Info Modal Closes
+    
+    // When Private Info Modal Closes
     $('#private-modal').on('hidden.bs.modal', function () {
         console.log("CLOSE MODAL");
         $("#PrivateInfoForm")[0].reset();
@@ -353,7 +407,7 @@ jQuery(document).ready(function () {
         e.preventDefault();
         privateInfoReset();
     });
-    // Update Public Info Settings Button Pressed
+    // Update Private Info Settings Button Pressed
     $('#private-update-btn').on('click', function (e) {
         // e.preventDefault();
 
@@ -378,7 +432,17 @@ jQuery(document).ready(function () {
             });
         });
     });
-    // Open Public Info Modal
+    $('#pin-password-modal').on('shown.bs.modal', function () {
+        $('#password-input3').focus();
+        // $(this).find('[autofocus]').focus();
+        $("#password-input3").keypress(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#next-btn3").click();
+            }
+        });
+    })
+    // Open Pin and Password Info Modal
     $('#pin-and-password-modal').on('click', function (e) {
         e.preventDefault();
 
@@ -399,6 +463,9 @@ jQuery(document).ready(function () {
                     }
                     else {
                         console.log("it is FALSE and we still did it");
+                        $('#password-input3').addClass('animated shake');
+                        $('#password-input3').val('');
+                        $('#password-input3').focus();
                     }
                 },
                 error: function (data) {
@@ -406,10 +473,11 @@ jQuery(document).ready(function () {
                     console.log(pinPasswordForm.serialize());
                 },
             });
+            $('#password-input3').removeClass('animated shake');
             return false;
         });
     });
-    // When Public Info Modal Closes
+    // When Pin and Password Info Modal Closes
     $('#pin-password-modal').on('hidden.bs.modal', function () {
         console.log("CLOSE MODAL");
         $("#PinPasswordForm")[0].reset();
@@ -419,7 +487,7 @@ jQuery(document).ready(function () {
         e.preventDefault();
         passwordReset();
     });
-    // Update Public Info Settings Button Pressed
+    // Update Pin and Password Info Settings Button Pressed
     $('#pin-password-update-btn').on('click', function (e) {
         // e.preventDefault();
         $("#password-form .password-form-input").filter(function (index, element) {
@@ -455,9 +523,18 @@ jQuery(document).ready(function () {
         });
     });
 
+    $('#language-currency-modal').on('shown.bs.modal', function () {
+        $('#password-input4').focus();
+        // $(this).find('[autofocus]').focus();
+        $("#password-input4").keypress(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#next-btn4").click();
+            }
+        });
+    })
 
-
-    // Open Public Info Modal
+    // Open Language and Currency Info Modal
     $('#lang-and-currency-modal').on('click', function (e) {
         e.preventDefault();
 
@@ -478,6 +555,9 @@ jQuery(document).ready(function () {
                     }
                     else {
                         console.log("it is FALSE and we still did it");
+                        $('#password-input4').addClass('animated shake');
+                        $('#password-input4').val('');
+                        $('#password-input4').focus();
                     }
                 },
                 error: function (data) {
@@ -485,10 +565,11 @@ jQuery(document).ready(function () {
                     console.log(currencyForm.serialize());
                 },
             });
+            $('#password-input4').removeClass('animated shake');
             return false;
         });
     });
-    // When Public Info Modal Closes
+    // When Language and Currency Info Modal Closes
     $('#language-currency-modal').on('hidden.bs.modal', function () {
         console.log("CLOSE MODAL");
         $("#LangCurrencyForm")[0].reset();
@@ -500,7 +581,7 @@ jQuery(document).ready(function () {
     });
 
 
-    // Update Public Info Settings Button Pressed
+    // Update Language and Currency Info Settings Button Pressed
     $('#lang-currency-update-btn').on('click', function (e) {
         // e.preventDefault();
         console.log("we here");

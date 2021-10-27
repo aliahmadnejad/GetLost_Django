@@ -33,19 +33,19 @@
 <body>
     <!--Navigation Bar-->
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <nav class="navbar navbar-expand navbar-dark bg-steel fixed-top">
             <div class="container container-header">
-                <div class='container fixed fixed-header'>
-                    <a class="nav-item footer-title">Hostel Portal</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                <!-- <div class='container fixed fixed-header'>
+                    <a class="nav-item footer-title">Hostel Portalll</a>
+                </div> -->
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-                        <a class="nav-item header-title">Account SETTINGS</a>
+                        <a class="nav-item header-title text-nowrap">Account <span class="header-bold">SETTINGS</span></a>
                         {% if '/hostleportal/' not in request.path %}
                         <a class="nav-item nav-link icon stripe-icon" href="">
                             <i class="fab fa-stripe-s"></i><b class="caret"></b></a>
@@ -57,20 +57,23 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <span class="dropdown-menu-arrow"></span>
                                 <!-- <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">Tutorial</a></li>     -->
-                                <li>
+                                <!-- <li>
                                     <button type="button" class="btn tutorial-modal-btn" data-toggle="modal"
                                         data-target="#exampleModal6">
                                         <i class="icon-arrow-up"></i><a href="#"
                                             style="text-decoration: none;">Tutorial</a>
                                     </button>
-                                </li>
-                                <div class="dropdown-divider"></div>
+                                </li> -->
+                                <!-- <div class="dropdown-divider"></div> -->
                                 <li><i class="icon-arrow-down dropdown-option"></i><a
                                         href="{% url 'index' %}"
                                         style="text-decoration: none;">Dashboard</a></li>
                                 <div class="dropdown-divider"></div>
                                 <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
                                         style="text-decoration: none;">Contact Us</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'logout' %}" style="text-decoration: none;">Sign
+                                        Out</a></li>
                             </ul>
                         </li>
                     </div>
@@ -78,25 +81,25 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="container settings">
         <div class="settings-menu">
             <ul>
-                <li class="list-option ">
+                <li class="list-option public-info-container ">
                     <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text public-info-btn">Public Info</a> -->
                     <button type="button" class="btn option-text public-info-btn"><i
                             class="fas fa-info-circle option-icon"></i>Public Info</button>
                 </li>
-                <li class="list-option">
+                <li class="list-option private-contact-container">
                     <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text private-contact-info-btn">Private Contact Info</a> -->
                     <button type="button" class="btn option-text private-contact-info-btn"><i
                             class="fas fa-info-circle option-icon"></i>Private Contact Info</button>
                 </li>
-                <li class="list-option ">
+                <li class="list-option id-pin-container">
                     <!-- <i class="fas fa-info-circle option-icon "></i><a href="" class="option-text id-and-pin-btn">ID and PIN</a> -->
                     <button type="button" class="btn option-text id-and-pin-btn"><i
                             class="fas fa-info-circle option-icon"></i>ID and PIN</button>
                 </li>
-                <li class="list-option">
+                <li class="list-option lang-currency-container">
                     <!-- <i class="fas fa-info-circle option-icon"></i><a href="" class="option-text language-currency-btn">Language and Currency</a> -->
                     <button type="button" class="btn option-text language-currency-btn"><i
                             class="fas fa-info-circle option-icon"></i>Language and Currency</button>
@@ -104,108 +107,142 @@
             </ul>
         </div>
         <div class="option-container h-100 public-info" id="public-info">
-            <div class="d-flex justify-content-center h-100">
-                <div class="user_card">
-                    <div class="d-flex justify-content-center">
-                    </div>
-                    <div class="d-flex justify-content-center form_container">
-                        <!-- ONE OF THE FORMS -->
-                        <form method="POST" action="" id="public-info-form" class="settings-forms">
-                            {% csrf_token %}
-                            <h6>Hostle Name</h6>
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
-                                    class="form-control register-form public-info-form-input" id="hostle-name">
+            <div class="d-flex justify-content-center h-100" >
+                <!-- <div class="user_card" style="border: 2px solid red;"> -->
+                    <!-- <div class="d-flex justify-content-center">
+                    </div> -->
+                <div class="d-flex justify-content-center form_container">
+                    <!-- ONE OF THE FORMS -->
+                    <form method="POST" action="" id="public-info-form" class="settings-forms">
+                        {% csrf_token %}
+                        <h6>Hostle Name</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
                             </div>
-                            <h6>Email</h6>
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="email" placeholder="{{ profile.user.email }}"
-                                    class="form-control register-form email public-info-form-input">
-                            </div>
-                            <h6>Phone Number</h6>
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <!-- <input type="text" name="phone" placeholder="{{ profile.phone }}"
-                                    class="form-control register-form phone public-info-form-input" id="phone"> -->
-                                <input type="tel" name="phone" data-placeholder="{{ profile.phone }}" placeholder="{{ profile.phone }}"
-                                    class="form-control register-form phone public-info-form-input" id="phone" autocomplete="true">
-                            </div>
-                            <h6>Address</h6>
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="address" placeholder="{{ profile.address }}"
-                                    class="form-control register-form address public-info-form-input">
-                            </div>
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="zip_code" placeholder="{{ profile.zip_code }}"
-                                    class="form-control register-form public-info-form-input" id="zip-code">
-                            </div>
-
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="city_state" placeholder="{{ profile.city_state }}"
-                                    class="form-control register-form public-info-form-input" id="city-state">
-                            </div>
-
-                            <!-- <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                <input type="text" name="country" placeholder="{{ profile.country }}"
-                                    class="form-control register-form public-info-form-input" id="country">
-                            </div> -->
-                            <div class="input-group mb-1">
-                                <div class="input-group-append">
-                                </div>
-                                {% load countries %}
-                                {% get_countries as countries %}
-                                <select name="country" placeholder="{{ profile.country }}" class="form-control register-form public-info-form-input"
-                                    id="country">
-                                    {% for country in countries %}
-                                    <option value="{{ country.code }}" {% ifequal country.name profile.country.name %} selected {% endifequal %} 
-                                        {% ifequal country.code profile.country.code %} selected="selected" {% endifequal %}>
-                                        {{ country.name }} 
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            
-                            
-                            <p>
-                                {% for field in form %}
-                                {% for error in field.errors %}
-                            <p style="color: red">{{ error }}</p>
-                            {% endfor %}
-                            {% endfor %}
-                            {% if form.non_field_errors %}
-                            <div style="color: red">
-                                <p>{{form.non_field_errors}}</p>
-                            </div>
+                            {% if profile.hostel_name == None %}
+                            <input type="text" name="hostel_name" placeholder="Hostel Name"
+                                class="form-control register-form public-info-form-input" id="hostle-name">
+                            {% else %}
+                            <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
+                                class="form-control register-form public-info-form-input" id="hostle-name">
                             {% endif %}
-                            </p>
-                            <div class="mt-4">
-                                <div class="d-flex justify-content-center edit-option-btn">
-                                    <!-- <a href="" class="ml-2">Edit</a> -->
-                                    <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#public-modal"
-                                        id='public-info-modal' href="#" action="#">Edit</button>
-                                </div>
-                                <div class="d-flex justify-content-center other-option-btns" id="public-option-btns">
-                                    <a href="" class="ml-2 cancel-button" id="public-cancel-btn">Cancel</a>
-                                    <!-- <input class="btn" type="submit" value="Update Information" id="public-info-submit"> -->
-                                    <button class="testing-btn btn btn-dark update-button" id="public-update-btn">Update Info</button>
-                                </div>
+                            
+                        </div>
+                        <h6>Email</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
                             </div>
-                        </form>
-                    </div>
+                            {% if profile.user.email == None %}
+                            <input type="text" name="email" placeholder="Email"
+                                class="form-control register-form email public-info-form-input">
+                            {% else %}
+                            <input type="text" name="email" placeholder="{{ profile.user.email }}"
+                                class="form-control register-form email public-info-form-input">
+                            {% endif %}
+                        </div>
+                        <h6>Phone Number</h6>
+                        <div class="input-group mb-1"  >
+                            <!-- <div class="input-group-append">
+                            </div> -->
+                            <!-- <input type="text" name="phone" placeholder="{{ profile.phone }}"
+                                class="form-control register-form phone public-info-form-input" id="phone"> -->
+                            {% if profile.phone == None %}
+                            <input type="tel" name="phone" data-placeholder="Phone Number" placeholder="{{ profile.phone }}"
+                                class="form-control register-form phone public-info-form-input" id="phone" autocomplete="true">
+                            {% else %}
+                            <input type="tel" name="phone" data-placeholder="{{ profile.phone }}" placeholder="{{ profile.phone }}"
+                                class="form-control register-form phone public-info-form-input" id="phone" autocomplete="true">
+                            {% endif %}
+                            
+                        </div>
+                        <h6>Address</h6>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            {% if profile.address == None %}
+                            <input type="text" name="address" placeholder="Address"
+                                class="form-control register-form address public-info-form-input">
+                            {% else %}
+                            <input type="text" name="address" placeholder="{{ profile.address }}"
+                                class="form-control register-form address public-info-form-input">
+                            {% endif %}
+                            
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            {% if profile.zip_code == None %}
+                            <input type="text" name="zip_code" placeholder="Zip/Postal Code"
+                                class="form-control register-form public-info-form-input" id="zip-code">
+                            {% else %}
+                            <input type="text" name="zip_code" placeholder="{{ profile.zip_code }}"
+                                class="form-control register-form public-info-form-input" id="zip-code">
+                            {% endif %}
+                            
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            {% if profile.city_state == None %}
+                            <input type="text" name="city_state" placeholder="City, State"
+                                class="form-control register-form public-info-form-input" id="city-state">
+                            {% else %}
+                            <input type="text" name="city_state" placeholder="{{ profile.city_state }}"
+                                class="form-control register-form public-info-form-input" id="city-state">
+                            {% endif %}
+                            
+                        </div>
+
+                        <!-- <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            <input type="text" name="country" placeholder="{{ profile.country }}"
+                                class="form-control register-form public-info-form-input" id="country">
+                        </div> -->
+                        <div class="input-group mb-1">
+                            <div class="input-group-append">
+                            </div>
+                            {% load countries %}
+                            {% get_countries as countries %}
+                            <select name="country" placeholder="{{ profile.country }}" class="form-control register-form public-info-form-input"
+                                id="country">
+                                {% for country in countries %}
+                                <option value="{{ country.code }}" {% ifequal country.name profile.country.name %} selected {% endifequal %} 
+                                    {% ifequal country.code profile.country.code %} selected="selected" {% endifequal %}>
+                                    {{ country.name }} 
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        
+                        <p>
+                            {% for field in form %}
+                            {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                        <div style="color: red">
+                            <p>{{form.non_field_errors}}</p>
+                        </div>
+                        {% endif %}
+                        </p>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-center edit-option-btn">
+                                <!-- <a href="" class="ml-2">Edit</a> -->
+                                <button class="ml-2 btn btn-dark" data-toggle="modal" data-target="#public-modal"
+                                    id='public-info-modal' href="#" action="#">Edit</button>
+                            </div>
+                            <div class="d-flex justify-content-center other-option-btns" id="public-option-btns">
+                                <a href="" class="ml-2 cancel-button" id="public-cancel-btn">Cancel</a>
+                                <!-- <input class="btn" type="submit" value="Update Information" id="public-info-submit"> -->
+                                <button class="testing-btn btn btn-dark update-button" id="public-update-btn">Update Info</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -218,59 +255,116 @@
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.hostel_name == None %}
                             <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
                                 class="form-control input-box private-info-form-input" id="hostle-name2">
+                            {% else %}
+                            <input type="text" name="hostel_name" placeholder="{{ profile.hostel_name }}"
+                                class="form-control input-box private-info-form-input" id="hostle-name2">
+                            {% endif %}
+                            
                         </div>
                         <h6>Address</h6>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.address == None %}
+                            <input type="text" name="address" placeholder="Address"
+                                class="form-control input-box private-info-form-input" id="address2">
+                            {% else %}
                             <input type="text" name="address" placeholder="{{ profile.address }}"
                                 class="form-control input-box private-info-form-input" id="address2">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.zip_code == None %}
+                            <input type="text" name="zip_code" placeholder="Zip/Postal Code"
+                                class="form-control input-box private-info-form-input" id="zip-code2">
+                            {% else %}
                             <input type="text" name="zip_code" placeholder="{{ profile.zip_code }}"
                                 class="form-control input-box private-info-form-input" id="zip-code2">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.city_state == None %}
+                            <input type="text" name="city_state" placeholder="City, State"
+                                class="form-control input-box private-info-form-input" id="city-state2">
+                            {% else %}
                             <input type="text" name="city_state" placeholder="{{ profile.city_state }}"
                                 class="form-control input-box private-info-form-input" id="city-state2">
+                            {% endif %}
+                            
                         </div>
-
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="country" placeholder="{{ profile.country }}"
-                                class="form-control input-box private-info-form-input" id="country2">
+                            {% load countries %}
+                            {% get_countries as countries %}
+                            <select name="country" placeholder="{{ profile.country }}" class="form-control input-box private-info-form-input"
+                                id="country2">
+                                {% for country in countries %}
+                                <option value="{{ country.code }}" {% ifequal country.name profile.country.name %} selected {% endifequal %} 
+                                {% ifequal country.code profile.country.code %} selected="selected" {% endifequal %}>
+                                    {{ country.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
                         </div>
+
                         <h6>Contact Information</h6>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="phone" placeholder="{{ profile.phone }}"
-                                class="form-control input-box private-info-form-input" id="phone2">
+                            {% if profile.phone == None %}
+                            <input type="text" name="phone" placeholder="Phone Number" class="form-control input-box private-info-form-input"
+                                id="phone2">
+                            {% else %}
+                            <input type="text" name="phone" placeholder="{{ profile.phone }}" class="form-control input-box private-info-form-input"
+                                id="phone2">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.email == None %}
+                            <input type="text" name="email" placeholder="Email"
+                                class="form-control input-box private-info-form-input" id="email2">
+                            {% else %}
                             <input type="text" name="email" placeholder="{{ profile.user.email }}"
                                 class="form-control input-box private-info-form-input" id="email2">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.fax == None %}
+                            <input type="text" name="fax" placeholder="Fax" class="form-control input-box private-info-form-input"
+                                id="fax">
+                            {% else %}
                             <input type="text" name="fax" placeholder="{{ profile.fax }}" class="form-control input-box private-info-form-input"
                                 id="fax">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.website == None %}
+                            <input type="text" name="website" placeholder="Website"
+                                class="form-control input-box private-info-form-input" id="website">
+                            {% else %}
                             <input type="text" name="website" placeholder="{{profile.website}}"
                                 class="form-control input-box private-info-form-input" id="website">
+                            {% endif %}
+                            
                         </div>
                     </div>
                     <div class="col second-col">
@@ -278,57 +372,101 @@
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.owner_name == None %}
+                            <input type="text" name="owner_name" placeholder="Name"
+                                class="form-control input-box private-info-form-input" id="owner-name">
+                            {% else %}
                             <input type="text" name="owner_name" placeholder="{{profile.owner_name}}"
                                 class="form-control input-box private-info-form-input" id="owner-name">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.owner_phone == None %}
+                            <input type="text" name="owner_phone" placeholder="Phone"
+                                class="form-control input-box private-info-form-input" id="owner-phone">
+                            {% else %}
                             <input type="text" name="owner_phone" placeholder="{{ profile.owner_phone }}"
                                 class="form-control input-box private-info-form-input" id="owner-phone">
+                            {% endif %}
+                            
                         </div>
                         <h6>Manager (1)</h6>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.first_manager_name == None %}
+                            <input type="text" name="first_manager_name" placeholder="Name"
+                                class="form-control input-box private-info-form-input" id="first-manager-name">
+                            {% else %}
                             <input type="text" name="first_manager_name" placeholder="{{ profile.first_manager_name }}"
                                 class="form-control input-box private-info-form-input" id="first-manager-name">
+                            {% endif %}
+                            
                         </div>
 
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="first_manager_phone"
-                                placeholder="{{ profile.first_manager_phone }}" class="form-control input-box private-info-form-input"
-                                id="first-manager-phone">
+                            {% if profile.first_manager_phone == None %}
+                            <input type="text" name="first_manager_phone" placeholder="Phone"
+                                class="form-control input-box private-info-form-input" id="first-manager-phone">
+                            {% else %}
+                            <input type="text" name="first_manager_phone" placeholder="{{ profile.first_manager_phone }}"
+                                class="form-control input-box private-info-form-input" id="first-manager-phone">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="first_manager_email"
-                                placeholder="{{ profile.first_manager_email }}" class="form-control input-box private-info-form-input"
-                                id="first-manager-email">
+                            {% if profile.first_manager_email == None %}
+                            <input type="text" name="first_manager_email" placeholder="Email"
+                                class="form-control input-box private-info-form-input" id="first-manager-email">
+                            {% else %}
+                            <input type="text" name="first_manager_email" placeholder="{{ profile.first_manager_email }}"
+                                class="form-control input-box private-info-form-input" id="first-manager-email">
+                            {% endif %}
+                            
                         </div>
                         <h6>Manager (2)</h6>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
+                            {% if profile.second_manager_name == None %}
+                            <input type="text" name="second_manager_name" placeholder="Name"
+                                class="form-control input-box private-info-form-input" id="second-manager-name">
+                            {% else %}
                             <input type="text" name="second_manager_name" placeholder="{{profile.second_manager_name}}"
                                 class="form-control input-box private-info-form-input" id="second-manager-name">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="second_manager_phone"
-                                placeholder="{{profile.second_manager_phone}}" class="form-control input-box private-info-form-input"
-                                id="second-manager-phone">
+                            {% if profile.second_manager_phone == None %}
+                            <input type="text" name="second_manager_phone" placeholder="Phone Number"
+                                class="form-control input-box private-info-form-input" id="second-manager-phone">
+                            {% else %}
+                            <input type="text" name="second_manager_phone" placeholder="{{profile.second_manager_phone}}"
+                                class="form-control input-box private-info-form-input" id="second-manager-phone">
+                            {% endif %}
+                            
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="second_manager_email"
-                                placeholder="{{profile.second_manager_email}}" class="form-control input-box private-info-form-input"
-                                id="second-manager-email">
+                            {% if profile.second_manager_email == None %}
+                            <input type="text" name="second_manager_email" placeholder="Email"
+                                class="form-control input-box private-info-form-input" id="second-manager-email">
+                            {% else %}
+                            <input type="text" name="second_manager_email" placeholder="{{profile.second_manager_email}}"
+                                class="form-control input-box private-info-form-input" id="second-manager-email">
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </div>
@@ -431,8 +569,6 @@
         <div class="option-container h-100 language-and-currency" id="language-and-currency">
             <div class="user_card">
                 <div class="d-flex justify-content-center form_container3">
-                    
-
                     <form method="POST" action="" class="settings-forms" id="language-currency-form">
                         {% csrf_token %}
                         <h6>Language</h6>
@@ -476,7 +612,13 @@
                         <div class="input-group mb-1">
                             <div class="input-group-append">
                             </div>
-                            <input type="text" name="VAT" placeholder="{{ roomdetails.VAT }} %" data-vat="{{ roomdetails.VAT }}" class="form-control register-form lang-currency-form-input" id="vat-input">
+                            {% if roomdetails.VAT == None %}
+                            <input type="text" name="VAT" placeholder="VAT %"
+                                class="form-control register-form lang-currency-form-input" id="vat-input">
+                            {% else %}
+                            <input type="text" name="VAT" placeholder="{{ roomdetails.VAT }} %" data-vat="{{ roomdetails.VAT }}"
+                                class="form-control register-form lang-currency-form-input" id="vat-input">
+                            {% endif %}
                         </div>
                         <div class="mt-4">
                             <div class="d-flex justify-content-center">
@@ -537,7 +679,7 @@
 
     <div class="modal fade public-information-modal password-popup-modal" id="public-modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header">
                         </div> -->
@@ -551,13 +693,12 @@
                     {% csrf_token %}
                     <div class="modal-body password-input-body">
                         <div class="modal-instruction" id="modal-info">Please Enter Master PIN to Edit.
-                            <!-- {{ profile.user.password }} {{ password_check}} -->
+                            <!-- {{ profile.user.password }} {{ password}} -->
                         </div>
                         <div class="row password-input-row">
                             <div class="col-sm-3 display-text-password">PIN:</div>
                             <input type="password" name="check-password" placeholder="" id="password-input"
-                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
-                                id="practice-password">
+                                class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}" autofocus>
                             <div>{{practice_form.errors}}</div>
                             <div></div>
                         </div>
@@ -570,8 +711,8 @@
                         {% endif %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
-                        <button type="button" class=" btn check-password-btn" id="next-btn">Next</button>
+                        <button type="button" class="btn close-button" id="close-btn" data-dismiss="modal">Cancel</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn">Enter</button>
                         <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
                     </div>
                 </form>
@@ -580,7 +721,7 @@
     </div>
     <div class="modal fade private-information-modal password-popup-modal" id="private-modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header">
                             </div> -->
@@ -599,7 +740,7 @@
                             <div class="col-sm-3 display-text-password">PIN:</div>
                             <input type="password" name="check-password" placeholder="" id="password-input2"
                                 class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
-                                id="practice-password2">
+                                 autofocus>
                             <div>{{practice_form.errors}}</div>
                             <div></div>
                         </div>
@@ -612,18 +753,17 @@
                         {% endif %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
-                        <button type="button" class=" btn check-password-btn" id="next-btn2">Next</button>
+                        <button type="button" class="btn close-button" data-dismiss="modal">Cancel</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn2">Enter</button>
                         <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <div class="modal fade password-information-modal password-popup-modal" id="pin-password-modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header">
                                 </div> -->
@@ -642,7 +782,7 @@
                             <div class="col-sm-3 display-text-password">PIN:</div>
                             <input type="password" name="check-password" placeholder="" id="password-input3"
                                 class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
-                                id="practice-password3">
+                                 autofocus>
                             <div>{{practice_form.errors}}</div>
                             <div></div>
                         </div>
@@ -655,18 +795,17 @@
                         {% endif %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
-                        <button type="button" class=" btn check-password-btn" id="next-btn3">Next</button>
+                        <button type="button" class="btn close-button" data-dismiss="modal">Cancel</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn3">Enter</button>
                         <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <div class="modal fade password-information-modal password-popup-modal" id="language-currency-modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" href="#" action="#" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header">
                                     </div> -->
@@ -685,7 +824,7 @@
                             <div class="col-sm-3 display-text-password">PIN:</div>
                             <input type="password" name="check-password" placeholder="" id="password-input4"
                                 class="form-control input-password col-sm-6" data-password="{{ profile.user.password }}"
-                                id="practice-password4">
+                                 autofocus>
                             <div>{{practice_form.errors}}</div>
                             <div></div>
                         </div>
@@ -698,8 +837,8 @@
                         {% endif %}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn close-button" data-dismiss="modal">Close</button>
-                        <button type="button" class=" btn check-password-btn" id="next-btn4">Next</button>
+                        <button type="button" class="btn close-button" data-dismiss="modal">Cancel</button>
+                        <button type="button" class=" btn check-password-btn" id="next-btn4">Enter</button>
                         <!-- <input type="submit" class=" btn" id="next-bt"></button> -->
                     </div>
                 </form>
@@ -707,7 +846,9 @@
         </div>
     </div>
     
-
+    <div class='container fixed-title-bottom'>
+        <a class="footer-title">Hostel <span class="header-bold">PORTAL</span></a>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- Jquery.min.js -->

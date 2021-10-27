@@ -5,18 +5,22 @@
 <link rel="stylesheet" type="text/css" href="{% static 'users/css/register/register_login.css' %}">
 {% endblock css %}
 {% block title %}
-<a class="nav-item header-title">New ACCOUNT</a>
+<a class="nav-item header-title">New <span class="header-bold">ACCOUNT</span></a>
 {% endblock title %}
 {% block content %}
-<main role="main" class="main-container h-100">
-    <div class="container h-100">
+<main role="main" class="main-container h-100" >
+    <div class="container h-100" >
         <div class="row align-items-center h-100" >
             <div class="user_card col-6 mx-auto" >
                 <div class="form_container justify-content-center d-flex" >
                     <form method="POST" action="" class="form-body">
                         {% csrf_token %}
                         <div class="input-group ">
-                            <input type="text" name="username" placeholder="ID Number" class="form-control username">
+                            {% if form.username.value == None %}
+                            <input type="text" name="username" placeholder="ID Number" class="form-control username" autofocus>
+                            {% else %}
+                            <input type="text" name="username" placeholder="ID Number" class="form-control username" value="{{ form.username.value }}">
+                            {% endif %}
                         </div>
                         <div class="input-group buttonIn">
                             <input type="password" name="password" placeholder="PIN" class="form-control password">

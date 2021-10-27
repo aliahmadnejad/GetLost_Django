@@ -5,7 +5,8 @@
 {% endblock css %}
 
 {% block title %}
-<a class="nav-item header-title">Hostel Portal</a>
+<!-- <a class="nav-item header-title">Hostel Portal</a> -->
+<a class="nav-item header-title text-nowrap">Hostel <span class="header-bold">Portal</span></a>
 {% endblock title %}
 {% block content %}
 
@@ -14,11 +15,12 @@
         <div class="row align-items-center h-100">
             <div class="column portal-options col-6 mx-auto">
                 <div cLass='col'>
-                    <a href="{% url 'register' %}" class="signup">Sign UP</a>
+                    <a href="{% url 'login' %}" class="signin">Sign <span class="bold">IN</span></a>
                 </div>
                 <div cLass='col'>
-                    <a href="{% url 'login' %}" class="signin">Sign IN</a>
+                    <a href="{% url 'register' %}" class="signup">Sign <span class="bold">UP</span></a>
                 </div>
+                
             </div>
         </div>
     </div>

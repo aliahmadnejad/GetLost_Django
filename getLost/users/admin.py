@@ -53,7 +53,9 @@ admin.site.register(User, UserAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
     search_fields = ['user',]  # Search Fieds uses emails to find users
-    list_display = ('id', 'hostel_name', 'user', 'get_email', 'phone', 'country')   # db displays these fields
+    list_display = ('id', 'hostel_name', 'user',
+     'get_email', 
+     'phone', 'country')   # db displays these fields
     list_filter = ('user',)
     fieldsets = (
         (None, {'fields': ('user', 'new')}),
@@ -141,20 +143,23 @@ admin.site.register(CustomerProfile, CustomerProfileAdmin)
 
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ('id', 'hostel', 'customer', 'is_confirmed',
-                    'is_checked_in', 'created', 'modified')   # db displays these fields
+                    'is_checked_out', 'created', 'modified')   # db displays these fields
     # Filter through db with these fields
-    list_filter = ('hostel', 'customer', 'is_confirmed', 'is_checked_in',)
+    list_filter = ('hostel', 'customer', 'is_confirmed', 'is_checked_out',)
     search_fields = ('hostel', 'customer',)
     ordering = ('hostel', 'customer', )
-    readonly_fields = ("created", "modified", 'check_out')
+    readonly_fields = ("created", "modified",
+     'reservation_experation',  'confirmation_date', 'confirmation_experation'
+     )
     filter_horizontal = ()
 
     fieldsets = (
-        ('Information', {'fields': ('hostel', 'customer', 'created', 'modified','check_out')}),
-        ('Status', {'fields': ('is_confirmed', 'is_checked_in', 'is_history',)}),
+        ('Information', {'fields': ('hostel', 'customer', 'created', 'modified')}),
+        ('Status', {'fields': ('reservation_experation',
+                               'is_confirmed',  'confirmation_date', 'confirmation_experation', 'is_checked_out' )}),
     )
 
-    actions = ['confirm_selected','unconfirm_selected', 'checkin_selected', 'checkout_selected']
+    actions = ['confirm_selected','unconfirm_selected', 'uncheckout_selected', 'checkout_selected']
 
     def confirm_selected(self, request, queryset):
         updated = queryset.update(is_confirmed=True)
@@ -166,36 +171,34 @@ class ReservationAdmin(admin.ModelAdmin):
 
     def unconfirm_selected(self, request, queryset):
         updated = queryset.update(is_confirmed=False)
-        queryset.update(is_checked_in=False)
-        queryset.update(is_history=False)
+        queryset.update(is_checked_out=False)
         self.message_user(request, ngettext(
             '%d Reservation was successfully unconfirmed.',
             '%d Reservations were successfully unconfirmed.',
             updated,
         ) % updated, messages.SUCCESS)
 
-    def checkin_selected(self, request, queryset):
-        updated = queryset.update(is_checked_in=True)
+    def uncheckout_selected(self, request, queryset):
+        updated = queryset.update(is_checked_out=False)
         queryset.update(is_confirmed=True)
-        queryset.update(is_history=True)
         self.message_user(request, ngettext(
-            '%d Reservation was successfully marked as checked-in.',
-            '%d Reservations were successfully marked as checked-in.',
+            '%d Reservation was successfully unchecked-out.',
+            '%d Reservations were successfully unchecked-out.',
             updated,
         ) % updated, messages.SUCCESS)
 
     def checkout_selected(self, request, queryset):
-        updated = queryset.update(is_checked_in=False)
-        queryset.update(is_history=False)
+        updated = queryset.update(is_checked_out=True)
+        queryset.update(is_confirmed=True)
         self.message_user(request, ngettext(
-            '%d Reservation was successfully unchecked-in.',
-            '%d Reservations were successfully unchecked-in.',
+            '%d Reservation was successfully marked as checked-out',
+            '%d Reservations were successfully marked as checked-out.',
             updated,
         ) % updated, messages.SUCCESS)
 
     confirm_selected.short_description = "Confirm selected Reservation"
     unconfirm_selected.short_description = "Unconfirm selected Reservation"
-    checkin_selected.short_description = "Check-in selected Reservation"
+    uncheckout_selected.short_description = "Uncheck-out selected Reservation"
     checkout_selected.short_description = "Check-out selected Reservation"
 admin.site.register(Reservation, ReservationAdmin)
 

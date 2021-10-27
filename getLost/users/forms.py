@@ -7,6 +7,7 @@ from currencies.models import Currency, CurrencyManager
 from django_countries.templatetags import countries
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+from phonenumber_field.formfields import PhoneNumberField
 
 
 
@@ -155,6 +156,8 @@ class LoginForm(forms.Form):
 # Form to ask user for email to create account
 class RequestForm(forms.ModelForm):
     username = None
+    phone = PhoneNumberField()
+    phone.error_messages['invalid'] = 'Incorrect International Calling Code or Mobile Number!'
     class Meta:
         model = Request
         fields = ('hostel_name', 'email', 'phone',
@@ -168,8 +171,10 @@ class RequestForm(forms.ModelForm):
         self.fields['hostel_name'].required = True
         
         for field in self.fields.values():
-            field.error_messages = {'required': 'The field {fieldname} is required'.format(
-                fieldname=field.label)}
+            field.error_messages = {
+                'invalid': "Invalid Input",
+                'required': 'The field {fieldname} is required'.format(fieldname=field.label)
+                }
 
 
     
@@ -183,7 +188,9 @@ class RequestForm(forms.ModelForm):
 
 # Form for the final register questions
 class ProfileForm(forms.ModelForm):
-
+    # phonenumber = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': _('Phone')}), label=_("Phone number"), required=False)
+    phone = PhoneNumberField()
+    phone.error_messages['invalid'] = 'Incorrect International Calling Code or Mobile Number!'
 
     class Meta:
         model = Profile
@@ -191,6 +198,27 @@ class ProfileForm(forms.ModelForm):
                   'fax', 'website', 'owner_name', 'owner_phone', 'first_manager_name', 
                   'first_manager_phone', 'first_manager_email', 'second_manager_name', 'second_manager_phone', 'second_manager_email'
                   )
+
+    def __init__(self, *args, **kwargs):
+        # first call parent's constructor
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        # there's a `fields` property now
+        # self.fields['email'].required = True
+        self.fields['hostel_name'].required = True
+        self.fields['phone'].required = True
+        self.fields['address'].required = True
+        self.fields['zip_code'].required = True
+        self.fields['city_state'].required = True
+        self.fields['country'].required = True
+        self.fields['owner_name'].required = True
+        self.fields['first_manager_name'].required = True
+
+        for field in self.fields.values():
+            field.error_messages = {
+                'required': 'Required',
+                'invalid': "That's not a number, sir."
+                # 'required': 'The field {fieldname} is required'.format(fieldname=field.label)
+                }
 
     def save(self, commit=True):
         user = super(ProfileForm, self).save(commit=False)
@@ -200,14 +228,6 @@ class ProfileForm(forms.ModelForm):
             print("save function worked")
         return user
 
-class IndexForm(forms.ModelForm):
-
-    occupied_beds = forms.IntegerField()
-
-    class Meta:
-        model = RoomDetail
-        fields = ('occupied_beds',)
-
 class ConfirmForm(forms.ModelForm):
 
     is_confirmed = forms.BooleanField()
@@ -216,15 +236,6 @@ class ConfirmForm(forms.ModelForm):
         model = Reservation
         fields = ('is_confirmed',)
 
-
-class CheckinForm(forms.ModelForm):
-
-    is_checked_in = forms.BooleanField()
-
-    class Meta:
-        model = Reservation
-        fields = ('is_checked_in',)
-
 class PriceForm(forms.ModelForm):
 
     price = forms.DecimalField()
@@ -232,12 +243,6 @@ class PriceForm(forms.ModelForm):
     class Meta:
         model = RoomDetail
         fields = ('price',)
-class PricePasswordForm(forms.ModelForm):
-    price_password = forms.CharField(widget=forms.PasswordInput)
-
-    class Meta:
-        model = RoomDetail
-        fields = ('price_password',)
 
 class TotalBedsForm(forms.ModelForm):
 
@@ -247,16 +252,6 @@ class TotalBedsForm(forms.ModelForm):
     class Meta:
         model = RoomDetail
         fields = ('total_coed_beds',)
-
-
-class TotalBedsPasswordForm(forms.ModelForm):
-
-    total_beds_password = forms.CharField(widget=forms.PasswordInput)
-
-    class Meta:
-        model = RoomDetail
-        fields = ('total_beds_password',)
-
 
 class PublicInfoForm(forms.ModelForm):
     country = CountryField().formfield()
@@ -391,3 +386,34 @@ class StripeBillingForm(forms.Form):
             'class': 'custom-select d-block w-100',
         }))
     billing_zip = forms.CharField(required=False)
+
+# class TotalBedsPasswordForm(forms.ModelForm):
+
+#     total_beds_password = forms.CharField(widget=forms.PasswordInput)
+
+#     class Meta:
+#         model = RoomDetail
+#         fields = ('total_beds_password',)
+
+# class PricePasswordForm(forms.ModelForm):
+#     price_password = forms.CharField(widget=forms.PasswordInput)
+
+#     class Meta:
+#         model = RoomDetail
+#         fields = ('price_password',)
+
+# class CheckinForm(forms.ModelForm):
+
+#     is_checked_in = forms.BooleanField()
+
+#     class Meta:
+#         model = Reservation
+#         fields = ('is_checked_in',)
+
+# class IndexForm(forms.ModelForm):
+
+#     occupied_beds = forms.IntegerField()
+
+#     class Meta:
+#         model = RoomDetail
+#         fields = ('occupied_beds',)

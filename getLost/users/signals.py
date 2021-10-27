@@ -6,6 +6,9 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 from users import models
+# from celery.schedules import crontab
+# from celery.task import periodic_task
+from django.utils import timezone
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

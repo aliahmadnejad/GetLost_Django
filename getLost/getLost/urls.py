@@ -53,11 +53,14 @@ urlpatterns = [
     # path('practice/<str:pk>/', user_views.practice, name='practice'),
 
     # path('index/<str:pk>/customerdetail/', user_views.reservation, name='customerdetail'),
-    path('hostelportal/', user_views.hostel_portal, name='hostelportal'),
+    path('', user_views.hostel_portal, name='hostelportal'),
+    # path('hostelportal/', user_views.hostel_portal, name='hostelportal'),
+    path('contact/', user_views.contact, name='contact'),
 
     path('registerlogin/', user_views.register_login_view, name='registerlogin'),
     path('profileregister/', user_views.profile_register, name='profileregister'),
     path('profileregister2/', user_views.profile_register2, name='profileregister2'),
+    path('profileregister3/', user_views.profile_register3, name='profileregister3'),
     
     path('message/', user_views.message_view, name='message'),
 

@@ -29,6 +29,9 @@ django-money = "*"
 django-modeladmin-reorder = "*"
 django-rest-auth = "*"
 stripe = "*"
+django-apscheduler = "*"
+apscheduler = "*"
+django-crontab = "*"
 
 [requires]
 python_version = "3.8"

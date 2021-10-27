@@ -1,34 +1,11 @@
-// -------------------------------------------------
-// PRICE AND TOTAL BED PASSWORD -  reload page when modal is closed so form gets saved
-// -------------------------------------------------
-// $("#exampleModal4").on('hidden.bs.modal', function () {
-//     // window.alert('hidden event fired!');
-//     if ($('#ChangeTotalBedsForm').css('display') == 'none') {
-//         // DONT DO ANYTHING
-//     }
-//     else {
-//         // window.location.reload();
-//         location.reload("#myform"); 
-//     }
-// });
-// $("#exampleModal3").on('hidden.bs.modal', function () {
-//     if ($('#ChangePriceForm').css('display') == 'none') {
-//         // DONT DO ANYTHING
-//     }
-//     else {
-//         // window.location.reload();
-//         location.reload("#myform"); 
-//     }
-//     // window.alert('hidden event fired!');
-// });
-
 function pricePasswordInputPage() {
     $('.input-password').val('');
 
     $('#PricePasswordForm').css("display", "block");
     $('#ChangePriceForm').css("display", "none");
 
-    $('#exampleModal3').on('shown.bs.modal', function () {
+    $('#exampleModal3').on('shown.bs.modal', function (e) {
+        // e.preventDefault();
         console.log("PAGE 1");
         $('#price-password-input').focus();
     });
@@ -42,9 +19,6 @@ function priceInputPage() {
     $('.price-change').focus();
     console.log("PAGE 2");
 }
-
-
-
 function bedPasswordInputPage() {
     $('.total-beds-input-password').val('');
 
@@ -67,6 +41,40 @@ function bedInputPage() {
 }
 
 jQuery(document).ready(function () {
+    function refresh() {
+        console.log("hello");
+        // old = $('#reservation-box').html();
+        // console.log("THE OLD");
+        // console.log(old);
+        $.ajax({
+            type: 'GET',
+            url: "/dashboard/",
+            success: function (data) {
+                var html = $('<div />').html(data).find('#reservation-box').html();  // THIS WORKS!!!!
+                $('#reservation-box').load(location.href + " #reservation-box>*", "");
+                $('#confirmed-box').load(location.href + " #confirmed-box>*", "");
+
+                // $('#main').load(location.href + " #main>*", "");
+                // $('#exampleModal').load(location.href + " #exampleModal>*", "");
+                // $('#exampleModal2').load(location.href + " #exampleModal2>*", "");
+
+                // $('#reservation-box').html(data);
+                // $('#eservation-box').load(' #eservation-box', function () { $(this).children().unwrap() })
+                // console.log(data);
+                // var html = $(data).find('#reservation-box').html();
+                // console.log("THE NEW");
+                // console.log(html);
+                // $('#reservation-box').load('#reservation-box');
+                // var html = $(data).filter('#reservation-box').html();
+                // console.log(html);
+                // $('#reservation-box').html(html);
+                
+            }
+        });
+        setTimeout(refresh, 20000);
+    }
+    refresh();
+    
 
     // State Variables
     var variable;
@@ -120,14 +128,19 @@ jQuery(document).ready(function () {
     }).on('pick.datepicker', function (e) {
         e.preventDefault(); // Prevent to pick the date
         var date = $('#datepicker').datepicker('getDate', true);
+        console.log("the raw date is " + date);
         // $("input[name='something']").val(date);
         $("#exampleModal5").modal("show");
         // var resDate = new Date($('.history-item').data('date'));   // ONLY GETS FIRST RESERVATION DATE
         // console.log("The resDate is:  " + resDate);
-        var newDate = new Date(date);
+        var newDate = new Date(date.replace(/-/g, "/")); //.replace(/\s/, 'T') + 'Z'
+        console.log("The Date is " + newDate);
         newDate = getFormattedDateString(newDate);
+        console.log(newDate);
+        console.log("HELLO");
         var modal = $('#exampleModal5');
         // modal.find('.header-date').html(newDate);
+
         modal.find('#datepicker-modal').val(newDate);
 
         $('#history-container').find('.history-item').each(function () {
@@ -143,6 +156,7 @@ jQuery(document).ready(function () {
             }
         });     
     });
+
     $('#datepicker-modal').datepicker({
         format: 'mm-dd-yyyy',
         autoHide: true,
@@ -152,13 +166,13 @@ jQuery(document).ready(function () {
         e.preventDefault();
         var myDatePicker = $('#datepicker-modal').datepicker({});
         var modalDate = $('#datepicker-modal').datepicker('getDate', true);
-        var newDate = new Date(modalDate);
+        var newDate = new Date(modalDate.replace(/-/g, "/"));
         newDate = getFormattedDateString(newDate);
         $("#datepicker-modal").val(newDate);
 
         $('#history-container').find('.history-item').each(function () {
             var innerDivId = $(this).attr('id');
-            var dataDate = new Date($(this).data('date'));
+            var dataDate = new Date($(this).data('date')); //.replace(/-/g, "/")
             dataDate = getFormattedDate(dataDate);
             if (dataDate == modalDate) {
                 $(this).css("display", "block");
@@ -229,7 +243,8 @@ jQuery(document).ready(function () {
     // -------------------------------------------------
     // CHANGE PRICE MODAL ------------------------------
     // -------------------------------------------------
-    $('.open-modal-change-price').on('click', function (e) {
+    $('body').on('click', '.open-modal-change-price', function (e) {
+        e.preventDefault();
         function isEmpty(obj) {
             for (var key in obj) {
                 if (obj.hasOwnProperty(key))
@@ -241,26 +256,50 @@ jQuery(document).ready(function () {
         var price = $(".price-text").data('price');
         var password = $(".input-password").data('password');
 
-
         // SET MODAL START PAGE
         pricePasswordInputPage();
-
-        
-        $('.check-password-btn').on('click', function (e) {
-            var inputPassword = $(".input-password").val();
-            if (password == inputPassword) {
-                console.log("it worked");
-                priceInputPage();
-            }
-            else {
-                console.log("FALSE");
-                // ERROR MESSAGE
-            }
+        $('#next-btn').on('click', function (e) {
+            e.preventDefault();
+            var passwordForm = $('#PricePasswordForm');
+            console.log("Check password button pressed");
+            $.ajax({
+                type: passwordForm.attr('method'),
+                url: passwordForm.attr('action'),
+                data: passwordForm.serialize(),
+                success: function (data) {
+                    // $("#PricePasswordForm")[0].reset();
+                    if ($(data).find(".check-div").html() == 'true') {
+                        console.log("it is TRUE and we did it bro");
+                        priceInputPage();
+                    }
+                    else {
+                        console.log("it is FALSE and we still did it");
+                        $('#price-password-input').addClass('animated shake');
+                        $('#price-password-input').val('');
+                        $('#price-password-input').focus();
+                    }
+                },
+                error: function (data) {
+                    console.log("its super duper duper wrong");
+                    console.log(passwordForm.serialize());
+                },
+            });
+            $('#price-password-input').removeClass('animated shake');
+            return false;
+            // var inputPassword = $(".input-password").val();
+            // if (password == inputPassword) {
+            //     console.log("it worked");
+            //     priceInputPage();
+            // }
+            // else {
+            //     console.log("FALSE");
+            //     // ERROR MESSAGE
+            // }
         });
         $('.input-password').keypress(function (e) {
             
             if (e.which == 13) {//Enter key pressed
-                $('.check-password-btn').click();//Trigger search button click event
+                $('#next-btn').click();//Trigger search button click event
                 e.preventDefault();
             }
         });
@@ -323,7 +362,7 @@ jQuery(document).ready(function () {
     // -------------------------------------------------
     // CHANGE TOTAL BEDS MODAL -------------------------
     // -------------------------------------------------
-    $('.open-modal-change-total-beds').on('click', function (e) {
+    $('body').on('click', '.open-modal-change-total-beds', function (e) {
         function isEmpty(obj) {
             for (var key in obj) {
                 if (obj.hasOwnProperty(key))
@@ -338,15 +377,35 @@ jQuery(document).ready(function () {
         // SET MODAL START PAGE
         bedPasswordInputPage();
 
-        $('.check-password-btn').on('click', function (e) {
-            var inputPassword = $(".total-beds-input-password").val();
-            if (password == inputPassword) {
-                bedInputPage();
-            }
-            else {
-                console.log("FALSE");
-                // ERROR MESSAGE
-            }
+        $('#next-btn2').on('click', function (e) {
+            e.preventDefault();
+            var passwordForm = $('#TotalBedsPasswordForm');
+            console.log("Check password button pressed");
+            $.ajax({
+                type: passwordForm.attr('method'),
+                url: passwordForm.attr('action'),
+                data: passwordForm.serialize(),
+                success: function (data) {
+                    // $("#PricePasswordForm")[0].reset();
+                    if ($(data).find(".check-div").html() == 'true') {
+                        console.log("it is TRUE and we did it bro");
+                        console.log(passwordForm.serialize());
+                        bedInputPage();
+                    }
+                    else {
+                        console.log("it is FALSE and we still did it");
+                        $('#bed-password-input').addClass('animated shake');
+                        $('#bed-password-input').val('');
+                        $('#price-password-input').focus();
+                    }
+                },
+                error: function (data) {
+                    console.log("its super duper duper wrong");
+                    console.log(passwordForm.serialize());
+                },
+            });
+            $('#bed-password-input').removeClass('animated shake');
+            return false;
         });
         $('.total-beds-input-password').keypress(function (e) {
 
@@ -380,7 +439,8 @@ jQuery(document).ready(function () {
     // -------------------------------------------------
     // CONFIRM MODAL-- OPEN ----------------------------
     // -------------------------------------------------
-    $('.open-modal-confirm').on('click', function (event) {
+    $('body').on('click', '.open-modal-confirm', function (event) {        
+        // event.preventDefault();
         var recipient = $(this).data('customer');
         var age = $(this).data('customerage');
         var isconfirmed = $(this).data('isconfirmed');
@@ -395,6 +455,7 @@ jQuery(document).ready(function () {
         var phone = $(this).data('phone');
         var contactName = $(this).data('contactname');
         var contactPhone = $(this).data('contactphone');
+
 
         $('.customer-info-01').css("display", "block");
         $('.customer-info-02').css("display", "none");
@@ -477,7 +538,8 @@ jQuery(document).ready(function () {
     // -------------------------------------------------
     // CHECKIN MODAL-- OPEN ----------------------------
     // -------------------------------------------------
-    $('.open-modal-checkin').on('click', function (event) {
+    $('body').on('click', '.open-modal-checkin', function (event) {
+        // event.preventDefault();
         var recipient = $(this).data('customer');
         var age = $(this).data('customerage');
         var isconfirmed = $(this).data('isconfirmed');
@@ -580,105 +642,9 @@ jQuery(document).ready(function () {
         });
     });
     // -------------------------------------------------
-    // PLUS BUTTON -------------------------------------
-    // -------------------------------------------------
-    // This button will increment the value
-    $(document).on("click", '.qtyplus', function (e) {
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        var divUrl = $(this).attr('action');
-        // Get its current value
-        var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-        var occupiedBeds = parseInt($("div#" + fieldName).text());
-        var totalBeds = parseInt($("div#total-beds").text());
-
-
-        console.log(fieldName);
-        // If is not undefined
-        if (!isNaN(currentVal)) {
-            // Increment
-            if (currentVal < totalBeds) {
-                $('input[name=' + fieldName + ']').val(currentVal + 1);
-                // if loop here
-                ++currentVal;
-            }
-            else {
-                $('input[name=' + fieldName + ']').val(currentVal);
-            }
-        } else {
-            // Otherwise put a 0 there
-            $('input[name=' + fieldName + ']').val(0);
-        }
-        serializeData = $('#myform').serialize();
-        console.log(serializeData);
-        $.ajax({
-            url: divUrl,
-            data: serializeData,
-            type: 'post',
-            success: function (response) {
-                location.reload("#myform");       
-                // $("#myform").load(location.href + " #myform>*", "");
-                // $("#roomdetail-form").load(window.location.href + " #roomdetail-form");
-
-                // if (serializeData.success == false) {
-                //     alert('error');
-                // } else {
-                //     // $("#roomdetail-form").load(" #roomdetail-form");
-                //     $("#roomdetail-form").load(location.href + " #roomdetail-form>*", "");
-                // }
-            }
-        })
-    });
-    // -------------------------------------------------
-    // MINUS BUTTON ------------------------------------
-    // -------------------------------------------------
-    // This button will decrement the value till 0
-    $(document).on("click", '.qtyminus', function (e) {
-    // $(".qtyminus").click(function (e) {
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        var divUrl = $(this).attr('action');
-        // Get its current value
-        var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-        // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 0) {
-            // Decrement one
-            $('input[name=' + fieldName + ']').val(currentVal - 1);
-            --currentVal;
-        } else {
-            // Otherwise put a 0 there
-            $('input[name=' + fieldName + ']').val(0);
-        }
-        serializeData = $('#myform').serialize();
-        $.ajax({
-            url: divUrl,
-            data: serializeData,
-            type: 'post',
-            success: function (response) {
-                // $("#myform").load(location.href + " #myform>*", "");
-                location.reload("#myform");       
-
-            }
-        })
-    });
-    // -------------------------------------------------
-    // TUTORIAL MODAL ----------------------------------
-    // -------------------------------------------------
-    $('.tutorial-modal-btn').on('click', function (e) {
-        e.preventDefault();
-        $('.step-01').css("display", "block");
-        $('.step-02').css("display", "none");
-        $('.step-03').css("display", "none");
-        $('.step-04').css("display", "none");
-    });
-    // -------------------------------------------------
     // CUSTOMER INFO MODAL PAGE SETUP ------------------
     // -------------------------------------------------
-    $('.before-btn').on('click', function (e) {
+    $('body').on('click', '.before-btn', function (e) {
         if ($('.step-01').css('display') == 'block') {
             $('.step-01').css("display", "none");
             $('.step-02').css("display", "none");
@@ -711,7 +677,7 @@ jQuery(document).ready(function () {
         }
 
     });
-    $('.after-btn').on('click', function (e) {
+    $('body').on('click', '.after-btn', function (e) {
         if ($('.step-01').css('display') == 'block') {
             $('.step-01').css("display", "none");
             $('.step-02').css("display", "block");
@@ -746,6 +712,102 @@ jQuery(document).ready(function () {
 });
 
 
+    // -------------------------------------------------
+    // PLUS BUTTON -------------------------------------
+    // -------------------------------------------------
+    // This button will increment the value
+    // $(document).on("click", '.qtyplus', function (e) {
+    //     // Stop acting like a button
+    //     e.preventDefault();
+    //     // Get the field name
+    //     fieldName = $(this).attr('field');
+    //     var divUrl = $(this).attr('action');
+    //     // Get its current value
+    //     var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+    //     var occupiedBeds = parseInt($("div#" + fieldName).text());
+    //     var totalBeds = parseInt($("div#total-beds").text());
+
+
+    //     console.log(fieldName);
+    //     // If is not undefined
+    //     if (!isNaN(currentVal)) {
+    //         // Increment
+    //         if (currentVal < totalBeds) {
+    //             $('input[name=' + fieldName + ']').val(currentVal + 1);
+    //             // if loop here
+    //             ++currentVal;
+    //         }
+    //         else {
+    //             $('input[name=' + fieldName + ']').val(currentVal);
+    //         }
+    //     } else {
+    //         // Otherwise put a 0 there
+    //         $('input[name=' + fieldName + ']').val(0);
+    //     }
+    //     serializeData = $('#myform').serialize();
+    //     console.log(serializeData);
+    //     $.ajax({
+    //         url: divUrl,
+    //         data: serializeData,
+    //         type: 'post',
+    //         success: function (response) {
+    //             location.reload("#myform");       
+    //             // $("#myform").load(location.href + " #myform>*", "");
+    //             // $("#roomdetail-form").load(window.location.href + " #roomdetail-form");
+
+    //             // if (serializeData.success == false) {
+    //             //     alert('error');
+    //             // } else {
+    //             //     // $("#roomdetail-form").load(" #roomdetail-form");
+    //             //     $("#roomdetail-form").load(location.href + " #roomdetail-form>*", "");
+    //             // }
+    //         }
+    //     })
+    // });
+    // -------------------------------------------------
+    // MINUS BUTTON ------------------------------------
+    // -------------------------------------------------
+    // This button will decrement the value till 0
+    // $(document).on("click", '.qtyminus', function (e) {
+    // // $(".qtyminus").click(function (e) {
+    //     // Stop acting like a button
+    //     e.preventDefault();
+    //     // Get the field name
+    //     fieldName = $(this).attr('field');
+    //     var divUrl = $(this).attr('action');
+    //     // Get its current value
+    //     var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+    //     // If it isn't undefined or its greater than 0
+    //     if (!isNaN(currentVal) && currentVal > 0) {
+    //         // Decrement one
+    //         $('input[name=' + fieldName + ']').val(currentVal - 1);
+    //         --currentVal;
+    //     } else {
+    //         // Otherwise put a 0 there
+    //         $('input[name=' + fieldName + ']').val(0);
+    //     }
+    //     serializeData = $('#myform').serialize();
+    //     $.ajax({
+    //         url: divUrl,
+    //         data: serializeData,
+    //         type: 'post',
+    //         success: function (response) {
+    //             // $("#myform").load(location.href + " #myform>*", "");
+    //             location.reload("#myform");       
+
+    //         }
+    //     })
+    // });
+    // -------------------------------------------------
+    // TUTORIAL MODAL ----------------------------------
+    // -------------------------------------------------
+    // $('.tutorial-modal-btn').on('click', function (e) {
+    //     e.preventDefault();
+    //     $('.step-01').css("display", "block");
+    //     $('.step-02').css("display", "none");
+    //     $('.step-03').css("display", "none");
+    //     $('.step-04').css("display", "none");
+    // });
 
     // Autofocus Section
     // $('#exampleModal3').on('shown.bs.modal', function () {
@@ -762,3 +824,27 @@ jQuery(document).ready(function () {
     //         $('#input-password-old').focus();
     //     }
     // })
+
+    // -------------------------------------------------
+// PRICE AND TOTAL BED PASSWORD -  reload page when modal is closed so form gets saved
+// -------------------------------------------------
+// $("#exampleModal4").on('hidden.bs.modal', function () {
+//     // window.alert('hidden event fired!');
+//     if ($('#ChangeTotalBedsForm').css('display') == 'none') {
+//         // DONT DO ANYTHING
+//     }
+//     else {
+//         // window.location.reload();
+//         location.reload("#myform"); 
+//     }
+// });
+// $("#exampleModal3").on('hidden.bs.modal', function () {
+//     if ($('#ChangePriceForm').css('display') == 'none') {
+//         // DONT DO ANYTHING
+//     }
+//     else {
+//         // window.location.reload();
+//         location.reload("#myform"); 
+//     }
+//     // window.alert('hidden event fired!');
+// });

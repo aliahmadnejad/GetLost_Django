@@ -1,0 +1,52 @@
+{% extends "users/register_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load tz %}
+{% load i18n %}
+{% load currency %}
+{% block title %}
+<a class="nav-item header-title">New <span class="header-bold">ACCOUNT</span></a>
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/css/register/profile_register3.css' %}">
+<!-- Flag Sprite CSS -->
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+{% endblock css %}
+{% block content %}
+
+<div class="container message" id="holder">
+    <div id="body">
+        <div class="text-container">
+            <h2>Welcome to GetLOST!</h2>
+            <h4>Thank you for setting up your account at GetLOST!’s Hostel Portal. We hope to bring you new and exciting
+                travelers from
+                all over the glob our mission is to make it easier for travelers to find you and make it easier for you to
+                manage your
+                guests.</h4>
+            <h4>You are almost done… all you need now is to set up your Stripe account.</h4>
+            <h6>-You must complete your account with STRIPE to receive payments.</h6>
+        </div>
+        
+        <div class="d-flex justify-content-center mt-3 login_container">
+            <div class="col exit-btn3">
+                <a class="btn icon" href="{% url 'index' %}"><i class="fas fa-dot-circle fa-2x"></i></a>
+                <p>Skip to Dashboard</p>
+            </div>
+            <div class="col next-btn3">
+                <div class="stripe-btn">
+                    <a class="btn icon stripe-icon" href="{% url 'authorize' %}">
+                    <i class="fab fa-stripe-s"></i></a>
+                </div>
+                
+        
+                <p>Continue to Strip</p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+{% endblock content%}

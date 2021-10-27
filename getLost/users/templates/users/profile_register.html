@@ -1,11 +1,14 @@
 {% extends "users/register_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block title %}
-<a class="nav-item header-title">New ACCOUNT</a>
+<a class="nav-item header-title">New <span class="header-bold">ACCOUNT</span></a>
 {% endblock title %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'users/css/register/profile_register.css' %}">
+<!-- Phone Number Area Code Picker CSS -->
+<link rel="stylesheet" href="{% static 'users/intl-tel-input-master/build/css/intlTelInput.css' %}">
 {% endblock css %}
 {% block content %}
 <!-- <div class="content-section">
@@ -27,142 +30,277 @@
         </small>
     </div>
 </div> -->
-<main role="main" class="main-container h-100">
-    <div class="container h-100">
-        <div class="row align-items-center h-100">
-            <div class="user_card col-6 mx-auto" id="body">
-                <div class="form_container justify-content-center d-flex">
-                    
-                    
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <h6>- Please Confirm The Following</h6>
-                        <div class="container row">
-                            <div class="col first-col">
-                                
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="hostle_name" placeholder="TMB Hostle" class="form-control input-box">
-                                </div>
-                                <h6>Address</h6>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="address" placeholder="8077 Florence Avenue" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="zip_code" placeholder="12345" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="city_state" placeholder="Downey, CA" class="form-control input-box">
-                                </div>
-                                
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="country" placeholder="United States of America" class="form-control input-box">
-                                </div>
-                                <h6>Contact Information</h6>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="fax" placeholder="Fax: (xxx)-xxx-xxxx" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="website" placeholder="Website: www.hostletmb.com" class="form-control input-box">
-                                </div>
-                            </div>
-                            <div class="col second-col">
-                                <h6>Owner Name</h6>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="owner_name" placeholder="JOHN HAMM" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="owner_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
-                                </div>
-                                <h6>Manager (1)</h6>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="first_manager_name" placeholder="Nico Sun" class="form-control input-box">
-                                </div>
-                                
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="first_manager_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="first_manager_email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
-                                </div>
-                                <h6>Manager (2)</h6>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="second_manager_name" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="second_manager_phone" placeholder="Phone: (xxx)-xxx-xxxx" class="form-control input-box">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-append">
-                                    </div>
-                                    <input type="text" name="second_manager_email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
-                                </div>         
-                            </div>
-                        </div>
-                        <p>
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <p style="color: red">{{ error }}</p>
-                                {% endfor %}
-                            {% endfor %}
-                            {% if form.non_field_errors %}
-                                <div style="color: red">
-                                    <p>{{form.non_field_errors}}</p>
-                                </div>
-                            {% endif %}
-                        </p>
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <div class="col exit-btn">
-                                <a class="nav-item nav-link icon" href="{% url 'logout' %}"><i class="fas fa-times-circle fa-2x"></i></a>
-                            </div>
-                            <div class="col next-btn">
-                                <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a" >
-                            </div>
-                        </div>
-                        
-                    </form>
+<main role="main" class="main-container row">  
+
+    <form method="POST" action="" class="user_card" id="body">
+        {% csrf_token %}           
+        <div class="container row form-col d-flex justify-content-center">
+            <div class="form-title">
+                <h6>Please Confirm The Following:</h6>
+            </div>
+            <div class="col first-col">        
+                <h6>Hostel Name</h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.hostel_name.value == None %}
+                    <input type="text" name="hostel_name" placeholder="Hostel's Name" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="hostel_name" placeholder="Hostel's Name" class="form-control input-box" value="{{ form.hostel_name.value }}">
+                    {% endif %}   
+                </div>
+                <h6>Address </h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.address.value == None %}
+                    <input type="text" name="address" placeholder="Address" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="address" placeholder="Address" class="form-control input-box" value="{{ form.address.value }}">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.zip_code.value == None %}
+                    <input type="text" name="zip_code" placeholder="Zip Code" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="zip_code" placeholder="Zip Code" class="form-control input-box" value="{{ form.zip_code.value }}">
+                    {% endif %}
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.city_state.value == None %}
+                    <input type="text" name="city_state" placeholder="City, Province" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="city_state" placeholder="City, Province" class="form-control input-box" value="{{ form.city_state.value }}">
+                    {% endif %}
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% load countries %}
+                    {% get_countries as countries %}
+                    <select name="country" placeholder="{{ profile.country }}" class="form-control input-box register-form public-info-form-input"
+                        id="country">
+                        {% for country in countries %}
+                        <option value="{{ country.code }}" {% ifequal country.name profile.country.name %} selected {% endifequal %} 
+                        {%ifequal country.code profile.country.code %} selected="selected" {% endifequal %}>
+                            {{ country.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <h6>Contact Information</h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.phone.value == None %}
+                    <input type="tel" name="phone" placeholder="Phone Number" class="form-control input-box phone phone-input" id="phone">
+                    {% else %}
+                    <input type="tel" name="phone" placeholder="Phone Number" class="form-control input-box phone phone-input" id="phone" value="{{ form.phone.value }}">
+                    {% endif %}
+                </div>
+
+                <!-- <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    <input type="text" name="email" placeholder="Email: xxxxx@gmail.com" class="form-control input-box">
+                </div> -->
+                <div class="input-group mb-2" >
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.fax.value == None %}
+                    <input type="tel" name="fax" placeholder="Fax Number" class="form-control input-box phone phone-input" id="fax">
+                    {% else %}
+                    <input type="tel" name="fax" placeholder="Fax Number" class="form-control input-box phone phone-input" id="fax" value="{{ form.fax.value }}">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.website.value == None %}
+                    <input type="text" name="website" placeholder="Website" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="website" placeholder="Website" class="form-control input-box" value="{{ form.website.value }}">
+                    {% endif %}
                 </div>
             </div>
+            <div>
+            </div>
+            <div class="col second-col">
+                <h6>Owner Name</h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.owner_name.value == None %}
+                    <input type="text" name="owner_name" placeholder="Owners Name'" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="owner_name" placeholder="Owners Name" class="form-control input-box" value="{{ form.owner_name.value }}">
+                    {% endif %}
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.owner_phone.value == None %}
+                    <input type="text" name="owner_phone" placeholder="Owners Phone Number" class="form-control input-box phone-input" id="owner-phone">
+                    {% else %}
+                    <input type="text" name="owner_phone" placeholder="Owners Phone Number" class="form-control input-box phone-input" id="owner-phone" value="{{ form.owner_phone.value }}">
+                    {% endif %}
+                </div>
+                <h6>Manager (1)</h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.first_manager_name.value == None %}
+                    <input type="text" name="first_manager_name" placeholder="Managers Name" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="first_manager_name" placeholder="Managers Name" class="form-control input-box" value="{{ form.first_manager_name.value }}">
+                    {% endif %}
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.first_manager_phone.value == None %}
+                    <input type="text" name="first_manager_phone" placeholder="Managers Phone Number" class="form-control input-box phone-input" id="first-manager-phone">
+                    {% else %}
+                    <input type="text" name="first_manager_phone" placeholder="Managers Phone Number" class="form-control input-box phone-input" id="first-manager-phone" value="{{ form.first_manager_phone.value }}">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.first_manager_email.value == None %}
+                    <input type="text" name="first_manager_email" placeholder="Managers Email" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="first_manager_email" placeholder="Managers Email" class="form-control input-box" value="{{ form.first_manager_email.value }}">
+                    {% endif %}
+                </div>
+                <h6>Manager (2)</h6>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.second_manager_name.value == None %}
+                    <input type="text" name="second_manager_name" placeholder="Managers Name" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="second_manager_name" placeholder="Managers Name" class="form-control input-box" value="{{ form.second_manager_name.value }}">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.second_manager_phone.value == None %}
+                    <input type="text" name="second_manager_phone" placeholder="Managers Phone Number" class="form-control input-box phone-input" id="second-manager-phone">
+                    {% else %}
+                    <input type="text" name="second_manager_phone" placeholder="Managers Phone Number" class="form-control input-box phone-input" id="second-manager-phone" value="{{ form.second_manager_phone.value }}">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                    </div>
+                    {% if form.second_manager_email.value == None %}
+                    <input type="text" name="second_manager_email" placeholder="Managers Email" class="form-control input-box">
+                    {% else %}
+                    <input type="text" name="second_manager_email" placeholder="Managers Email" class="form-control input-box" value="{{ form.second_manager_email.value }}">
+                    {% endif %}
+                </div>         
+            </div>
         </div>
-    </div>
+        <p>
+            <!-- {% for field in form %}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            {% endfor %} -->
+            {% if form.errors %}
+            <h6 class="error-message">Please Complete Required Fields</h6>
+            {% endif %}
+            {% if form.non_field_errors %}
+                <div style="color: red">
+                    <p>{{form.non_field_errors}}</p>
+                </div>
+            {% endif %}
+            {% if form.hostel_name.errors %}
+            <style>
+                input[name=hostel_name] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.address.errors %}
+            <style>
+                input[name=address] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.zip_code.errors %}
+            <style>
+                input[name=zip_code] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.city_state.errors %}
+            <style>
+                input[name=city_state] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.country.errors %}
+            <style>
+                input[name=country] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.phone.errors %}
+            <style>
+                input[name=phone] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.owner_name.errors %}
+            <style>
+                input[name=owner_name] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            {% if form.first_manager_name.errors %}
+            <style>
+                input[name=first_manager_name] {
+                    border-color: rgba(255, 0, 0, 0.700);
+                }
+            </style>
+            {% endif %}
+            
+        </p>
+        <div class="d-flex login_container">
+            <div class="col exit-btn">
+                <a class="btn nav-item nav-link icon" href="{% url 'logout' %}"><i class="fas fa-times-circle fa-2x"></i></a>
+            </div>
+            <div class="col next-btn">
+                <input class="btn login_btn fa fa-input fa-2x" type="submit" value="&#xf35a" >
+            </div>
+        </div>
+        
+    </form>
+
 </main>
 
 {% endblock content%}
 
+{% block javascript %}
+<!-- intelTelInput.js -->
+<script type="text/javascript" src="{% static 'users/intl-tel-input-master/build/js/intlTelInput.js' %}"></script>
+<script type="text/javascript" src="{% static 'users/profile_register.js' %}"></script>
+{% endblock %}

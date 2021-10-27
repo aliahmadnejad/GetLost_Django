@@ -166,8 +166,6 @@ class TravelerProfileSerializer(CountryFieldMixin, serializers.ModelSerializer):
     
     print(models.CustomerProfile.stripe_id)
 #    ephemeral_key = serializers.SerializerMethodField()
-    
-
     class Meta:
         model = models.CustomerProfile
         fields = ('id', 'user', 'first_name', 'middle_name', 'last_name', 
@@ -239,9 +237,6 @@ class HostelProfileSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ('id', 'stripe_id')
 
-
-
-
 class HostelRoomDetailSerializer(serializers.ModelSerializer):
     hostel = HostelProfileSerializer(required=True)
     class Meta:
@@ -250,24 +245,21 @@ class HostelRoomDetailSerializer(serializers.ModelSerializer):
                   'VAT', 'hostel')
         # lookup_field = 'hostel.id'
 
-
-
-        
-
+# HERE
 class ReservationSerializer(serializers.ModelSerializer):
     # Changes hostel and customer reference to name instead of ID on API
     # hostel = serializers.CharField(source='hostel.user') 
     # customer = serializers.CharField(source='customer.user')
     class Meta:
         model = models.Reservation
-        fields = ('hostel', 'customer', 'is_confirmed', 'is_checked_in',)
+        fields = ('hostel', 'customer', 'is_confirmed', 'is_checked_out',)
 
     def create(self, validated_data):
         reservation = models.Reservation(
             hostel=validated_data['hostel'],
             customer=validated_data['customer'],
             is_confirmed=validated_data['is_confirmed'],
-            is_checked_in=validated_data['is_checked_in'],
+            is_checked_out=validated_data['is_checked_out'],
         )
         reservation.save()
         return reservation

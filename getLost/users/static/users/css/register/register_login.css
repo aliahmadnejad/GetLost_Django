@@ -6,7 +6,7 @@
 }
 .user_card {
     /* border: 2px solid yellow; */
-    width: 350px;
+    width: 800px;
     margin-top: auto;
     margin-bottom: auto;
     /* position: relative; */
@@ -19,21 +19,43 @@
     width: 390px;
 }
 
+.form-control {
+    border-color: #5f686f;
+    -webkit-text-fill-color: #909090;
+    -webkit-border-before-color: #6d6e6f;
+    font-weight: 300;
+    background: #ffffff;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+
+}
+
+.form-control:focus {
+    outline: none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border-color: #5f686f;
+    background: #ffffff;
+}
+
 .username {
-    background: #d8e0e7;
+    /* background: #d8e0e7; */
     border-radius: 6px 6px 0 0;
     border-color: #5f686f;
     -webkit-text-fill-color: #909090;
     -webkit-border-before-color: #6d6e6f;
-    font-weight: 100;
+    font-weight: 300;
 }
+
 .password {
-    background: #d8e0e7;
+    /* background: #d8e0e7; */
     border-radius: 0 0 6px 6px !important;
     border-color: #5f686f;
     -webkit-text-fill-color: #909090;
     -webkit-border-before-color: #6d6e6f;
-    font-weight: 100;
+    font-weight: 300;
 } 
 #submit { 
     position: absolute; 
@@ -49,13 +71,17 @@
     box-shadow: none !important; /* REMOVE BLUE BORDER ON CLICK */
 } 
 .forgot-password-message {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 14px;
     color: #909090;
     outline: none !important;
 }
 .forgot-password-message:hover {
-    color: white;
+    color: rgb(238, 238, 238)90;
+}
+
+.forgot-password-message:active {
+    color: #0C436C;
 }
 #form-title{
     color: #fff;   

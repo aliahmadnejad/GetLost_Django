@@ -166,83 +166,65 @@ class Profile(models.Model):
     longitude       = models.DecimalField(
         max_digits=9, decimal_places=6, blank=True, default='0')
     
-    owner_name              = models.CharField(max_length=20, blank=True, null=True)
-    owner_phone             = models.CharField(max_length=20, blank=True, null=True)
-    first_manager_name      = models.CharField(max_length=20, blank=True, null=True)
-    first_manager_phone     = models.CharField(max_length=20, blank=True, null=True)
-    first_manager_email     = models.CharField(max_length=20, blank=True, null=True)
-    second_manager_name     = models.CharField(max_length=20, blank=True, null=True)
-    second_manager_phone    = models.CharField(max_length=20, blank=True, null=True)
-    second_manager_email    = models.CharField(max_length=20, blank=True, null=True)
+    owner_name              = models.CharField(max_length=30, blank=True, null=True)
+    owner_phone             = models.CharField(max_length=30, blank=True, null=True)
+    first_manager_name      = models.CharField(max_length=30, blank=True, null=True)
+    first_manager_phone     = models.CharField(max_length=30, blank=True, null=True)
+    first_manager_email     = models.CharField(max_length=30, blank=True, null=True)
+    second_manager_name     = models.CharField(max_length=30, blank=True, null=True)
+    second_manager_phone    = models.CharField(max_length=30, blank=True, null=True)
+    second_manager_email    = models.CharField(max_length=30, blank=True, null=True)
 
     stripe_id = models.CharField(max_length=200, null=True, blank=True)
     stripe_access_token = models.CharField(max_length=200, null=True, blank=True)
     stripe_refresh_token = models.CharField(max_length=200, null=True, blank=True)
-
-    # __og_hostel_name = None
-    # __og_phone = None
-    # __og_address = None
-    # __og_city_state = None
-    # __og_country = None
-
-    # def __init__(self, *args, **kwargs):
-    #     super(Profile, self).__init__(*args, **kwargs)
-    #     self.__og_hostel_name = self.hostel_name
-    #     self.__og_phone = self.phone
-    #     self.__og_address = self.address
-    #     self.__og_city_state = self.city_state
-    #     self.__og_country = self.country
-
-    # def save(self, force_insert=False, force_update=False, *args, **kwargs):
-    #     if self.hostel_name != self.__og_hostel_name:
-    #         # hostel name changed 
-    #         hostel_name = self.hostel_name
-    #         print(hostel_name)
-    #         print(__og_hostel_name)
-    #         # super(Profile, self).save(*args, **kwargs)
-
-    #     super(Profile, self).save(force_insert, force_update, *args, **kwargs)
-    #     self.__og_hostel_name = self.hostel_name
-
 
     def __str__(self):
         return str(self.user)
     # def __init__(self):
 
     def save(self, **kwargs):
-        # if (self.stripe_id != '') & (self.stripe_id is not None):
-        #     print("Stripe id is not empty")
-        # else:
-        #     print("Stripe id is empty")
-        #     # new_stripe_id = stripe.Customer.create(email=self.user.email)
-        #     new_stripe_id = stripe.Account.create(
-        #                                             type="express",
-        #                                             country="US",
-        #                                             email=self.user.email,
-        #                                             capabilities={
-        #                                                 "card_payments": {"requested": True},
-        #                                                 "transfers": {"requested": True},
-        #                                             },
-        #                                             # tos_acceptance={
-        #                                             #     'service_agreement': 'recipient',
-        #                                             # },
-        #                                         )
-        #     self.stripe_id = new_stripe_id['id']
-        if self.address is not None and self.city_state is not None and self.zip_code is not None:
-            address_string = " ".join(
-                [self.address, str(self.zip_code), self.city_state])
-            api_key = "AIzaSyDJ-TSQ5f2kwiGcnJBv2RWm5fhkEJy4DpA"
-            api_response = requests.get(
-                'https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address_string, api_key))
-            api_response_dict = api_response.json()
+        # HERE
+            # if self.id:
+            #     reservations = Reservation.objects.filter(hostel=self.user)
+            #     print("here is the model count ")
+            #     print(reservations.count())
 
-            if api_response_dict['status'] == 'OK':
-                print("it worked")
-                self.latitude = api_response_dict['results'][0]['geometry']['location']['lat']
-                self.longitude = api_response_dict['results'][0]['geometry']['location']['lng']
-                # self.save()
-            else: 
-                print("it didnt work")
+
+            # if (self.stripe_id != '') & (self.stripe_id is not None):
+            #     print("Stripe id is not empty")
+            # else:
+            #     print("Stripe id is empty")
+            #     # new_stripe_id = stripe.Customer.create(email=self.user.email)
+            #     new_stripe_id = stripe.Account.create(
+            #                                             type="express",
+            #                                             country="US",
+            #                                             email=self.user.email,
+            #                                             capabilities={
+            #                                                 "card_payments": {"requested": True},
+            #                                                 "transfers": {"requested": True},
+            #                                             },
+            #                                             # tos_acceptance={
+            #                                             #     'service_agreement': 'recipient',
+            #                                             # },
+            #                                         )
+            #     self.stripe_id = new_stripe_id['id']
+        if self.address is not None and self.city_state is not None and self.zip_code is not None:
+            if self.latitude is None and self.latitude is None:
+                address_string = " ".join(
+                    [self.address, str(self.zip_code), self.city_state])
+                api_key = "AIzaSyDJ-TSQ5f2kwiGcnJBv2RWm5fhkEJy4DpA"
+                api_response = requests.get(
+                    'https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address_string, api_key))
+                api_response_dict = api_response.json()
+
+                if api_response_dict['status'] == 'OK':
+                    print("it worked")
+                    self.latitude = api_response_dict['results'][0]['geometry']['location']['lat']
+                    self.longitude = api_response_dict['results'][0]['geometry']['location']['lng']
+                    # self.save()
+                else: 
+                    print("it didnt work")
         super(Profile, self).save(**kwargs)
 
 class Request(models.Model):
@@ -384,7 +366,7 @@ class CustomerProfile(models.Model):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     ## you need to set a default profile picture
-    profile_picture = models.ImageField(upload_to='pictures', null=True, blank=True, default="media/pictures/791218_man_512x512.png")
+    profile_picture = models.ImageField(upload_to='pictures', null=True, blank=True, default="pictures/791218_man_512x512.png")
     age = models.IntegerField(blank=True, null=True)
     sex = models.CharField(
         max_length=1, choices=sex_choices, blank=True, null=True)
@@ -412,7 +394,7 @@ class CustomerProfile(models.Model):
             print(key)
         else:
             print("Stripe id is empty")
-            name = self.first_name + " " + self.last_name
+            name = str(self.first_name) + " " + str(self.last_name)
             new_stripe_id = stripe.Customer.create(email=self.user.email, name=name)
             self.stripe_id = new_stripe_id['id']
 
@@ -420,71 +402,69 @@ class CustomerProfile(models.Model):
         #     self.first_name = self.first_name.title() # Capitalize first letter of the word
         #     self.last_name = self.last_name.title()
         super(CustomerProfile, self).save(*args, **kwargs)
-        
+
+def check_out_time(num_days):
+        now = datetime.datetime.now()
+        start = now.replace(hour=3, minute=1, second=0, microsecond=0)
+        # return start if start > now else start + datetime.timedelta(days=1)
+        return start + datetime.timedelta(days=num_days)
+
 class Reservation(models.Model):
     hostel = models.ForeignKey(Profile, on_delete=models.CASCADE)
     customer = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE)
-    # reservation_date_time = models.DateTimeField(
-    #     auto_now=False, auto_now_add=False, blank=True, null=True)
-    # expected_arrival = models.DateTimeField(
-    #     auto_now=False, auto_now_add=False, blank=True, null=True)
-    # expected_departure = models.DateTimeField(
-    #     auto_now=False, auto_now_add=False, blank=True, null=True)
-    is_confirmed = models.BooleanField(default=False)
-    is_checked_in = models.BooleanField(default=False)
-    is_history = models.BooleanField(default=False)
-
-
-    ## Switch made_on with created after testing 
-    made_on = models.DateField(blank=True, null=True)
-    check_out = models.DateField(blank=True, null=True)
-
     # Timezone == UTC – The World's Time Standard
     created = models.DateField(editable=False, null=True, default=django.utils.timezone.now)
     modified = models.DateTimeField(editable=False, null=True)
+    reservation_experation = models.DateTimeField(editable=False, null=True, blank=True, default=check_out_time(1))
+    is_confirmed = models.BooleanField(default=False)  # from before
+    confirmation_date = models.DateTimeField(editable=False, null=True, blank=True)
+    confirmation_experation = models.DateTimeField(editable=False, null=True, blank=True, default=check_out_time(2))
+    is_checked_out = models.BooleanField(default=False)
 
-
-    # user = models.OneToOneField(
-    #     User, on_delete=models.CASCADE, blank=True, null=True)
- 
     def __str__(self):
         return str(self.hostel)
-
+    
     def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
-            self.check_out = self.created.date() + datetime.timedelta(days=1)
             # Add 1 to Occupied Beds in RoomDetail Model when Reservation is created for that Hostel
             room_detail = RoomDetail.objects.get(hostel=self.hostel)
             if room_detail.total_coed_beds != room_detail.occupied_beds:
                 room_detail.occupied_beds += 1
                 room_detail.save()
+
         self.modified = timezone.now()
-        self.is_checked_in = self.checkedIn()
-        self.is_history = self.history()
+        # if self.reservation_experation is None:
+        #     # self.reservation_experation = timezone.now() + datetime.timedelta(days=1)# or self.created
+        # if self.confirmation_date is None and self.is_confirmed == True:
+        #     self.confirmation_experation = timezone.now() + datetime.timedelta(days=2, hours=3)
+
+        self.is_checked_out = self.checkedOut()
+        # self.is_history = self.history()
+
         super(Reservation, self).save(*args, **kwargs)
     
-    def checkedIn(self):
+    def checkedOut(self):
         try:
             is_confirmed = self.is_confirmed
-            is_checked_in = self.is_checked_in
+            is_checked_out = self.is_checked_out
             if is_confirmed != True:
                 return False
             else:
-                return is_checked_in
+                return is_checked_out
         except KeyError:
             return 0 
 
-    def history(self):
-        try:
-            is_confirmed = self.is_confirmed
-            is_checked_in = self.is_checked_in
-            if is_confirmed == True and is_checked_in == True:                
-                return True
-            else: 
-                return False
-        except KeyError:
-            return 0
+    # def history(self):
+    #     try:
+    #         is_confirmed = self.is_confirmed
+    #         is_checked_in = self.is_checked_in
+    #         if is_confirmed == True and is_checked_in == True:                
+    #             return True
+    #         else: 
+    #             return False
+    #     except KeyError:
+    #         return 0
 
     # @property
     # def is_expired(self):

@@ -24,21 +24,27 @@
 <body>
     <!--Navigation Bar-->
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <nav class="navbar navbar-expand navbar-dark bg-steel fixed-top">
             <div class="container container-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% block title %}
                         {% endblock %}
-                        {% if '/hostleportal/' not in request.path %}
+                        {% url 'hostelportal' as hostel_portal %}
+                        {% if request.path != hostel_portal %}
                         <a class="nav-item nav-link icon" href="javascript:history.go(-1)"><i
                                 class="fas fa-arrow-alt-circle-left fa-2x"></i></a>
                         {% endif %}
+                        <div class="circletag" id="nay">
+                            <a class="home-button" href="{% url 'hostelportal' %}">
+                                <img class="home-icon" src={% static 'webApp/img/icons/home-icon.png' %} />
+                            </a>
+                        </div>                     
                         <!-- <a class="nav-item nav-link icon" href="javascript:history.go(-1)"><i class="fas fa-arrow-alt-circle-left fa-2x"></i></a> -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle nav-item nav-link icon" data-toggle="dropdown"><i
@@ -50,13 +56,13 @@
                                         In?</a></li>
                                 {% else %}
                                 <li><i class="icon-arrow-up"></i><a href="#" style="text-decoration: none;">What is
-                                        Hostle Portal?</a></li>
+                                        Hostel Portal?</a></li>
                                 {% endif %}
                                 <div class="dropdown-divider"></div>
                                 <li><i class="icon-arrow-down dropdown-option"></i><a href="{% url 'register' %}"
-                                        style="text-decoration: none;">Request Hostle Portal Account</a></li>
+                                        style="text-decoration: none;">Request Hostel Portal Account</a></li>
                                 <div class="dropdown-divider"></div>
-                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contactus' %}"
+                                <li><i class="icon-arrow-left dropdown-option"></i><a href="{% url 'contact' %}"
                                         style="text-decoration: none;">Contact Us</a></li>
                             </ul>
                         </li>
